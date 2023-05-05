@@ -14,7 +14,6 @@ class Solution {
         }
         return sum;
     }
-
     public int maxDivScore(int[] nums, int[] divisors) {
         int max = 0;
         int index = -1;
@@ -35,5 +34,31 @@ class Solution {
             }
         }
         return index;
+    }
+
+    public int[] findMode(TreeNode root) {
+        HashMap<Integer, Integer> values = new HashMap<>();
+        findModeHelper(root, values);
+        LinkedList<Integer> modes = new LinkedList<>();
+        int max = Integer.MIN_VALUE;
+        for(int key : values.keySet()) {
+            if(max < values.get(key)) {
+                modes.clear();
+                max = values.get(key);
+                modes.add(key);
+            } else if(max == values.get(key)) {
+                modes.add(key);
+            }
+        }
+        int[] ans = new int[modes.size()];
+        for(int i = 0; i < modes.size(); i++)
+            ans[i] = modes.get(i);
+        return ans;
+    }
+    private void findModeHelper(TreeNode node, HashMap<Integer, Integer> values) {
+        if(node == null) return;
+        values.put(node.val, values.getOrDefault(node.val, 0) + 1);
+        findModeHelper(node.left, values);
+        findModeHelper(node.right, values);
     }
 }
