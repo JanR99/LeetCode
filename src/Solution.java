@@ -61,4 +61,28 @@ class Solution {
         findModeHelper(node.left, values);
         findModeHelper(node.right, values);
     }
+
+    public boolean findTarget(TreeNode root, int k) {
+        LinkedList<Integer> list = new LinkedList<>();
+        findTargetHelper(root, list);
+        for(int i = 0; i < list.size(); i++) {
+            int current = list.get(i);
+            // Two elements found x + y == k
+            if(list.contains(k - current)) {
+                // If x == y => look if it is the same element
+                if(k - current == current) {
+                    return list.lastIndexOf(current) != list.indexOf(current);
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void findTargetHelper(TreeNode root, LinkedList<Integer> list) {
+        if(root == null) return;
+        findTargetHelper(root.left, list);
+        list.add(root.val);
+        findTargetHelper(root.right, list);
+    }
 }
