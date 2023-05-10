@@ -85,4 +85,14 @@ class Solution {
         list.add(root.val);
         findTargetHelper(root.right, list);
     }
+
+    public boolean hasAlternatingBits(int n) {
+        String binary = Integer.toBinaryString(n);
+        char before = binary.charAt(0);
+        for(int i = 1; i < binary.length(); i++) {
+            if(before == binary.charAt(i)) return false;
+            before = binary.charAt(i);
+        }
+        return true;
+    }
 }
