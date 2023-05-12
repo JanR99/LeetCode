@@ -5,7 +5,14 @@ public class Test {
     private static Solution solution = new Solution();
 
     public static void main(String[] args) {
-        findModeTest();
+        isLongPressedNameTest();
+    }
+
+    @org.junit.Test
+    public static void isLongPressedNameTest() {
+        assertTrue(solution.isLongPressedName("alex", "aaleex"));
+        assertFalse(solution.isLongPressedName("saeed", "ssaaedd"));
+        assertTrue(solution.isLongPressedName("leelee", "lleeelee"));
     }
 
     @org.junit.Test
