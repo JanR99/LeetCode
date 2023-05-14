@@ -2,6 +2,11 @@ import java.util.*;
 
 class Solution {
 
+    public static void main(String[] args) {
+        new Solution().findPoisonedDuration(new int[]{1, 4}, 2);
+    }
+
+
     Map<Integer, Integer> sumOfMultiplesMem = new HashMap<>();
 
     public int sumOfMultiples(int n) {
@@ -104,5 +109,13 @@ class Solution {
             else if(j == 0 || typed.charAt(j) != typed.charAt(j - 1))
                 return false;
         return i == n;
+    }
+
+    public int findPoisonedDuration(int[] t, int duration) {
+        int total = 0;
+        for(int i = 0; i < t.length - 1; i++) {
+            total += t[i] + duration < t[i + 1] ? duration : (t[i + 1] - t[i]);
+        }
+        return total + duration;
     }
 }
