@@ -118,4 +118,28 @@ class Solution {
         }
         return total + duration;
     }
+
+    public boolean backspaceCompare(String s, String t) {
+        StringBuilder sb = backspaceCompareHelper(s);
+        StringBuilder tb = backspaceCompareHelper(t);
+        return sb.toString().equals(tb.toString());
+    }
+
+    private StringBuilder backspaceCompareHelper(String s) {
+        StringBuilder sb = new StringBuilder();
+        int countBackspace = 0;
+        for(int i = s.length() - 1; i >= 0; i--) {
+            char c = s.charAt(i);
+            if(c == '#') {
+                countBackspace++;
+                continue;
+            }
+            if(countBackspace > 0) {
+                countBackspace--;
+                continue;
+            }
+            sb.append(c);
+        }
+        return sb;
+    }
 }
