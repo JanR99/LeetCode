@@ -142,4 +142,19 @@ class Solution {
         }
         return sb;
     }
+
+    public int partitionString(String s) {
+        boolean[] chars = new boolean[26];
+        int ans = 0;
+        for(char c : s.toCharArray()) {
+            if(chars[c - 'a']) {
+                ans++;
+                for(int i = 0; i < chars.length; i++) {
+                    chars[i] = false;
+                }
+            }
+            chars[c - 'a'] = true;
+        }
+        return ans + 1;
+    }
 }
