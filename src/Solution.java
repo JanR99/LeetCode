@@ -157,4 +157,18 @@ class Solution {
         }
         return ans + 1;
     }
+
+    public int[] numberOfLines(int[] widths, String s) {
+        int lines = 1;
+        int currentLength = 0;
+        for(char c : s.toCharArray()) {
+            if(currentLength + widths[c - 'a'] > 100) {
+                currentLength = widths[c - 'a'];
+                lines++;
+            } else {
+                currentLength += widths[c - 'a'];
+            }
+        }
+        return new int[]{lines, currentLength};
+    }
 }
