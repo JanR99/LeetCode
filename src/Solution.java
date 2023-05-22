@@ -3,7 +3,7 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        new Solution().findPoisonedDuration(new int[]{1, 4}, 2);
+        System.out.println(new Solution().makeSmallestPalindrome("egcfe"));
     }
 
 
@@ -170,5 +170,22 @@ class Solution {
             }
         }
         return new int[]{lines, currentLength};
+    }
+
+    public String makeSmallestPalindrome(String s) {
+        int i = 0, j = s.length() - 1;
+        char[] chars = s.toCharArray();
+        while(i <= j) {
+            if(chars[i] != chars[j]) {
+                if(chars[i] < chars[j]) {
+                    chars[j] = chars[i];
+                } else {
+                    chars[i] = chars[j];
+                }
+            }
+            i++;
+            j--;
+        }
+        return new String(chars);
     }
 }
