@@ -188,4 +188,13 @@ class Solution {
         }
         return new String(chars);
     }
+
+    public int countSeniors(String[] details) {
+        int ans = 0;
+        for(String s : details) {
+            int age = Integer.parseInt(s.charAt(11) + "" + s.charAt(12), 10);
+            if(age > 60) ans++;
+        }
+        return ans;
+    }
 }

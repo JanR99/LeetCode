@@ -5,7 +5,7 @@ public class Test {
     private static Solution solution = new Solution();
 
     public static void main(String[] args) {
-        isLongPressedNameTest();
+        countSeniorsTest();
     }
 
     @org.junit.Test
@@ -28,4 +28,8 @@ public class Test {
         assertArrayEquals(new int[]{2}, solution.findMode(root));
     }
 
+    @org.junit.Test
+    public static void countSeniorsTest() {
+        assertEquals(1, solution.countSeniors(new String[]{"qwertzuiopüa70c"}));
+    }
 }
