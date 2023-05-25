@@ -3,7 +3,6 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        System.out.println(new Solution().makeSmallestPalindrome("egcfe"));
     }
 
 
@@ -196,5 +195,36 @@ class Solution {
             if(age > 60) ans++;
         }
         return ans;
+    }
+
+    public int diagonalPrime(int[][] nums) {
+        int prime = 0;
+        int i = 0, j = 0;
+        while(i < nums.length && j < nums[i].length) {
+            if(nums[i][j] > prime && diagonalPrimeHelper(nums[i][j]))
+                prime = nums[i][j];
+            i++;
+            j++;
+        }
+        i = 0;
+        j = nums[0].length - 1;
+        while(i < nums.length && j > 0) {
+            if(nums[i][j] > prime && diagonalPrimeHelper(nums[i][j]))
+                prime = nums[i][j];
+            i++;
+            j--;
+        }
+        return prime;
+    }
+
+    private boolean diagonalPrimeHelper(int n) {
+        if(n < 2) return false;
+        if(n == 2 || n == 3) return true;
+        if(n % 2 == 0 || n % 3 == 0) return false;
+        int sqrtN = (int)Math.sqrt(n) + 1;
+        for(int i = 6; i <= sqrtN; i += 6) {
+            if(n % (i - 1) == 0 || n % (i + 1) == 0) return false;
+        }
+        return true;
     }
 }
