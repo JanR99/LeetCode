@@ -227,4 +227,19 @@ class Solution {
         }
         return true;
     }
+
+    public int minNumber(int[] nums1, int[] nums2) {
+        int min1 = Integer.MAX_VALUE;
+        int min2 = Integer.MAX_VALUE;
+        int equal = Integer.MAX_VALUE;
+        for(int i = 0; i < nums1.length; i++) {
+            if(nums1[i] < min1) min1 = nums1[i];
+            for(int j = 0; j < nums2.length; j++) {
+                if(min2 > nums2[j]) min2 = nums2[j];
+                if(nums1[i] == nums2[j] && equal > nums1[i]) equal = nums1[i];
+            }
+        }
+        if(equal != Integer.MAX_VALUE) return equal;
+        return Math.min(min1 * 10 + min2, min2 * 10 + min1);
+    }
 }
