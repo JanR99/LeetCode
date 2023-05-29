@@ -3,6 +3,7 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
+        System.out.println(new Solution().removeTrailingZeros("123"));
     }
 
 
@@ -241,5 +242,18 @@ class Solution {
         }
         if(equal != Integer.MAX_VALUE) return equal;
         return Math.min(min1 * 10 + min2, min2 * 10 + min1);
+    }
+
+    public String removeTrailingZeros(String num) {
+        StringBuilder reversed = new StringBuilder(num).reverse();
+        int i = 0;
+        while(true) {
+            if(reversed.charAt(i) == '0') {
+                i++;
+            } else {
+                break;
+            }
+        }
+        return new StringBuilder(reversed.substring(i)).reverse().toString();
     }
 }
