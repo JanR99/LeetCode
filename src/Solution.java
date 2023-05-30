@@ -256,4 +256,10 @@ class Solution {
         }
         return new StringBuilder(reversed.substring(i)).reverse().toString();
     }
+
+    public int buyChoco(int[] prices, int money) {
+        Arrays.sort(prices);
+        if(prices[0] + prices[1] > money) return money;
+        return money - (prices[0] + prices[1]);
+    }
 }
