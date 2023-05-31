@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.stream.IntStream;
 
 class Solution {
 
@@ -261,5 +262,27 @@ class Solution {
         Arrays.sort(prices);
         if(prices[0] + prices[1] > money) return money;
         return money - (prices[0] + prices[1]);
+    }
+
+    public String bestHand(int[] ranks, char[] suits) {
+        Map<Character, Integer> suitsMap = new HashMap<>();
+        Map<Integer, Integer> rankMap = new HashMap<>();
+        for(int i = 0; i < ranks.length; i++) {
+            suitsMap.put(suits[i], suitsMap.getOrDefault(suits[i], 0) + 1);
+            rankMap.put(ranks[i], rankMap.getOrDefault(ranks[i], 0) + 1);
+        }
+        for(char c : suitsMap.keySet()) {
+            if(suitsMap.get(c) == 5) return "Flush";
+        }
+        int maxSame = 0;
+        for(int c : rankMap.keySet()) {
+            if(maxSame < rankMap.get(c))
+                maxSame = rankMap.get(c);
+        }
+        if(maxSame >= 3)
+            return "Three of a Kind";
+        if(maxSame == 2)
+            return "Pair";
+        return "High Card";
     }
 }
