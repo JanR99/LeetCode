@@ -4,7 +4,7 @@ import java.util.stream.IntStream;
 class Solution {
 
     public static void main(String[] args) {
-        System.out.println(new Solution().removeTrailingZeros("123"));
+        System.out.println(new Solution().countValidWords("!this  1-s b8d!"));
     }
 
 
@@ -284,5 +284,45 @@ class Solution {
         if(maxSame == 2)
             return "Pair";
         return "High Card";
+    }
+
+    public int countValidWords(String sentence) {
+        String[] words = sentence.split(" ");
+        int ans = 0;
+        for(String word : words) {
+            if(word.matches("^\\s*$")) continue;
+            boolean isOk = true;
+            int amountHyphen = 0;
+            for(int i = 0; i < word.length(); i++) {
+                char c = word.charAt(i);
+                if(Character.isDigit(c)) {
+                    isOk = false;
+                    break;
+                }
+                if(c == '-') {
+                    if(i == 0 || i == word.length() - 1) {
+                        isOk = false;
+                        break;
+                    }
+                    if(!Character.isLowerCase(word.charAt(i - 1)) || !Character.isLowerCase(word.charAt(i + 1))) {
+                        isOk = false;
+                        break;
+                    }
+                    if(amountHyphen != 0) {
+                        isOk = false;
+                        break;
+                    }
+                    amountHyphen++;
+                }
+                if(c == '!' || c == '.' || c == ',') {
+                    if(i != word.length() - 1) {
+                        isOk = false;
+                        break;
+                    }
+                }
+            }
+            if(isOk) ans++;
+        }
+        return ans;
     }
 }
