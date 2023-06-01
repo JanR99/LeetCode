@@ -25,5 +25,9 @@ def find(a, e):
     return a.index(e) if e in a else "Not found"
 
 
+def find_average(numbers: list):
+    return sum(numbers) / len(numbers) if len(numbers) > 0 else 0
+
+
 if __name__ == '__main__':
     print(find([1, 2, 3], 4))
