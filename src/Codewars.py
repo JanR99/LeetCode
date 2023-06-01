@@ -21,5 +21,9 @@ def pillars(num_pill, dist, width):
     return int(ans + (num_pill - 1) * dist * 100)
 
 
+def find(a, e):
+    return a.index(e) if e in a else "Not found"
+
+
 if __name__ == '__main__':
-    print(pillars(2, 20, 25))
+    print(find([1, 2, 3], 4))
