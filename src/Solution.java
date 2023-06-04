@@ -357,4 +357,37 @@ class Solution {
         }
         return nums;
     }
+
+    public boolean isAlienSorted(String[] words, String order) {
+        Map<Character, Integer> alphabet = new HashMap<>();
+
+        // Build the alphabet mapping
+        for (int i = 0; i < order.length(); i++) {
+            alphabet.put(order.charAt(i), i);
+        }
+
+        // Compare adjacent words
+        for (int i = 0; i < words.length - 1; i++) {
+            if (!isAlienSortedHelper(words[i], words[i + 1], alphabet)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private static boolean isAlienSortedHelper(String word1, String word2, Map<Character, Integer> alphabet) {
+        int minLength = Math.min(word1.length(), word2.length());
+
+        for (int i = 0; i < minLength; i++) {
+            char ch1 = word1.charAt(i);
+            char ch2 = word2.charAt(i);
+
+            if (ch1 != ch2) {
+                return alphabet.get(ch1) <= alphabet.get(ch2);
+            }
+        }
+
+        return word1.length() <= word2.length();
+    }
 }
