@@ -412,4 +412,16 @@ class Solution {
         }
         return true;
     }
+
+    public int maximizeSum(int[] nums, int k) {
+        int max = Integer.MIN_VALUE;
+        for(int num : nums) {
+            if(num > max) max = num;
+        }
+        int ans = 0;
+        for(int i = 0; i < k; i++) {
+            ans += max++;
+        }
+        return ans;
+    }
 }
