@@ -392,8 +392,8 @@ class Solution {
 
     public boolean validPalindrome(String s) {
         int i = 0, j = s.length() - 1;
-        while (i < j) {
-            if (s.charAt(i) != s.charAt(j)) {
+        while(i < j) {
+            if(s.charAt(i) != s.charAt(j)) {
                 return validPalindromeHelper(s, i + 1, j) || validPalindromeHelper(s, i, j - 1);
             }
             i++;
@@ -403,8 +403,8 @@ class Solution {
     }
 
     private boolean validPalindromeHelper(String s, int start, int end) {
-        while (start < end) {
-            if (s.charAt(start) != s.charAt(end)) {
+        while(start < end) {
+            if(s.charAt(start) != s.charAt(end)) {
                 return false;
             }
             start++;
