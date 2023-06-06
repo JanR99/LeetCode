@@ -424,4 +424,29 @@ class Solution {
         }
         return ans;
     }
+
+    public int[] relativeSortArray(int[] arr1, int[] arr2) {
+        int[] res = new int[arr1.length];
+        Map<Integer, Integer> map = new HashMap<>();
+        Set<Integer> set = new HashSet<>();
+        List<Integer> list = new LinkedList<>();
+        for(int i = 0; i < arr2.length; i++) set.add(arr2[i]);
+        for(int i = 0; i < arr1.length; i++) {
+            if(set.contains(arr1[i])) {
+                map.put(arr1[i], map.getOrDefault(arr1[i], 0) + 1);
+            } else {
+                list.add(arr1[i]);
+            }
+        }
+        int index = 0;
+        for(int i = 0; i < arr2.length; i++) {
+            for(int j = 0; j < map.get(arr2[i]); j++) {
+                res[index++] = arr2[i];
+            }
+        }
+        Collections.sort(list);
+        for(int i : list)
+            res[index++] = i;
+        return res;
+    }
 }
