@@ -449,4 +449,21 @@ class Solution {
             res[index++] = i;
         return res;
     }
+
+    public int[][] construct2DArray(int[] original, int m, int n) {
+        if(m * n < original.length) return new int[][]{};
+        int[][] ans = new int[m][n];
+        int index = 0;
+        try{
+            for(int i = 0; i < m; i++) {
+                for(int j = 0; j < n; j++) {
+                    ans[i][j] = original[index++];
+                }
+            }
+
+        } catch(ArrayIndexOutOfBoundsException e) {
+            return new int[][]{};
+        }
+        return ans;
+    }
 }
