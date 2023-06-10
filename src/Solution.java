@@ -472,4 +472,24 @@ class Solution {
         if(p == null || q == null) return false;
         return (p.val == q.val) && isSameTree(p.left,q.left) && isSameTree(p.right,q.right);
     }
+
+    public String modifyString(String s) {
+        char[] ans = s.toCharArray();
+        for (int i = 0; i < ans.length; i++) {
+            if (ans[i] == '?') {
+                char prev = (i > 0) ? ans[i - 1] : ' ';
+                char next = (i < ans.length - 1) ? ans[i + 1] : ' ';
+                ans[i] = modifyStringHelper(prev, next);
+            }
+        }
+        return new String(ans);
+    }
+
+    private char modifyStringHelper(char prev, char next) {
+        for (char c = 'a';; c++) {
+            if (c != prev && c != next) {
+                return c;
+            }
+        }
+    }
 }
