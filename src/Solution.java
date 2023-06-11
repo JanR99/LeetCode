@@ -3,7 +3,7 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        System.out.println(new Solution().countValidWords("!this  1-s b8d!"));
+        System.out.println(new Solution().kLengthApart(new int[]{0,1,0,0,1,0,0,1}, 2));
     }
 
 
@@ -491,5 +491,21 @@ class Solution {
                 return c;
             }
         }
+    }
+
+    public boolean kLengthApart(int[] nums, int k) {
+        int dist = -1;
+        for(int num : nums) {
+            if(num == 0) {
+                if (dist != -1) {
+                    ++dist;
+                }
+            } else {
+                if(dist < k && dist != -1)
+                    return false;
+                dist = 0;
+            }
+        }
+        return true;
     }
 }
