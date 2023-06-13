@@ -3,7 +3,7 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        System.out.println(new Solution().kLengthApart(new int[]{0,1,0,0,1,0,0,1}, 2));
+        System.out.println(new Solution().buddyStrings("aa", "aa"));
     }
 
 
@@ -519,5 +519,35 @@ class Solution {
             ans[i / c][i % c] = mat[i / n][i % n];
         }
         return ans;
+    }
+
+    public boolean buddyStrings(String s, String goal) {
+        if(s.length() != goal.length()) return false;
+        if(s.length() == 1) return false;
+        int first = -1, second = -1;
+        int[] chars = new int[26];
+        for(int i = 0; i < s.length(); i++) {
+            chars[s.charAt(i) - 'a']++;
+            if(s.charAt(i) != goal.charAt(i)) {
+                if(first == -1) {
+                    first = i;
+                } else if(second == -1) {
+                    second = i;
+                } else {
+                    return false;
+                }
+            }
+        }
+        if(first == -1) {
+            for(int i : chars) {
+                if(i > 1) return true;
+            }
+            return false;
+        }
+        if(second == -1) return false;
+        StringBuilder sb = new StringBuilder(s);
+        sb.setCharAt(first, s.charAt(second));
+        sb.setCharAt(second, s.charAt(first));
+        return sb.toString().equals(goal);
     }
 }
