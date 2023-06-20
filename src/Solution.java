@@ -568,4 +568,14 @@ class Solution {
         ans += Math.min(prevCount, currCount);
         return ans;
     }
+
+    public List<Boolean> prefixesDivBy5(int[] nums) {
+        List<Boolean> ans = new ArrayList<>(nums.length);
+        int remainder = 0;
+        for(int num : nums) {
+            remainder = (remainder * 2 + num) % 5;
+            ans.add(remainder == 0);
+        }
+        return ans;
+    }
 }
