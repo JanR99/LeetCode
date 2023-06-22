@@ -3,7 +3,7 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        System.out.println(new Solution().buddyStrings("aa", "aa"));
+        System.out.println(new Solution().repeatedSubstringPattern("aba"));
     }
 
 
@@ -591,5 +591,22 @@ class Solution {
             leftSum += nums[i];
         }
         return -1;
+    }
+
+    public boolean repeatedSubstringPattern(String s) {
+        if(s == null || s.length() <= 1) return false;
+        int n = s.length();
+        for(int i = n / 2; i >= 1; i--) {
+            if(n % i == 0) {
+                int repeats = n / i;
+                String substring = s.substring(0, i);
+                StringBuilder sb = new StringBuilder();
+                for(int j = 0; j < repeats; j++) {
+                    sb.append(substring);
+                }
+                if(sb.toString().equals(s)) return true;
+            }
+        }
+        return false;
     }
 }
