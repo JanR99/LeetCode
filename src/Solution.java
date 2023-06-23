@@ -3,7 +3,7 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        System.out.println(new Solution().repeatedSubstringPattern("aba"));
+        System.out.println(new Solution().removeDigit("9349", '9').equals("934"));
     }
 
 
@@ -608,5 +608,17 @@ class Solution {
             }
         }
         return false;
+    }
+
+    public String removeDigit(String number, char digit) {
+        List<String> digits = new ArrayList<>();
+        for(int i = 0; i < number.length(); i++) {
+            if(number.charAt(i) == digit) {
+                String str = number.substring(0, i) + number.substring(i + 1);
+                digits.add(str);
+            }
+        }
+        Collections.sort(digits);
+        return digits.get(digits.size() - 1);
     }
 }
