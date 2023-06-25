@@ -3,7 +3,6 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        System.out.println(new Solution().removeDigit("9349", '9').equals("934"));
     }
 
 
@@ -620,5 +619,27 @@ class Solution {
         }
         Collections.sort(digits);
         return digits.get(digits.size() - 1);
+    }
+
+    class KthLargest {
+        private PriorityQueue<Integer> minHeap;
+        private int k;
+
+        public KthLargest(int k, int[] nums) {
+            this.k = k;
+            this.minHeap = new PriorityQueue<>(k);
+            for(int num : nums)
+                add(num);
+        }
+
+        public int add(int val) {
+            if(minHeap.size() < k) {
+                minHeap.offer(val);
+            } else if(val > minHeap.peek()) {
+                minHeap.poll();
+                minHeap.offer(val);
+            }
+            return minHeap.peek();
+        }
     }
 }
