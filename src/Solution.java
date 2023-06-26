@@ -658,4 +658,18 @@ class Solution {
         }
         return ans;
     }
+
+    public boolean check(int[] nums) {
+        int current = -1;
+        boolean wasLower = false;
+        for(int i : nums) {
+            if(current == -1) current = i;
+            if(i < current) {
+                if(wasLower) return false;
+                wasLower = true;
+            }
+            current = i;
+        }
+        return wasLower ? nums[nums.length - 1] <= nums[0] : nums[nums.length - 1] >= nums[0];
+    }
 }
