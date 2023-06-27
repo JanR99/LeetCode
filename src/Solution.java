@@ -3,7 +3,7 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        System.out.println(new Solution().minLength("CCCCDDDD"));
+        System.out.println(new Solution().digitSum("11111222223", 3));
     }
 
 
@@ -841,5 +841,28 @@ class Solution {
         for(char c : s.toCharArray())
             set.add(c);
         return set.size();
+    }
+
+    public String digitSum(String s, int k) {
+        String current = s;
+        while(current.length() > k) {
+            StringBuilder tmp = new StringBuilder();
+            int index = 0;
+            while(index < current.length()) {
+                if(index + k < current.length())
+                    tmp.append(digitSumHelper(current.substring(index, index + k)));
+                else
+                    tmp.append(digitSumHelper(current.substring(index)));
+                index += k;
+            }
+            current = tmp.toString();
+        }
+        return current;
+    }
+    private int digitSumHelper(String s) {
+        int ans = 0;
+        for(char c : s.toCharArray())
+            ans += Character.getNumericValue(c);
+        return ans;
     }
 }
