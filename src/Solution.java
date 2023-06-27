@@ -779,5 +779,21 @@ class Solution {
         return ans;
     }
 
-
+    public int distanceTraveled(int mainTank, int additionalTank) {
+        int ans = 0;
+        while(mainTank > 0) {
+            if(mainTank >= 5 && additionalTank > 0) {
+                ans += 50;
+                mainTank -= 4;
+                additionalTank--;
+            } else if(mainTank >= 5) {
+                ans += (mainTank * 10);
+                mainTank = 0;
+            } else {
+                ans += (mainTank * 10);
+                mainTank = 0;
+            }
+        }
+        return ans;
+    }
 }
