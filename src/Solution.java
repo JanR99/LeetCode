@@ -672,4 +672,21 @@ class Solution {
         }
         return wasLower ? nums[nums.length - 1] <= nums[0] : nums[nums.length - 1] >= nums[0];
     }
+
+    public int[][] mergeArrays(int[][] nums1, int[][] nums2) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for(int[] i : nums1)
+            map.put(i[0], map.getOrDefault(i[0], 0) + i[1]);
+        for(int[] i : nums2)
+            map.put(i[0], map.getOrDefault(i[0], 0) + i[1]);
+        LinkedList<Integer> list = new LinkedList<>(map.keySet());
+        Collections.sort(list);
+        int[][] ans = new int[list.size()][2];
+        for(int i = 0; i < list.size(); i++) {
+            int current = list.get(i);
+            ans[i][0] = current;
+            ans[i][1] = map.get(current);
+        }
+        return ans;
+    }
 }
