@@ -3,7 +3,7 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        System.out.println(new Solution().findTheDistanceValue(new int[]{4,5,8}, new int[]{10,9,1,8}, 2));
+        System.out.println(new Solution().equalFrequency("abcc"));
     }
 
 
@@ -697,5 +697,23 @@ class Solution {
             ans += ((int)Math.pow(26, index++) * (s.charAt(i) - 'A' + 1));
         }
         return ans;
+    }
+
+    public boolean equalFrequency(String word) {
+        int[] count = new int[26];
+        for(char c : word.toCharArray())
+            count[c - 'a']++;
+        TreeMap<Integer, Integer> map = new TreeMap<>();
+        for(int num : count) {
+            if (num == 0) continue;
+            map.put(num, map.getOrDefault(num, 0) + 1);
+        }
+        if(map.size() == 2 && map.firstKey() + 1 == map.lastKey() && map.get(map.lastKey()) == 1)
+            return true;
+        if(map.size() == 2 && map.firstKey() == 1 && map.get(map.firstKey()) == 1)
+            return true;
+        if(map.size() == 1 && (map.firstKey() == 1 || map.get(map.firstKey()) == 1))
+            return true;
+        return false;
     }
 }
