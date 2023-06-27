@@ -805,4 +805,22 @@ class Solution {
             if (num != min && num != max) return num;
         return -1;
     }
+
+    public boolean isFascinating(int n) {
+        StringBuilder sb = new StringBuilder(String.valueOf(n));
+        sb.append(2 * n);
+        sb.append(3 * n);
+        boolean[] found = new boolean[9];
+        for(int i = 0; i < sb.length(); i++) {
+            char current = sb.charAt(i);
+            if(current == '0') return false;
+            int index = Character.getNumericValue(current) - 1;
+            if(!found[index]) {
+                found[index] = true;
+            } else {
+                return false;
+            }
+        }
+        return true;
+    }
 }
