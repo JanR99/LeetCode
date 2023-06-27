@@ -3,7 +3,7 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        System.out.println(new Solution().arrangeCoins(8));
+        System.out.println(new Solution().countBeautifulPairs(new int[]{11, 21, 12}));
     }
 
 
@@ -731,7 +731,7 @@ class Solution {
 
     private int hasGroupsSizeXHelper(int a, int b) {
         if(b == 0) return a;
-        return hasGroupsSizeXHelper(b,a % b);
+        return hasGroupsSizeXHelper(b, a % b);
     }
 
     public int arrangeCoins(int n) {
@@ -748,5 +748,23 @@ class Solution {
             }
             ans++;
         }
+    }
+
+    public int countBeautifulPairs(int[] nums) {
+        int ans = 0;
+        for(int i = 0; i < nums.length; i++) {
+            for(int j = i + 1; j < nums.length; j++) {
+                int a = Character.getNumericValue(String.valueOf(nums[i]).charAt(0));
+                String s = String.valueOf(nums[j]);
+                int b = Character.getNumericValue(s.charAt(s.length() - 1));
+                if(countBeautifulPairsHelper(a, b) == 1) ans++;
+            }
+        }
+        return ans;
+    }
+
+    private int countBeautifulPairsHelper(int a, int b) {
+        if(b == 0) return a;
+        return countBeautifulPairsHelper(b, a % b);
     }
 }
