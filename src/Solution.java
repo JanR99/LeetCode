@@ -716,4 +716,23 @@ class Solution {
             return true;
         return false;
     }
+
+    public boolean hasGroupsSizeX(int[] deck) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for(int i : deck)
+            map.put(i, map.getOrDefault(i, 0) + 1);
+        for(int value1 : map.values()) {
+            for(int value2 : map.values()) {
+                if(hasGroupsSizeXHelper(value1, value2) == 1) return false;
+            }
+        }
+        return true;
+    }
+
+    private int hasGroupsSizeXHelper(int a, int b) {
+        if(b == 0) return a;
+        return hasGroupsSizeXHelper(b,a % b);
+    }
+
+
 }
