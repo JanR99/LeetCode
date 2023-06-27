@@ -689,4 +689,13 @@ class Solution {
         }
         return ans;
     }
+
+    public int titleToNumber(String s) {
+        int ans = 0;
+        int index = 0;
+        for(int i = s.length() - 1; i >= 0; i--) {
+            ans += ((int)Math.pow(26, index++) * (s.charAt(i) - 'A' + 1));
+        }
+        return ans;
+    }
 }
