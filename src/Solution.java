@@ -3,7 +3,7 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        System.out.println(new Solution().equalFrequency("abcc"));
+        System.out.println(new Solution().arrangeCoins(8));
     }
 
 
@@ -734,5 +734,19 @@ class Solution {
         return hasGroupsSizeXHelper(b,a % b);
     }
 
-
+    public int arrangeCoins(int n) {
+        int coins = n;
+        int stair = 2;
+        int ans = 0;
+        while(true) {
+            if(coins <= 1) {
+                if(coins == 1) return ans + 1;
+                if(coins - stair == -1) return ans + 1;
+                return ans;
+            } else {
+                coins -= stair++;
+            }
+            ans++;
+        }
+    }
 }
