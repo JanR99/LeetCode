@@ -3,7 +3,7 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        System.out.println(new Solution().countBeautifulPairs(new int[]{11, 21, 12}));
+        System.out.println(new Solution().minLength("CCCCDDDD"));
     }
 
 
@@ -822,5 +822,17 @@ class Solution {
             }
         }
         return true;
+    }
+
+    public int minLength(String s) {
+        String current = s;
+        int indexAB = -1, indexCD = -1;
+        while((indexAB = current.indexOf("AB")) != -1 || (indexCD = current.indexOf("CD")) != -1) {
+            if(indexAB != -1)
+                current = current.substring(0, indexAB) + current.substring(indexAB + 2);
+            else if(indexCD != -1)
+                current = current.substring(0, indexCD) + current.substring(indexCD + 2);
+        }
+        return current.length();
     }
 }
