@@ -876,4 +876,20 @@ class Solution {
         }
         return false;
     }
+
+    public int findLHS(int[] nums) {
+        Arrays.sort(nums);
+        int left = 0, right = 1;
+        int len = 0;
+        while(right < nums.length) {
+            int diff = nums[right] - nums[left];
+            if(diff == 1)
+                len = Math.max(len, right-left + 1);
+            if(diff <= 1)
+                right++;
+            else
+                left++;
+        }
+        return len;
+    }
 }
