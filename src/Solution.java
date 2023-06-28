@@ -865,4 +865,15 @@ class Solution {
             ans += Character.getNumericValue(c);
         return ans;
     }
+
+    public boolean rotateString(String s, String goal) {
+        if(s.length() != goal.length()) return false;
+        if(s.equals(goal)) return true;
+        String current = s;
+        for(int i = 0; i < s.length(); i++) {
+            current = current.substring(1) + current.charAt(0);
+            if(current.equals(goal)) return true;
+        }
+        return false;
+    }
 }
