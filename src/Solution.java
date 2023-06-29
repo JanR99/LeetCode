@@ -921,4 +921,20 @@ class Solution {
         }
         return min;
     }
+
+    public int findContentChildren(int[] g, int[] s) {
+        Arrays.sort(g);
+        Arrays.sort(s);
+        int ans = 0;
+        int i = 0, j = 0;
+        while(j < s.length) {
+            if(i >= g.length) break;
+            if(g[i] <= s[j]) {
+                ans++;
+                i++;
+            }
+            j++;
+        }
+        return ans;
+    }
 }
