@@ -937,4 +937,23 @@ class Solution {
         }
         return ans;
     }
+
+    public int getMinimumDifference(TreeNode root) {
+        LinkedList<Integer> list = new LinkedList<>();
+        getMinimumDifferenceHelper(root, list);
+        int min = Integer.MAX_VALUE;
+        for(int i = 0; i < list.size() - 1; i++) {
+            int first = list.get(i);
+            int second = list.get(i + 1);
+            min = Math.min(min, second - first);
+        }
+        return min;
+    }
+
+    private void getMinimumDifferenceHelper(TreeNode node, LinkedList<Integer> list) {
+        if(node == null) return;
+        getMinimumDifferenceHelper(node.left, list);
+        list.add(node.val);
+        getMinimumDifferenceHelper(node.right, list);
+    }
 }
