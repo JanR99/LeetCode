@@ -859,6 +859,7 @@ class Solution {
         }
         return current;
     }
+
     private int digitSumHelper(String s) {
         int ans = 0;
         for(char c : s.toCharArray())
@@ -891,5 +892,33 @@ class Solution {
                 left++;
         }
         return len;
+    }
+
+    public int findShortestSubArray(int[] nums) {
+        HashMap<Integer, LinkedList<Integer>> map = new HashMap<>();
+        int max = -1;
+        LinkedList<Integer> list = new LinkedList<>();
+        for(int i = 0; i < nums.length; i++) {
+            LinkedList<Integer> tmp = map.getOrDefault(nums[i], new LinkedList<>());
+            tmp.addLast(i);
+            map.put(nums[i], tmp);
+            if(tmp.size() > max) {
+                max = tmp.size();
+                list.clear();
+                list.add(nums[i]);
+            } else if(tmp.size() == max) {
+                if(!list.contains(nums[i])) {
+                    list.add(nums[i]);
+                }
+            }
+        }
+        int min = Integer.MAX_VALUE;
+        if(list.isEmpty()) return 0;
+        for(int i = 0; i < list.size(); i++) {
+            int first = map.get(list.get(i)).getFirst();
+            int last = map.get(list.get(i)).getLast();
+            min = Math.min(min, last - first + 1);
+        }
+        return min;
     }
 }
