@@ -956,4 +956,28 @@ class Solution {
         list.add(node.val);
         getMinimumDifferenceHelper(node.right, list);
     }
+
+    public boolean lemonadeChange(int[] bills) {
+        int amount5 = 0;
+        int amount10 = 0;
+        for(int bill : bills) {
+            if(bill == 5) {
+                amount5++;
+            } else if(bill == 10) {
+                if(amount5 <= 0) return false;
+                amount5--;
+                amount10++;
+            } else {
+                if(amount10 > 0 && amount5 > 0) {
+                    amount10--;
+                    amount5--;
+                } else if(amount5 >= 3) {
+                    amount5 -= 3;
+                } else {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 }
