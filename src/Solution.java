@@ -3,7 +3,7 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        System.out.println(new Solution().digitSum("11111222223", 3));
+        System.out.println(new Solution().binaryGap(22));
     }
 
 
@@ -979,5 +979,29 @@ class Solution {
             }
         }
         return true;
+    }
+
+    public int binaryGap(int n) {
+        String binary = Integer.toBinaryString(n);
+        int maxDistance = 0;
+        int first = -1, second = -1;
+        for(int i = 0; i < binary.length(); i++) {
+            if(binary.charAt(i) != '1') {
+                continue;
+            }
+            if(first == -1) {
+                first = i;
+                continue;
+            }
+            if(second == -1) {
+                second = i;
+                maxDistance = second - first;
+                continue;
+            }
+            first = second;
+            second = i;
+            maxDistance = Math.max(maxDistance, second - first);
+        }
+        return maxDistance;
     }
 }
