@@ -3,7 +3,7 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        System.out.println(new Solution().binaryGap(22));
+        new Solution().duplicateZeros(new int[]{1,0,2,3,0,4,5,0});
     }
 
 
@@ -1003,5 +1003,21 @@ class Solution {
             maxDistance = Math.max(maxDistance, second - first);
         }
         return maxDistance;
+    }
+
+    public void duplicateZeros(int[] arr) {
+        int i = 0;
+        while(i < arr.length - 1) {
+            if(arr[i] != 0) {
+                i++;
+                continue;
+            }
+            if(i == arr.length - 1) break;
+            for(int j = arr.length - 2; j > i; j--) {
+                arr[j + 1] = arr[j];
+            }
+            arr[i + 1] = 0;
+            i += 2;
+        }
     }
 }
