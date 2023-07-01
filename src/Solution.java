@@ -3,7 +3,7 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        new Solution().duplicateZeros(new int[]{1,0,2,3,0,4,5,0});
+        System.out.println(new Solution().distanceBetweenBusStops(new int[]{1,2,3,4}, 0, 3));
     }
 
 
@@ -1019,5 +1019,27 @@ class Solution {
             arr[i + 1] = 0;
             i += 2;
         }
+    }
+
+    public int distanceBetweenBusStops(int[] distance, int start, int destination) {
+        int total = 0;
+        int between = 0;
+        int current = start;
+        boolean begin = true;
+        boolean in = true;
+        while(current != start || begin) {
+            if(begin) {
+                begin = false;
+                between += distance[current];
+            } else if(in) {
+                if(current == destination)
+                    in = false;
+                if(in)
+                    between += distance[current];
+            }
+            total += distance[current];
+            current = (current + 1) % distance.length;
+        }
+        return Math.min(total - between, between);
     }
 }
