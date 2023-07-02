@@ -3,7 +3,11 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        System.out.println(new Solution().distanceBetweenBusStops(new int[]{1,2,3,4}, 0, 3));
+        char[][] board = new char[][]{{'.','.','.','.','.','.','.','.'},{'.','p','p','p','p','p','.','.'},
+                {'.','p','p','B','p','p','.','.'},{'.','p','B','R','B','p','.','.'},
+                {'.','p','p','B','p','p','.','.'},
+        {'.','p','p','p','p','p','.','.'},{'.','.','.','.','.','.','.','.'},{'.','.','.','.','.','.','.','.'}};
+        System.out.println(new Solution().numRookCaptures(board));
     }
 
 
@@ -149,9 +153,7 @@ class Solution {
         for(char c : s.toCharArray()) {
             if(chars[c - 'a']) {
                 ans++;
-                for(int i = 0; i < chars.length; i++) {
-                    chars[i] = false;
-                }
+                Arrays.fill(chars, false);
             }
             chars[c - 'a'] = true;
         }
@@ -233,11 +235,11 @@ class Solution {
         int min1 = Integer.MAX_VALUE;
         int min2 = Integer.MAX_VALUE;
         int equal = Integer.MAX_VALUE;
-        for(int i = 0; i < nums1.length; i++) {
-            if(nums1[i] < min1) min1 = nums1[i];
-            for(int j = 0; j < nums2.length; j++) {
-                if(min2 > nums2[j]) min2 = nums2[j];
-                if(nums1[i] == nums2[j] && equal > nums1[i]) equal = nums1[i];
+        for(int k : nums1) {
+            if (k < min1) min1 = k;
+            for(int i : nums2) {
+                if (min2 > i) min2 = i;
+                if (k == i && equal > k) equal = k;
             }
         }
         if(equal != Integer.MAX_VALUE) return equal;
@@ -430,18 +432,18 @@ class Solution {
         Map<Integer, Integer> map = new HashMap<>();
         Set<Integer> set = new HashSet<>();
         List<Integer> list = new LinkedList<>();
-        for(int i = 0; i < arr2.length; i++) set.add(arr2[i]);
-        for(int i = 0; i < arr1.length; i++) {
-            if(set.contains(arr1[i])) {
-                map.put(arr1[i], map.getOrDefault(arr1[i], 0) + 1);
+        for(int k : arr2) set.add(k);
+        for(int k : arr1) {
+            if(set.contains(k)) {
+                map.put(k, map.getOrDefault(k, 0) + 1);
             } else {
-                list.add(arr1[i]);
+                list.add(k);
             }
         }
         int index = 0;
-        for(int i = 0; i < arr2.length; i++) {
-            for(int j = 0; j < map.get(arr2[i]); j++) {
-                res[index++] = arr2[i];
+        for(int k : arr2) {
+            for(int j = 0; j < map.get(k); j++) {
+                res[index++] = k;
             }
         }
         Collections.sort(list);
@@ -646,15 +648,15 @@ class Solution {
 
     public int findTheDistanceValue(int[] arr1, int[] arr2, int d) {
         int ans = 0;
-        for(int i = 0; i < arr1.length; i++) {
+        for(int k : arr1) {
             boolean ok = true;
-            for(int j = 0; j < arr2.length; j++) {
-                if(Math.abs(arr1[i] - arr2[j]) <= d) {
+            for(int i : arr2) {
+                if (Math.abs(k - i) <= d) {
                     ok = false;
                     break;
                 }
             }
-            if(ok) ans++;
+            if (ok) ans++;
         }
         return ans;
     }
@@ -712,9 +714,7 @@ class Solution {
             return true;
         if(map.size() == 2 && map.firstKey() == 1 && map.get(map.firstKey()) == 1)
             return true;
-        if(map.size() == 1 && (map.firstKey() == 1 || map.get(map.firstKey()) == 1))
-            return true;
-        return false;
+        return map.size() == 1 && (map.firstKey() == 1 || map.get(map.firstKey()) == 1);
     }
 
     public boolean hasGroupsSizeX(int[] deck) {
@@ -830,7 +830,7 @@ class Solution {
         while((indexAB = current.indexOf("AB")) != -1 || (indexCD = current.indexOf("CD")) != -1) {
             if(indexAB != -1)
                 current = current.substring(0, indexAB) + current.substring(indexAB + 2);
-            else if(indexCD != -1)
+            else
                 current = current.substring(0, indexCD) + current.substring(indexCD + 2);
         }
         return current.length();
@@ -914,9 +914,9 @@ class Solution {
         }
         int min = Integer.MAX_VALUE;
         if(list.isEmpty()) return 0;
-        for(int i = 0; i < list.size(); i++) {
-            int first = map.get(list.get(i)).getFirst();
-            int last = map.get(list.get(i)).getLast();
+        for(Integer integer : list) {
+            int first = map.get(integer).getFirst();
+            int last = map.get(integer).getLast();
             min = Math.min(min, last - first + 1);
         }
         return min;
@@ -1041,5 +1041,37 @@ class Solution {
             current = (current + 1) % distance.length;
         }
         return Math.min(total - between, between);
+    }
+
+    public int numRookCaptures(char[][] board) {
+        int posI = -1;
+        int posJ = -1;
+        int ans = 0;
+        for(int i = 0; i < 8; i++) {
+            for(int j = 0; j < 8; j++) {
+                if(board[i][j] == 'R') {
+                    posI = i;
+                    posJ = j;
+                    break;
+                }
+            }
+        }
+        int[] dx = {-1, 1, 0, 0};
+        int[] dy = {0, 0, -1, 1};
+        for(int i = 0; i < 4; i++) {
+            int x = posI;
+            int y = posJ;
+            while(x >= 0 && x < 8 && y >= 0 && y < 8) {
+                if(board[x][y] == 'p') {
+                    ans++;
+                    break;
+                } else if(board[x][y] == 'B') {
+                    break;
+                }
+                x += dx[i];
+                y += dy[i];
+            }
+        }
+        return ans;
     }
 }
