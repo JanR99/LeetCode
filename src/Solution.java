@@ -1078,4 +1078,30 @@ class Solution {
     public int findDelayedArrivalTime(int arrivalTime, int delayedTime) {
         return (arrivalTime + delayedTime) % 24;
     }
+
+    public int[] distinctDifferenceArray(int[] nums) {
+        int[] diff = new int[nums.length];
+        int i = 0;
+        while(i < nums.length) {
+            int left = 0;
+            List<Integer> found = new ArrayList<>();
+            for(int j = 0; j <= i; j++) {
+                if(!found.contains(nums[j])) {
+                    found.add(nums[j]);
+                    left++;
+                }
+            }
+            found.clear();
+            int right = 0;
+            for(int j = i + 1; j < nums.length; j++) {
+                if(!found.contains(nums[j])) {
+                    found.add(nums[j]);
+                    right++;
+                }
+            }
+            diff[i] = left - right;
+            i++;
+        }
+        return diff;
+    }
 }
