@@ -1125,4 +1125,27 @@ class Solution {
         }
         return nums;
     }
+
+    public int longestAlternatingSubarray(int[] nums, int threshold) {
+        int n = nums.length, max = 0, l = 0, r = 0, flag = 0;
+        while(r < n){
+            if(flag == 0) {
+                if(nums[r] % 2 == 0 && nums[r] <= threshold) {
+                    l = r;
+                    max = Math.max(max, 1);
+                    flag = 1;
+                }
+            } else {
+                int x = nums[r - 1], y = nums[r], c = x + y;
+                if(c % 2 != 0 && nums[r] <= threshold) {
+                    max = Math.max(max, r - l + 1);
+                } else {
+                    flag = 0;
+                    r--;
+                }
+            }
+            r++;
+        }
+        return max;
+    }
 }
