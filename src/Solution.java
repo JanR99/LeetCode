@@ -3,11 +3,8 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        char[][] board = new char[][]{{'.','.','.','.','.','.','.','.'},{'.','p','p','p','p','p','.','.'},
-                {'.','p','p','B','p','p','.','.'},{'.','p','B','R','B','p','.','.'},
-                {'.','p','p','B','p','p','.','.'},
-        {'.','p','p','p','p','p','.','.'},{'.','.','.','.','.','.','.','.'},{'.','.','.','.','.','.','.','.'}};
-        System.out.println(new Solution().numRookCaptures(board));
+        int[] ints = new int[]{2,7,4,1,8,1};
+        System.out.println(new Solution().lastStoneWeight(ints));
     }
 
 
@@ -1147,5 +1144,34 @@ class Solution {
             r++;
         }
         return max;
+    }
+
+    public int lastStoneWeight(int[] stones) {
+        TreeMap<Integer, Integer> map = new TreeMap<>();
+        for(int integer : stones)
+            map.put(integer, map.getOrDefault(integer, 0) + 1);
+        while(map.size() > 1) {
+            int highest = map.lastKey();
+            if(map.get(highest) > 1) {
+                if(map.get(highest) % 2 == 0) {
+                    map.remove(highest);
+                } else {
+                    map.put(highest, 1);
+                }
+            } else {
+                map.remove(highest);
+                int secondHighest = map.lastKey();
+                if(map.get(secondHighest) == 1) {
+                    map.remove(secondHighest);
+                } else {
+                    map.put(secondHighest, map.get(secondHighest) - 1);
+                }
+                int current = highest - secondHighest;
+                map.put(current, map.getOrDefault(current, 0) + 1);
+            }
+        }
+        if(map.size() == 1)
+            return map.get(map.lastKey()) % 2 == 0 ? 0 : map.lastKey();
+        return 0;
     }
 }
