@@ -1174,4 +1174,39 @@ class Solution {
             return map.get(map.lastKey()) % 2 == 0 ? 0 : map.lastKey();
         return 0;
     }
+
+    public int kItemsWithMaximumSum(int numOnes, int numZeros, int numNegOnes, int k) {
+        int sum = 0;
+        while(k > 0) {
+            if(numOnes != 0) {
+                if(numOnes >= k) {
+                    sum += k;
+                    k = 0;
+                } else {
+                    sum += numOnes;
+                    k -= numOnes;
+                    numOnes = 0;
+                }
+            } else if(numZeros != 0) {
+                if(numZeros >= k) {
+                    k = 0;
+                } else {
+                    k -= numZeros;
+                    numZeros = 0;
+                }
+            } else if(numNegOnes != 0) {
+                if(numNegOnes >= k) {
+                    sum -= k;
+                    k = 0;
+                } else {
+                    sum -= numNegOnes;
+                    k -= numNegOnes;
+                    numNegOnes = 0;
+                }
+            } else {
+                break;
+            }
+        }
+        return sum;
+    }
 }
