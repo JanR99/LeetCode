@@ -1228,4 +1228,18 @@ class Solution {
     public int theMaximumAchievableX(int num, int t) {
         return num + 2 * t;
     }
+
+    public int findLucky(int[] arr) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for(int current : arr)
+            map.put(current, map.getOrDefault(current, 0) + 1);
+        int max = -1;
+        for(int key : map.keySet()) {
+            int value = map.get(key);
+            if(key == value) {
+                max = Math.max(max, value);
+            }
+        }
+        return max;
+    }
 }
