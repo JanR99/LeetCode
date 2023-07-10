@@ -1,10 +1,11 @@
 import java.util.*;
+import java.util.jar.JarEntry;
 
 class Solution {
 
     public static void main(String[] args) {
-        int[] ints = new int[]{2,7,4,1,8,1};
-        System.out.println(new Solution().lastStoneWeight(ints));
+        int[][] ints = new int[][]{{1, 1}, {2, 2}, {1, 1}, {1, 2}, {1, 2}, {1, 1}};
+        System.out.println(new Solution().numEquivDominoPairs(ints));
     }
 
 
@@ -1241,5 +1242,30 @@ class Solution {
             }
         }
         return max;
+    }
+
+    public int numEquivDominoPairs(int[][] dominoes) {
+        int ans = 0;
+        Map<Integer, HashMap<Integer, Integer>> map = new HashMap<>();
+        for(int[] dominoe : dominoes) {
+            int a = Math.min(dominoe[0], dominoe[1]);
+            int b = Math.max(dominoe[0], dominoe[1]);
+            if(map.containsKey(a)) {
+                HashMap<Integer, Integer> current = map.get(a);
+                current.put(b, current.getOrDefault(b, 0) + 1);
+            } else {
+                HashMap<Integer, Integer> tmp = new HashMap<>();
+                tmp.put(b, 1);
+                map.put(a, tmp);
+            }
+        }
+        for(int a : map.keySet()) {
+            HashMap<Integer, Integer> current = map.get(a);
+            for(int b : current.keySet()) {
+                int n = current.get(b);
+                ans += (n * (n - 1) / 2);
+            }
+        }
+        return ans;
     }
 }
