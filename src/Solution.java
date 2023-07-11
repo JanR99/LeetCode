@@ -1277,4 +1277,42 @@ class Solution {
         }
         return min;
     }
+
+    public String shortestCompletingWord(String licensePlate, String[] words) {
+        String ans = "";
+        Map<Character, Integer> map = new HashMap<>();
+        for(char c : licensePlate.toCharArray()) {
+            if(!Character.isLetter(c)) continue;
+            c = Character.toLowerCase(c);
+            map.put(c, map.getOrDefault(c, 0) + 1);
+        }
+        for(String s : words) {
+            Map<Character, Integer> current = new HashMap<>();
+            for(char c : s.toCharArray()) {
+                if (!Character.isLetter(c)) continue;
+                c = Character.toLowerCase(c);
+                current.put(c, current.getOrDefault(c, 0) + 1);
+            }
+            if(current.size() < map.size()) continue;
+            boolean ok = true;
+            for(char c : map.keySet()) {
+                if(!current.containsKey(c)) {
+                    ok = false;
+                    break;
+                }
+                if(current.get(c) < map.get(c)) {
+                    ok = false;
+                    break;
+                }
+            }
+            if(ok) {
+                if(ans.length() == 0) {
+                    ans = s;
+                } else if(ans.length() > s.length()) {
+                    ans = s;
+                }
+            }
+        }
+        return ans;
+    }
 }
