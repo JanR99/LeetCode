@@ -3,7 +3,7 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        System.out.println(new Solution().minimumMoves("OOOO"));
+        System.out.println(new Solution().distMoney(13, 3));
     }
 
 
@@ -1325,6 +1325,26 @@ class Solution {
             }
             ans++;
             i += 3;
+        }
+        return ans;
+    }
+
+    public int distMoney(int money, int children) {
+        int ans = 0;
+        if(children > money) return -1;
+        if(money == children * 8) return children;
+        if(money > children * 8) return children -1;
+        money -= children;
+        while(money >= 3) {
+            if(money >= 7) {
+                money -= 7;
+                ans++;
+            } else if(money == 3) {
+                if(children - ans >= 2) return ans;
+                return ans == 0 ? 0 : ans - 1;
+            } else {
+                break;
+            }
         }
         return ans;
     }
