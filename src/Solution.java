@@ -3,8 +3,7 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        int[][] ints = new int[][]{{1, 1}, {2, 2}, {1, 1}, {1, 2}, {1, 2}, {1, 1}};
-        System.out.println(new Solution().numEquivDominoPairs(ints));
+        System.out.println(new Solution().minimumMoves("OOOO"));
     }
 
 
@@ -1312,6 +1311,20 @@ class Solution {
                     ans = s;
                 }
             }
+        }
+        return ans;
+    }
+    public int minimumMoves(String s) {
+        int ans = 0;
+        int i = 0;
+        char[] chars = s.toCharArray();
+        while(i < chars.length) {
+            if(chars[i] == 'O') {
+                i++;
+                continue;
+            }
+            ans++;
+            i += 3;
         }
         return ans;
     }
