@@ -3,7 +3,7 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        System.out.println(new Solution().distMoney(13, 3));
+        System.out.println();
     }
 
 
@@ -1345,6 +1345,20 @@ class Solution {
             } else {
                 break;
             }
+        }
+        return ans;
+    }
+
+    public long findTheArrayConcVal(int[] nums) {
+        long ans = 0;
+        int i = 0, j = nums.length - 1;
+        while(i <= j) {
+            if(i == j) {
+                ans += nums[i];
+                break;
+            }
+            String s = nums[i++] + "" + nums[j--];
+            ans += Long.parseLong(s);
         }
         return ans;
     }
