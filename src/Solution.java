@@ -3,7 +3,7 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        System.out.println();
+        System.out.println(new Solution().calculateTax(new int[][]{{3 ,50}, {7, 10}, {12, 25}}, 10));
     }
 
 
@@ -1359,6 +1359,32 @@ class Solution {
             }
             String s = nums[i++] + "" + nums[j--];
             ans += Long.parseLong(s);
+        }
+        return ans;
+    }
+
+    public double calculateTax(int[][] brackets, int income) {
+        double ans = 0;
+        int before = brackets[0][0];
+        if(income >= before) {
+            ans += (before * brackets[0][1] / 100.0);
+            income -= before;
+        } else {
+            ans += (income * brackets[0][1] / 100.0);
+            return ans;
+        }
+        for(int i = 1; i < brackets.length; i++) {
+            int current = brackets[i][0] - before;
+            if(current <= income) {
+                ans += (current * brackets[i][1] / 100.0);
+                income -= current;
+            } else if(income == 0){
+                break;
+            } else {
+                ans += (income * brackets[i][1] / 100.0);
+                break;
+            }
+            before = brackets[i][0];
         }
         return ans;
     }
