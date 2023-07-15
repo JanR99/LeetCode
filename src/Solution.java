@@ -1388,4 +1388,24 @@ class Solution {
         }
         return ans;
     }
+
+    public int mostFrequentEven(int[] nums) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for(int i : nums)
+            if(i % 2 == 0)
+                map.put(i, map.getOrDefault(i, 0) + 1);
+        Set<Integer> set = map.keySet();
+        int max = -1;
+        int num = Integer.MAX_VALUE;
+        for(int i : set) {
+            int val = map.get(i);
+            if(val == max && num > i)
+                num = i;
+            else if(val > max) {
+                max = val;
+                num = i;
+            }
+        }
+        return max == -1 ? -1 : num;
+    }
 }
