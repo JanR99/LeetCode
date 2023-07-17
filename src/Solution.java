@@ -1408,4 +1408,64 @@ class Solution {
         }
         return max == -1 ? -1 : num;
     }
+
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode ans = null;
+        StringBuilder sb1 = addTwoNumbersHelper(l1);
+        StringBuilder sb2 = addTwoNumbersHelper(l2);
+        int i = sb1.length() - 1, j = sb2.length() - 1;
+        int offset = 0;
+        while(i >= 0 && j >= 0) {
+            int current = Character.getNumericValue(sb1.charAt(i--)) + Character.getNumericValue(sb2.charAt(j--)) + offset;
+            offset = current > 9 ? current / 10 : 0;
+            current = current % 10;
+            if(ans == null) {
+                ans = new ListNode(current);
+            } else {
+                ListNode node = new ListNode(current);
+                node.next = ans;
+                ans = node;
+            }
+        }
+        while(i >= 0) {
+            int current = Character.getNumericValue(sb1.charAt(i--)) + offset;
+            offset = current > 9 ? current / 10 : 0;
+            current = current % 10;
+            if(ans == null) {
+                ans = new ListNode(current);
+            } else {
+                ListNode node = new ListNode(current);
+                node.next = ans;
+                ans = node;
+            }
+        }
+        while(j >= 0) {
+            int current = Character.getNumericValue(sb2.charAt(j--)) + offset;
+            offset = current > 9 ? current / 10 : 0;
+            current = current % 10;
+            if(ans == null) {
+                ans = new ListNode(current);
+            } else {
+                ListNode node = new ListNode(current);
+                node.next = ans;
+                ans = node;
+            }
+        }
+        if(offset != 0) {
+            ListNode node = new ListNode(offset);
+            node.next = ans;
+            ans = node;
+        }
+        return ans;
+    }
+
+    private StringBuilder addTwoNumbersHelper(ListNode node) {
+        ListNode current = node;
+        StringBuilder ans = new StringBuilder();
+        while(current != null) {
+            ans.append(current.val);
+            current = current.next;
+        }
+        return ans;
+    }
 }
