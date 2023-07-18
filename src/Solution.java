@@ -1468,4 +1468,38 @@ class Solution {
         }
         return ans;
     }
+
+    class LRUCache {
+        private final int max;
+        private Map<Integer, Integer> map;
+        private Set<Integer> used;
+        public LRUCache(int capacity) {
+            this.max = capacity;
+            this.map = new HashMap<>(capacity);
+            this.used = new LinkedHashSet<>();
+        }
+
+        public int get(int key) {
+            if(!map.containsKey(key)) return -1;
+            used.remove((Integer) key);
+            used.add(key);
+            return map.get(key);
+        }
+
+        public void put(int key, int value) {
+            if(map.containsKey(key)) {
+                map.put(key, value);
+                used.remove((Integer) key);
+                used.add(key);
+                return;
+            }
+            if(map.size() + 1 > max) {
+                int removeKey = used.iterator().next();
+                used.remove(removeKey);
+                map.remove(removeKey);
+            }
+            map.put(key, value);
+            used.add(key);
+        }
+    }
 }
