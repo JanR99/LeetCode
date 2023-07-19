@@ -1,9 +1,13 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 class Solution {
 
     public static void main(String[] args) {
-        System.out.println(new Solution().calculateTax(new int[][]{{3 ,50}, {7, 10}, {12, 25}}, 10));
+        System.out.println(new Solution().daysBetweenDates("2019-06-29", "2019-06-30"));
     }
 
 
@@ -1501,5 +1505,15 @@ class Solution {
             map.put(key, value);
             used.add(key);
         }
+    }
+
+    public int daysBetweenDates(String date1, String date2) {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate local1 = LocalDate.parse(date1, dtf);
+        LocalDate local2 = LocalDate.parse(date2, dtf);
+        long daysBetween = ChronoUnit.DAYS.between(local1, local2);
+        if(daysBetween < 0)
+            daysBetween = ChronoUnit.DAYS.between(local2, local1);
+        return (int) daysBetween;
     }
 }
