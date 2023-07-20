@@ -7,7 +7,8 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        System.out.println(new Solution().daysBetweenDates("2019-06-29", "2019-06-30"));
+        int[] tmp = new int[]{5,10,-5};
+        System.out.println(Arrays.toString(new Solution().asteroidCollision(tmp)));
     }
 
 
@@ -1515,5 +1516,29 @@ class Solution {
         if(daysBetween < 0)
             daysBetween = ChronoUnit.DAYS.between(local2, local1);
         return (int) daysBetween;
+    }
+
+    public int[] asteroidCollision(int[] asteroids) {
+        Stack<Integer> stk = new Stack<>();
+        for(int asteroid : asteroids) {
+            if(stk.isEmpty() || asteroid > 0) {
+                stk.push(asteroid);
+            } else {
+                while(!stk.isEmpty() && stk.peek() > 0 && stk.peek() < Math.abs(asteroid))
+                    stk.pop();
+                if(!stk.isEmpty() && stk.peek() == Math.abs(asteroid)) {
+                    stk.pop();
+                } else {
+                    if(stk.isEmpty() || stk.peek() < 0)
+                        stk.push(asteroid);
+                }
+            }
+        }
+        int[] ans = new int[stk.size()];
+        int size = stk.size();
+        while (!stk.isEmpty()) {
+            ans[--size] = stk.pop();
+        }
+        return ans;
     }
 }
