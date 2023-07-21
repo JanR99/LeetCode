@@ -1,3 +1,4 @@
+import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -1540,5 +1541,20 @@ class Solution {
             ans[--size] = stk.pop();
         }
         return ans;
+    }
+
+    public String dayOfTheWeek(int day, int month, int year) {
+        Calendar c = new GregorianCalendar(year, month - 1, day);
+        int dow = c.get(Calendar.DAY_OF_WEEK);
+        return switch (dow) {
+            case Calendar.SUNDAY    -> "Sunday";
+            case Calendar.MONDAY    -> "Monday";
+            case Calendar.TUESDAY   -> "Tuesday";
+            case Calendar.WEDNESDAY -> "Wednesday";
+            case Calendar.THURSDAY  -> "Thursday";
+            case Calendar.FRIDAY    -> "Friday";
+            case Calendar.SATURDAY  -> "Saturday";
+            default -> "Error";
+        };
     }
 }
