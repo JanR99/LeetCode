@@ -1557,4 +1557,13 @@ class Solution {
             default -> "Error";
         };
     }
+
+    public boolean checkOnesSegment(String s) {
+        boolean endOne = false;
+        for(char c : s.toCharArray()) {
+            if(endOne && c == '1') return false;
+            if(c == '0') endOne = true;
+        }
+        return true;
+    }
 }
