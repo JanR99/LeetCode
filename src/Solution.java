@@ -1566,4 +1566,13 @@ class Solution {
         }
         return true;
     }
+
+    public int minStartValue(int[] nums) {
+        int i = 0, j = 0;
+        for(int num : nums) {
+            j += num;
+            i = Math.min(i, j);
+        }
+        return 1 - i;
+    }
 }
