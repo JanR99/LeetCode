@@ -1575,4 +1575,15 @@ class Solution {
         }
         return 1 - i;
     }
+
+    public int[] constructRectangle(int area) {
+        int L = area / (int)Math.sqrt(area);
+        while(true) {
+            if(L == area) return new int[]{area, 1};
+            double current = (double)area / (double)L;
+            if(current == (int)current) break;
+            L++;
+        }
+        return new int[]{L, area / L};
+    }
 }
