@@ -1,6 +1,4 @@
-import java.sql.Time;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
@@ -9,7 +7,8 @@ class Solution {
 
     public static void main(String[] args) {
         int[] tmp = new int[]{5,10,-5};
-        System.out.println(Arrays.toString(new Solution().asteroidCollision(tmp)));
+        String[] strings = new String[]{"one.two.three","four.five","six"};
+        new Solution().splitWordsBySeparator(List.of(strings), '.');
     }
 
 
@@ -1585,5 +1584,23 @@ class Solution {
             L++;
         }
         return new int[]{L, area / L};
+    }
+
+    public List<String> splitWordsBySeparator(List<String> words, char separator) {
+        List<String> ans = new LinkedList<>();
+        for(String s : words) {
+            String tmp = "";
+            for(char c : s.toCharArray()) {
+                if(c == separator) {
+                    if(tmp.length() > 0)
+                        ans.add(tmp);
+                    tmp = "";
+                } else {
+                    tmp += c;
+                }
+            }
+            if(tmp.length() > 0) ans.add(tmp);
+        }
+        return ans;
     }
 }
