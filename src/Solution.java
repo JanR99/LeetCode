@@ -1603,4 +1603,19 @@ class Solution {
         }
         return ans;
     }
+
+    public boolean isGood(int[] nums) {
+        int[] ans = new int[nums.length];
+        for(int num : nums) {
+            if(num >= ans.length || num < 0) return false;
+            if(ans[num] == 0) {
+                ans[num]++;
+            } else if(ans[num] == 1 && num == ans.length - 1) {
+                ans[num]++;
+            } else {
+                return false;
+            }
+        }
+        return true;
+    }
 }
