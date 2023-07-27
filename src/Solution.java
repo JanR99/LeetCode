@@ -7,8 +7,7 @@ class Solution {
 
     public static void main(String[] args) {
         int[] tmp = new int[]{5,10,-5};
-        String[] strings = new String[]{"one.two.three","four.five","six"};
-        new Solution().splitWordsBySeparator(List.of(strings), '.');
+
     }
 
 
@@ -1636,6 +1635,20 @@ class Solution {
                 ans[i] = Math.max(ans[i], currentLength);
             }
         }
+        return ans;
+    }
+
+    public long pickGifts(int[] gifts, int k) {
+        PriorityQueue<Integer> queue = new PriorityQueue<>(Collections.reverseOrder());
+        for(int gift : gifts) queue.add(gift);
+        for(int i = 0; i < k; i++) {
+            if(queue.isEmpty()) return -1;
+            int current = queue.poll();
+            current = (int) Math.sqrt(current);
+            queue.add(current);
+        }
+        long ans = 0;
+        for(int num : queue) ans += num;
         return ans;
     }
 }
