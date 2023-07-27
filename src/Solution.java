@@ -1626,4 +1626,16 @@ class Solution {
                 ans += (int)Math.pow(nums[i], 2);
         return ans;
     }
+
+    public int[] findColumnWidth(int[][] grid) {
+        int[] ans = new int[grid[0].length];
+        for(int[] row : grid) {
+            for(int i = 0; i < row.length; i++) {
+                int col = row[i];
+                int currentLength = String.valueOf(col).length();
+                ans[i] = Math.max(ans[i], currentLength);
+            }
+        }
+        return ans;
+    }
 }
