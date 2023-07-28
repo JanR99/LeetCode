@@ -6,8 +6,8 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        int[] tmp = new int[]{5,10,-5};
-
+        int[] tmp = new int[]{0, 3, 2, 1};
+        System.out.println(new Solution().validMountainArray(tmp));
     }
 
 
@@ -1650,5 +1650,28 @@ class Solution {
         long ans = 0;
         for(int num : queue) ans += num;
         return ans;
+    }
+
+    public boolean validMountainArray(int[] arr) {
+        if(arr.length == 1) return false;
+        if(arr[0] > arr[1]) return false;
+        int before = arr[0];
+        boolean wasHigher = true;
+        for(int i = 1; i < arr.length; i++) {
+            if(wasHigher) {
+                if(before < arr[i]) {
+                    before = arr[i];
+                } else if(before == arr[i]) {
+                    return false;
+                } else {
+                    wasHigher = false;
+                    before = arr[i];
+                }
+            } else {
+                if(before <= arr[i]) return false;
+                before = arr[i];
+            }
+        }
+        return !wasHigher;
     }
 }
