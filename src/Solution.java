@@ -6,8 +6,7 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        int[] tmp = new int[]{0, 3, 2, 1};
-        System.out.println(new Solution().validMountainArray(tmp));
+
     }
 
 
@@ -1673,5 +1672,33 @@ class Solution {
             }
         }
         return !wasHigher;
+    }
+
+    public int dayOfYear(String date) {
+        int year = Integer.parseInt(date.substring(0, 4));
+        int month = Integer.parseInt(date.substring(5, 7));
+        int day = Integer.parseInt(date.substring(8));
+        int ans = 0;
+        for(int i = 1; i <= month; i++) {
+            if(i < month) {
+                if(i == 1 || i == 3 || i == 5 || i == 7 || i == 8 || i == 10 || i == 12)
+                    ans += 31;
+                else if(i == 2) {
+                    if(dayOfYearHelper(year))
+                        ans += 29;
+                    else
+                        ans += 28;
+                } else ans += 30;
+            } else {
+                ans += day;
+            }
+        }
+        return ans;
+    }
+
+    public boolean dayOfYearHelper(int year) {
+        if (year % 400 == 0) return true;
+        if (year % 100 == 0) return false;
+        return year % 4 == 0;
     }
 }
