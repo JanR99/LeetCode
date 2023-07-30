@@ -602,9 +602,7 @@ class Solution {
                 int repeats = n / i;
                 String substring = s.substring(0, i);
                 StringBuilder sb = new StringBuilder();
-                for(int j = 0; j < repeats; j++) {
-                    sb.append(substring);
-                }
+                sb.append(substring.repeat(repeats));
                 if(sb.toString().equals(s)) return true;
             }
         }
@@ -624,8 +622,8 @@ class Solution {
     }
 
     class KthLargest {
-        private PriorityQueue<Integer> minHeap;
-        private int k;
+        private final PriorityQueue<Integer> minHeap;
+        private final int k;
 
         public KthLargest(int k, int[] nums) {
             this.k = k;
@@ -637,11 +635,11 @@ class Solution {
         public int add(int val) {
             if(minHeap.size() < k) {
                 minHeap.offer(val);
-            } else if(val > minHeap.peek()) {
+            } else if(minHeap.peek() != null && val > minHeap.peek()) {
                 minHeap.poll();
                 minHeap.offer(val);
             }
-            return minHeap.peek();
+            return minHeap.peek() == null ? -1 : minHeap.peek();
         }
     }
 
@@ -825,7 +823,7 @@ class Solution {
 
     public int minLength(String s) {
         String current = s;
-        int indexAB = -1, indexCD = -1;
+        int indexAB, indexCD = -1;
         while((indexAB = current.indexOf("AB")) != -1 || (indexCD = current.indexOf("CD")) != -1) {
             if(indexAB != -1)
                 current = current.substring(0, indexAB) + current.substring(indexAB + 2);
@@ -1474,8 +1472,8 @@ class Solution {
 
     class LRUCache {
         private final int max;
-        private Map<Integer, Integer> map;
-        private Set<Integer> used;
+        private final Map<Integer, Integer> map;
+        private final Set<Integer> used;
         public LRUCache(int capacity) {
             this.max = capacity;
             this.map = new HashMap<>(capacity);
@@ -1484,7 +1482,7 @@ class Solution {
 
         public int get(int key) {
             if(!map.containsKey(key)) return -1;
-            used.remove((Integer) key);
+            used.remove(key);
             used.add(key);
             return map.get(key);
         }
@@ -1492,7 +1490,7 @@ class Solution {
         public void put(int key, int value) {
             if(map.containsKey(key)) {
                 map.put(key, value);
-                used.remove((Integer) key);
+                used.remove(key);
                 used.add(key);
                 return;
             }
@@ -1587,17 +1585,17 @@ class Solution {
     public List<String> splitWordsBySeparator(List<String> words, char separator) {
         List<String> ans = new LinkedList<>();
         for(String s : words) {
-            String tmp = "";
+            StringBuilder tmp = new StringBuilder();
             for(char c : s.toCharArray()) {
                 if(c == separator) {
                     if(tmp.length() > 0)
-                        ans.add(tmp);
-                    tmp = "";
+                        ans.add(tmp.toString());
+                    tmp = new StringBuilder();
                 } else {
-                    tmp += c;
+                    tmp.append(c);
                 }
             }
-            if(tmp.length() > 0) ans.add(tmp);
+            if(tmp.length() > 0) ans.add(tmp.toString());
         }
         return ans;
     }
