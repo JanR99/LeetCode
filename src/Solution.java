@@ -1701,4 +1701,8 @@ class Solution {
         if (year % 100 == 0) return false;
         return year % 4 == 0;
     }
+
+    public int numberOfEmployeesWhoMetTarget(int[] hours, int target) {
+        return (int)Arrays.stream(hours).filter(x -> x >= target).count();
+    }
 }
