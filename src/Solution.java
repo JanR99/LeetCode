@@ -1703,4 +1703,23 @@ class Solution {
     public int numberOfEmployeesWhoMetTarget(int[] hours, int target) {
         return (int)Arrays.stream(hours).filter(x -> x >= target).count();
     }
+
+    public TreeNode increasingBST(TreeNode root) {
+        LinkedList<TreeNode> list = new LinkedList<>();
+        increasingBSTHelper(root, list);
+        TreeNode newRoot = new TreeNode(list.get(0).val);
+        TreeNode current = newRoot;
+        for(int i = 1; i < list.size(); i++) {
+            current.right = new TreeNode(list.get(i).val);
+            current = current.right;
+        }
+        return newRoot;
+    }
+
+    public void increasingBSTHelper(TreeNode node, List<TreeNode> list) {
+        if(node == null) return;
+        increasingBSTHelper(node.left, list);
+        list.add(node);
+        increasingBSTHelper(node.right, list);
+    }
 }
