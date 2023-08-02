@@ -1732,4 +1732,19 @@ class Solution {
         }
         return ans;
     }
+
+    public String removeOuterParentheses(String s) {
+        if(s == null || s.length() == 0) return " ";
+        StringBuilder sb = new StringBuilder();
+        int begin = 0, count = 0;
+        for(int i = 0; i < s.length(); i++) {
+            if(s.charAt(i) == '(') count++;
+            else if(s.charAt(i) == ')') count--;
+            if(count == 0) {
+                sb.append(s, begin + 1, i);
+                begin = i + 1;
+            }
+        }
+        return sb.toString();
+    }
 }
