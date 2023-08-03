@@ -1747,4 +1747,19 @@ class Solution {
         }
         return sb.toString();
     }
+
+    public int countGoodRectangles(int[][] rectangles) {
+        int maxLen = Integer.MIN_VALUE;
+        int amount = 0;
+        for(int[] rectangle : rectangles) {
+            int current = Math.min(rectangle[0], rectangle[1]);
+            if(current < maxLen) continue;
+            if(current == maxLen) amount ++;
+            else {
+                maxLen = current;
+                amount = 1;
+            }
+        }
+        return amount;
+    }
 }
