@@ -1762,4 +1762,24 @@ class Solution {
         }
         return amount;
     }
+
+    public List<Double> averageOfLevels(TreeNode root) {
+        List<Double> ans = new LinkedList<>();
+        List<TreeNode> currentLevel = new LinkedList<>();
+        if(root == null) return ans;
+        currentLevel.add(root);
+        while(!currentLevel.isEmpty()) {
+            List<TreeNode> tmp = new LinkedList<>();
+            double mean = 0;
+            for(TreeNode node : currentLevel) {
+                mean += node.val;
+                if(node.left != null) tmp.add(node.left);
+                if(node.right != null) tmp.add(node.right);
+            }
+            ans.add(mean / currentLevel.size());
+            currentLevel.clear();
+            currentLevel = tmp;
+        }
+        return ans;
+    }
 }
