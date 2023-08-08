@@ -1793,4 +1793,13 @@ class Solution {
         }
         return sb.toString();
     }
+
+    public int accountBalanceAfterPurchase(int purchaseAmount) {
+        int lastDigit = purchaseAmount % 10, tmp;
+        if(lastDigit < 5)
+            tmp = purchaseAmount - lastDigit;
+        else
+            tmp = purchaseAmount + (10 - lastDigit);
+        return 100 - tmp;
+    }
 }
