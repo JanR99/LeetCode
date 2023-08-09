@@ -1875,4 +1875,33 @@ class Solution {
             sb.append(")");
         }
     }
+
+    public boolean leafSimilar(TreeNode root1, TreeNode root2) {
+        if(root1.left == null && root1.right == null && root2.left == null && root2.right == null)
+            return root1.val == root2.val;
+        LinkedList<TreeNode> list1 = new LinkedList<>(), list2 = new LinkedList<>();
+        leafSimilarHelper(root1, list1);
+        leafSimilarHelper(root2, list2);
+        if(list1.size() != list2.size()) return false;
+        for(int i = 0; i < list1.size(); i++) {
+            if(list1.get(i).val != list2.get(i).val) return false;
+        }
+        return true;
+    }
+
+    private void leafSimilarHelper(TreeNode node, LinkedList<TreeNode> list) {
+        if(node == null) return;
+        if(node.left != null) {
+            if(node.left.left == null && node.left.right == null)
+                list.add(node.left);
+            else
+                leafSimilarHelper(node.left, list);
+        }
+        if(node.right != null) {
+            if(node.right.left == null && node.right.right == null)
+                list.add(node.right);
+            else
+                leafSimilarHelper(node.right, list);
+        }
+    }
 }
