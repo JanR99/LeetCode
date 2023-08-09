@@ -1852,4 +1852,27 @@ class Solution {
         int max2 = nums[0] * nums[1] * nums[n - 1];
         return Math.max(max1, max2);
     }
+
+    public String tree2str(TreeNode root) {
+        StringBuilder sb = new StringBuilder();
+        tree2strHelper(root, sb);
+        return sb.toString();
+    }
+
+    private void tree2strHelper(TreeNode root, StringBuilder sb){
+        if(root == null)return;
+        if(root.left == null && root.right == null){
+            sb.append(root.val);
+            return;
+        }
+        sb.append(root.val);
+        sb.append("(");
+        tree2strHelper(root.left, sb);
+        sb.append(")");
+        if(root.right != null) {
+            sb.append("(");
+            tree2strHelper(root.right, sb);
+            sb.append(")");
+        }
+    }
 }
