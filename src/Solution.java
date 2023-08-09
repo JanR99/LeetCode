@@ -1813,4 +1813,19 @@ class Solution {
         }
         return false;
     }
+
+    public int countNodes(TreeNode root) {
+        if(root == null) return 0;
+        int ans = 0;
+        LinkedList<TreeNode> list = new LinkedList<>();
+        list.add(root);
+        while(!list.isEmpty()) {
+            TreeNode current = list.pop();
+            if(current == null) continue;
+            ans++;
+            list.add(current.left);
+            list.add(current.right);
+        }
+        return ans;
+    }
 }
