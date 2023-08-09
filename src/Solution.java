@@ -1828,4 +1828,20 @@ class Solution {
         }
         return ans;
     }
+
+    public int maxDepth(Node root) {
+        if(root == null) return 0;
+        LinkedList<Node> currentDepth = new LinkedList<>();
+        int ans = 0;
+        currentDepth.add(root);
+        while(!currentDepth.isEmpty()) {
+            LinkedList<Node> tmp = new LinkedList<>();
+            for(Node node : currentDepth)
+                tmp.addAll(node.children);
+            currentDepth.clear();
+            currentDepth = tmp;
+            ans++;
+        }
+        return ans;
+    }
 }
