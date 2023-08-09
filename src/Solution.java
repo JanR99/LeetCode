@@ -1904,4 +1904,24 @@ class Solution {
                 leafSimilarHelper(node.right, list);
         }
     }
+
+    public int[] sortArrayByParityII(int[] nums) {
+        int i = 0, j = 1;
+        while(i < nums.length && j < nums.length) {
+            while(nums[i] % 2 == 0) {
+                i += 2;
+                if(i >= nums.length) return nums;
+            }
+            while(nums[j] % 2 != 0) {
+                j += 2;
+                if(j >= nums.length) return nums;
+            }
+            int tmp = nums[i];
+            nums[i] = nums[j];
+            nums[j] = tmp;
+            i += 2;
+            j += 2;
+        }
+        return nums;
+    }
 }
