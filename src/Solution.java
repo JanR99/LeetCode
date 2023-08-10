@@ -6,7 +6,7 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        System.out.println(new Solution().findSubarrays(new int[]{1,2,3,4,5}));
+        System.out.println(new Solution().maxNumberOfBalloons("lloo"));
     }
 
 
@@ -1923,5 +1923,28 @@ class Solution {
             j += 2;
         }
         return nums;
+    }
+
+    public int maxNumberOfBalloons(String text) {
+        int b = 0, a = 0, l = 0, o = 0, n = 0;
+        int ans = 0;
+        for(char c : text.toCharArray()) {
+            switch (c) {
+                case 'b' -> b++;
+                case 'a' -> a++;
+                case 'l' -> l++;
+                case 'o' -> o++;
+                case 'n' -> n++;
+            }
+        }
+        while(b >= 1 && a >= 1 && l >= 2 && o >= 2 && n >= 1) {
+            ans++;
+            b--;
+            a--;
+            l -= 2;
+            o -= 2;
+            n--;
+        }
+        return ans;
     }
 }
