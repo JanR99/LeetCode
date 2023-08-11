@@ -6,7 +6,7 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        System.out.println(new Solution().maxNumberOfBalloons("lloo"));
+        System.out.println(new Solution().countBalls(1, 10));
     }
 
 
@@ -1946,5 +1946,22 @@ class Solution {
             n--;
         }
         return ans;
+    }
+
+    public int countBalls(int lowLimit, int highLimit) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for(int i = lowLimit; i <= highLimit; i++) {
+            int current = i;
+            int sum = 0;
+            while(current > 0) {
+                sum += (current % 10);
+                current /= 10;
+            }
+            map.put(sum, map.getOrDefault(sum, 0) + 1);
+        }
+        int max = 0;
+        for(int value : map.values())
+            max = Math.max(value, max);
+        return max;
     }
 }
