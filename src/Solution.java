@@ -1964,4 +1964,22 @@ class Solution {
             max = Math.max(value, max);
         return max;
     }
+
+    public int maxScore(String s) {
+        int max = 0;
+        for(int i = 1; i <= s.length() - 1; i++) {
+            String left = s.substring(0, i);
+            String right = s.substring(i);
+            int current = maxScoreHelper(left, '0') + maxScoreHelper(right, '1');
+            max = Math.max(max, current);
+        }
+        return max;
+    }
+
+    public int maxScoreHelper(String s, char c) {
+        int ans = 0;
+        for(char ch : s.toCharArray())
+            if(ch == c) ans++;
+        return ans;
+    }
 }
