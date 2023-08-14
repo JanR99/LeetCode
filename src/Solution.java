@@ -1982,4 +1982,15 @@ class Solution {
             if(ch == c) ans++;
         return ans;
     }
+
+    public double trimMean(int[] arr) {
+        Arrays.sort(arr);
+        double x = 0.05 * arr.length;
+        double sum = 0;
+        double n = arr.length - 2 * x;
+        for(int i = (int)x; i < arr.length - x; i++) {
+            sum += arr[i];
+        }
+        return sum / n;
+    }
 }
