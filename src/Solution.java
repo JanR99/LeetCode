@@ -1993,4 +1993,24 @@ class Solution {
         }
         return sum / n;
     }
+
+    public int maxSum(int[] nums) {
+        int ans = -1;
+        for(int i = 0; i < nums.length; i++) {
+            int first = maxSumHelper(nums[i]);
+            for(int j = i + 1; j < nums.length; j++) {
+                int second = maxSumHelper(nums[j]);
+                if(first == second)
+                    ans = Math.max(ans, nums[i] + nums[j]);
+            }
+        }
+        return ans;
+    }
+
+    public int maxSumHelper(int x) {
+        int max = 0;
+        for(char c : String.valueOf(x).toCharArray())
+            max = Math.max(Character.getNumericValue(c), max);
+        return max;
+    }
 }
