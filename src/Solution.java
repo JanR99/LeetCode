@@ -6,7 +6,7 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        System.out.println(new Solution().countTriples(5));
+        System.out.println(new Solution().timeRequiredToBuy(new int[]{2,3,2}, 2));
     }
 
 
@@ -2041,6 +2041,21 @@ class Solution {
                     ans++;
                 }
             }
+        }
+        return ans;
+    }
+
+    public int timeRequiredToBuy(int[] tickets, int k) {
+        int ans = 0;
+        int i = 0;
+        while(tickets[k] != 0) {
+            if(tickets[i] == 0) {
+                i = i == tickets.length - 1 ? 0 : i + 1;
+                continue;
+            }
+            ans++;
+            tickets[i]--;
+            i = i == tickets.length - 1 ? 0 : i + 1;
         }
         return ans;
     }
