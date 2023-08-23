@@ -2059,4 +2059,30 @@ class Solution {
         }
         return ans;
     }
+
+    public int[] findEvenNumbers(int[] digits) {
+        Set<Integer> ans = new HashSet<>();
+        for (int i = 0; i < digits.length; i++) {
+            int gerade = digits[i];
+            if (gerade % 2 != 0) continue;
+            for (int j = 0; j < digits.length; j++) {
+                for (int k = 0; k < digits.length; k++) {
+                    if (i == j || i == k || j == k) continue;
+                    int eins = digits[j];
+                    int zwei = digits[k];
+                    if (eins != 0) {
+                        ans.add(eins * 100 + zwei * 10 + gerade);
+                    }
+                    if (zwei != 0) {
+                        ans.add(zwei * 100 + eins * 10 + gerade);
+                    }
+                }
+            }
+        }
+        int[] ret = new int[ans.size()];
+        int index = 0;
+        for (int num : ans) ret[index++] = num;
+        Arrays.sort(ret);
+        return ret;
+    }
 }
