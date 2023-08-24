@@ -6,7 +6,7 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        System.out.println(new Solution().timeRequiredToBuy(new int[]{2,3,2}, 2));
+        System.out.println(new Solution().findKDistantIndices(new int[]{3,4,9,1,3,9,5}, 9, 1));
     }
 
 
@@ -2084,5 +2084,19 @@ class Solution {
         for (int num : ans) ret[index++] = num;
         Arrays.sort(ret);
         return ret;
+    }
+
+    public List<Integer> findKDistantIndices(int[] nums, int key, int k) {
+        Set<Integer> ans = new HashSet<>();
+        for(int i = 0; i < nums.length; i++) {
+            for(int j = 0; j < nums.length; j++) {
+                if(Math.abs(i - j) <= k && nums[j] == key) {
+                    ans.add(i);
+                }
+            }
+        }
+        List<Integer> list = new LinkedList<>(ans);
+        Collections.sort(list);
+        return list;
     }
 }
