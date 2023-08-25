@@ -2099,4 +2099,18 @@ class Solution {
         Collections.sort(list);
         return list;
     }
+
+    public int largestSumAfterKNegations(int[] nums, int k) {
+        PriorityQueue<Integer> queue = new PriorityQueue<>();
+        for (int num : nums) queue.add(num);
+        for (int i = 0; i < k; i++) {
+            if(queue.isEmpty()) return 0;
+            queue.add(-queue.poll());
+        }
+        int ans = 0;
+        while (!queue.isEmpty()) {
+            ans += queue.poll();
+        }
+        return ans;
+    }
 }
