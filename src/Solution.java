@@ -2113,4 +2113,19 @@ class Solution {
         }
         return ans;
     }
+
+    public int furthestDistanceFromOrigin(String moves) {
+        int left = 0, right = 0;
+        int underscore = 0;
+        for (char current : moves.toCharArray()) {
+            if (current == 'R') {
+                right++;
+            } else if (current == 'L') {
+                left++;
+            } else {
+                underscore++;
+            }
+        }
+        return Math.max(Math.abs(left - right), Math.abs(right - left)) + underscore;
+    }
 }
