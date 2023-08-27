@@ -2126,6 +2126,6 @@ class Solution {
                 underscore++;
             }
         }
-        return Math.max(Math.abs(left - right), Math.abs(right - left)) + underscore;
+        return Math.abs(left - right) + underscore;
     }
 }
