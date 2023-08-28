@@ -2128,4 +2128,34 @@ class Solution {
         }
         return Math.abs(left - right) + underscore;
     }
+
+    class MyStack {
+
+        Queue<Integer> queue = new LinkedList<>();
+        Queue<Integer> tmp = new LinkedList<>();
+
+        public void push(int x) {
+            while(!queue.isEmpty()){
+                tmp.add(queue.poll());
+            }
+            queue.add(x);
+            while(!tmp.isEmpty()){
+                queue.add(tmp.poll());
+            }
+        }
+
+        public int pop() {
+            Integer ret = queue.poll();
+            return ret == null ? -1 : ret;
+        }
+
+        public int top() {
+            Integer ret = queue.peek();
+            return ret == null ? -1 : ret;
+        }
+
+        public boolean empty() {
+            return queue.isEmpty();
+        }
+    }
 }
