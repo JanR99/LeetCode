@@ -2170,4 +2170,20 @@ class Solution {
         }
         return ans;
     }
+
+    public int[] distributeCandies(int candies, int numPeople) {
+        int[] ans = new int[numPeople];
+        int amount = 1;
+        int index = 0;
+        while (candies != 0) {
+            if (candies - amount <= 0) {
+                ans[index] += candies;
+                break;
+            }
+            ans[index] += amount;
+            candies -= amount++;
+            index = index == numPeople - 1 ? 0 : index + 1;
+        }
+        return ans;
+    }
 }
