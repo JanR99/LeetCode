@@ -6,7 +6,7 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        System.out.println(new Solution().findKDistantIndices(new int[]{3,4,9,1,3,9,5}, 9, 1));
+        System.out.println(new Solution().thousandSeparator(987));
     }
 
 
@@ -2185,5 +2185,16 @@ class Solution {
             index = index == numPeople - 1 ? 0 : index + 1;
         }
         return ans;
+    }
+
+    public String thousandSeparator(int n) {
+        StringBuilder s = new StringBuilder(String.valueOf(n)).reverse();
+        StringBuilder ans = new StringBuilder();
+        for (int i = 0; i < s.length(); i++) {
+            ans.append(s.charAt(i));
+            if((i + 1) % 3 == 0 && i != s.length() - 1)
+                ans.append(".");
+        }
+        return ans.reverse().toString();
     }
 }
