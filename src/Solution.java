@@ -2158,4 +2158,16 @@ class Solution {
             return queue.isEmpty();
         }
     }
+
+    public int countElements(int[] nums) {
+        Arrays.sort(nums);
+        int min = nums[0];
+        int max = nums[nums.length - 1];
+        int ans = 0;
+        for(int i = 1; i < nums.length; i++) {
+            if(nums[i] == max) break;
+            if(nums[i] != min) ans++;
+        }
+        return ans;
+    }
 }
