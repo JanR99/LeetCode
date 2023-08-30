@@ -6,7 +6,7 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        System.out.println(new Solution().thousandSeparator(987));
+        System.out.println(new Solution().maximumPopulation(new int[][]{{1950, 1961}, {1960, 1971}, {1970, 1981}}));
     }
 
 
@@ -2196,5 +2196,53 @@ class Solution {
                 ans.append(".");
         }
         return ans.reverse().toString();
+    }
+
+    public int maximumPopulation(int[][] logs) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for (int[] log : logs) {
+            int birth = log[0];
+            int death = log[1];
+            for (int year = birth; year < death; year++) {
+                map.put(year, map.getOrDefault(year, 0) + 1);
+            }
+        }
+        int max = Integer.MIN_VALUE;
+        int year = Integer.MAX_VALUE;
+        for (int currentYear : map.keySet()) {
+            int currentValue = map.get(currentYear);
+            if (currentValue > max) {
+                year = currentYear;
+                max = currentValue;
+            } else if (currentValue == max) {
+                year = Math.min(currentYear, year);
+            }
+        }
+        return year;
+    }
+
+    public boolean isCousins(TreeNode root, int x, int y) {
+        if (root == null) return false;
+        LinkedList<TreeNode> visited = new LinkedList<>();
+        visited.add(root);
+        while (!visited.isEmpty()) {
+            int levelSize = visited.size();
+            boolean foundX = false;
+            boolean foundY = false;
+            for (int i = 0; i < levelSize; i++) {
+                TreeNode node = visited.poll();
+                if (node == null) break;
+                if (node.val == x) foundX = true;
+                if (node.val == y) foundY = true;
+                if (node.left != null && node.right != null)
+                    if ((node.left.val == x && node.right.val == y) || (node.left.val == y && node.right.val == x))
+                        return false;
+                if (node.left != null) visited.offer(node.left);
+                if (node.right != null) visited.offer(node.right);
+            }
+            if (foundX && foundY) return true;
+            if (foundX || foundY) return false;
+        }
+        return false;
     }
 }
