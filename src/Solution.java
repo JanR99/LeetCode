@@ -2245,4 +2245,30 @@ class Solution {
         }
         return false;
     }
+
+    public int findTilt(TreeNode root) {
+        if (root == null) return 0;
+        LinkedList<TreeNode> list = new LinkedList<>();
+        list.add(root);
+        int ans = 0;
+        while (!list.isEmpty()) {
+            TreeNode current = list.pollFirst();
+            int left = findTiltHelper(current.left);
+            int right = findTiltHelper(current.right);
+            current.val = Math.abs(left - right);
+            ans += current.val;
+            if (current.left != null) {
+                list.addLast(current.left);
+            }
+            if (current.right != null) {
+                list.addLast(current.right);
+            }
+        }
+        return ans;
+    }
+
+    private int findTiltHelper(TreeNode node) {
+        if (node == null) return 0;
+        return findTiltHelper(node.left) + findTiltHelper(node.right) + node.val;
+    }
 }
