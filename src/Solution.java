@@ -2271,4 +2271,34 @@ class Solution {
         if (node == null) return 0;
         return findTiltHelper(node.left) + findTiltHelper(node.right) + node.val;
     }
+
+    public int numSpecial(int[][] mat) {
+        int ans = 0;
+        for (int i = 0; i < mat.length; i++) {
+            for (int j = 0; j < mat[i].length; j++) {
+                int current = mat[i][j];
+                if (current == 0) continue;
+                boolean zeros = true;
+                for (int row = 0; row < mat.length; row++) {
+                    if (row == i) continue;
+                    if (mat[row][j] == 1) {
+                        zeros = false;
+                        break;
+                    }
+                }
+                if (!zeros) continue;
+                for (int col = 0; col < mat[0].length; col++) {
+                    if (col == j) continue;
+                    if (mat[i][col] == 1) {
+                        zeros = false;
+                        break;
+                    }
+                }
+                if (zeros) {
+                    ans++;
+                }
+            }
+        }
+        return ans;
+    }
 }
