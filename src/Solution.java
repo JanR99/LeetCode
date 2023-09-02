@@ -2311,10 +2311,10 @@ class Solution {
             } else if (!right && current != 1) {
                 current--;
             } else if (right) {
-                right = !right;
+                right = false;
                 current--;
             } else {
-                right = !right;
+                right = true;
                 current++;
             }
             time--;
