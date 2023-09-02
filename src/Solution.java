@@ -6,7 +6,7 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        System.out.println(new Solution().maximumPopulation(new int[][]{{1950, 1961}, {1960, 1971}, {1970, 1981}}));
+        System.out.println(new Solution().passThePillow(4, 5));
     }
 
 
@@ -2301,4 +2301,25 @@ class Solution {
         }
         return ans;
     }
+
+    public int passThePillow(int n, int time) {
+        int current = 1;
+        boolean right = true;
+        while (time != 0) {
+            if (right && current != n) {
+                current++;
+            } else if (!right && current != 1) {
+                current--;
+            } else if (right) {
+                right = !right;
+                current--;
+            } else {
+                right = !right;
+                current++;
+            }
+            time--;
+        }
+        return current;
+    }
+
 }
