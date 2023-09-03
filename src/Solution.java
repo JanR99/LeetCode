@@ -2322,4 +2322,22 @@ class Solution {
         return current;
     }
 
+    public int countSymmetricIntegers(int low, int high) {
+        int ans = 0;
+        for (int i = low; i <= high; i++) {
+            String s = String.valueOf(i);
+            if (s.length() % 2 != 0) continue;
+            int sumLeft = 0, sumRight = 0;
+            int j = 0;
+            while (j < s.length()) {
+                if (j < s.length() / 2) {
+                    sumLeft += Character.getNumericValue(s.charAt(j++));
+                } else {
+                    sumRight += Character.getNumericValue(s.charAt(j++));
+                }
+            }
+            if (sumLeft == sumRight) ans++;
+        }
+        return ans;
+    }
 }
