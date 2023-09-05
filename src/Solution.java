@@ -2340,4 +2340,14 @@ class Solution {
         }
         return ans;
     }
+
+    public boolean canBeEqual(String s1, String s2) {
+        if (s1.equals(s2)) return true;
+        String formatted = String.format("%c%c%c%c", s1.charAt(2), s1.charAt(1), s1.charAt(0), s1.charAt(3));
+        if (formatted.equals(s2)) return true;
+        formatted = String.format("%c%c%c%c", formatted.charAt(0), formatted.charAt(3), formatted.charAt(2), formatted.charAt(1));
+        if (formatted.equals(s2)) return true;
+        formatted = String.format("%c%c%c%c", s1.charAt(0), s1.charAt(3), s1.charAt(2), s1.charAt(1));
+        return formatted.equals(s2);
+    }
 }
