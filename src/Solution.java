@@ -2350,4 +2350,27 @@ class Solution {
         formatted = String.format("%c%c%c%c", s1.charAt(0), s1.charAt(3), s1.charAt(2), s1.charAt(1));
         return formatted.equals(s2);
     }
+
+    public int sumIndicesWithKSetBits(List<Integer> nums, int k) {
+        int ans = 0;
+        for (int i = 0; i < nums.size(); i++) {
+            int current = nums.get(i);
+            String bin = Integer.toBinaryString(i);
+            int amountOnes = 0;
+            for (char c : bin.toCharArray()) {
+                if (c == '1') {
+                    if (amountOnes >= k) {
+                        amountOnes++;
+                        break;
+                    }
+                    amountOnes++;
+                }
+            }
+            if (amountOnes == k) {
+                System.out.println(i);
+                ans += current;
+            }
+        }
+        return ans;
+    }
 }
