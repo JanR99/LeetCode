@@ -6,7 +6,13 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        System.out.println(new Solution().passThePillow(4, 5));
+        List<Integer> list = new LinkedList<>();
+        list.add(3);
+        list.add(4);
+        list.add(5);
+        list.add(1);
+        list.add(2);
+        System.out.println(new Solution().minimumRightShifts(list));
     }
 
 
@@ -2372,5 +2378,26 @@ class Solution {
             }
         }
         return ans;
+    }
+
+    public int minimumRightShifts(List<Integer> nums) {
+        int min = Integer.MAX_VALUE;
+        int minIndex = -1;
+        for (int i = 0; i < nums.size(); i++) {
+            int current = nums.get(i);
+            if (current < min) {
+                min = current;
+                minIndex = i;
+            }
+        }
+        int i = minIndex + 1 < nums.size() ? minIndex + 1 : 0;
+        int lower = min;
+        while (i != minIndex) {
+            int current = nums.get(i);
+            if (current < lower) return -1;
+            lower = current;
+            i = i == nums.size() - 1 ? 0 : i + 1;
+        }
+        return minIndex == 0 ? 0 : nums.size() - minIndex;
     }
 }
