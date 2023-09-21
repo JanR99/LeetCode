@@ -2400,4 +2400,19 @@ class Solution {
         }
         return minIndex == 0 ? 0 : nums.size() - minIndex;
     }
+
+    public int numberOfPoints(List<List<Integer>> nums) {
+        int ans = 0;
+        List<Integer> visited = new LinkedList<>();
+        for (List<Integer> num : nums) {
+            int start = num.get(0);
+            int end = num.get(1);
+            for (int coordinate = start; coordinate <= end; coordinate++) {
+                if (visited.contains(coordinate)) continue;
+                visited.add(coordinate);
+                ans++;
+            }
+        }
+        return ans;
+    }
 }
