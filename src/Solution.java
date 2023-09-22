@@ -2415,4 +2415,24 @@ class Solution {
         }
         return ans;
     }
+
+    public int minDeletionSize(String[] strs) {
+        int ans = 0;
+        int pos = 0;
+        while (pos < strs[0].length()) {
+            boolean sorted = true;
+            char before = Character.MAX_VALUE;
+            for (int i = 0; i < strs.length; i++) {
+                char current = strs[i].charAt(pos);
+                if (i != 0 && before > current) {
+                    sorted = false;
+                    break;
+                }
+                before = current;
+            }
+            if (!sorted) ans++;
+            pos++;
+        }
+        return ans;
+    }
 }
