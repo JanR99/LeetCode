@@ -2435,4 +2435,35 @@ class Solution {
         }
         return ans;
     }
+
+    public int maximumUnits(int[][] boxTypes, int truckSize) {
+        int ans = 0;
+        while (truckSize != 0) {
+            int max = Integer.MIN_VALUE;
+            int maxIndex = -1;
+            for (int i = 0; i < boxTypes.length; i++) {
+                if (boxTypes[i][0] == 0) continue;
+                int current = boxTypes[i][1];
+                if (current > max) {
+                    maxIndex = i;
+                    max = current;
+                }
+            }
+            if (maxIndex == -1) break;
+            int size = boxTypes[maxIndex][0];
+            int units = boxTypes[maxIndex][1];
+            if (truckSize == size) {
+                truckSize -= size;
+                ans += (units * size);
+            } else if (truckSize > size) {
+                truckSize -= size;
+                ans += (units * size);
+                boxTypes[maxIndex][0] = 0;
+            } else {
+                ans += (truckSize * units);
+                truckSize = 0;
+            }
+        }
+        return ans;
+    }
 }
