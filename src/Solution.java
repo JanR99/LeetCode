@@ -6,13 +6,7 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        List<Integer> list = new LinkedList<>();
-        list.add(3);
-        list.add(4);
-        list.add(5);
-        list.add(1);
-        list.add(2);
-        System.out.println(new Solution().minimumRightShifts(list));
+
     }
 
 
@@ -2465,5 +2459,27 @@ class Solution {
             }
         }
         return ans;
+    }
+
+    public String maximumOddBinaryNumber(String s) {
+        int amountOnes = 0;
+        for (char c : s.toCharArray())
+            if (c == '1') amountOnes++;
+        if (amountOnes == 0) return s;
+        if (amountOnes == 1) return "0".repeat(s.length() - 1) + "1";
+        StringBuilder ans = new StringBuilder();
+        for (int i = 0; i < s.length(); i++) {
+            if (i == s.length() - 1) {
+                ans.append("1");
+                break;
+            }
+            if (amountOnes > 1) {
+                ans.append("1");
+                amountOnes--;
+            } else {
+                ans.append("0");
+            }
+        }
+        return ans.toString();
     }
 }
