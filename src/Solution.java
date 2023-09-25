@@ -6,7 +6,7 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-
+        System.out.println(new Solution().validPath(6, new int[][]{{0,1},{0,2},{3,5},{5,4},{4,3}}, 0, 5));
     }
 
 
@@ -2481,5 +2481,28 @@ class Solution {
             }
         }
         return ans.toString();
+    }
+
+    public boolean validPath(int n, int[][] edges, int s, int d) {
+        ArrayList<Integer>[] graph = new ArrayList[n];
+        for(int i = 0; i < n; i++)
+            graph[i] = new ArrayList<>();
+        for(int [] edge : edges){
+            int u = edge[0];
+            int v = edge[1];
+            graph[u].add(v);
+            graph[v].add(u);
+        }
+        return validPathHelper(graph, new boolean[n], s, d);
+    }
+
+    private boolean validPathHelper(ArrayList<Integer>[] graph, boolean[] visited, int s, int d){
+        if(s == d) return true;
+        visited[s] = true;
+        for(int i = 0; i < graph[s].size(); i++){
+            int current = graph[s].get(i);
+            if(!visited[current] && validPathHelper(graph, visited, current, d)) return true;
+        }
+        return false;
     }
 }
