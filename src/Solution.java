@@ -2505,4 +2505,24 @@ class Solution {
         }
         return false;
     }
+
+    public String[] findRelativeRanks(int[] score) {
+        int n = score.length;
+        String[] ans = new String[n];
+        Map<Integer, Integer> scoreIndexMap = new HashMap<>();
+        for (int i = 0; i < n; i++)
+            scoreIndexMap.put(score[i], i);
+        Arrays.sort(score);
+        String[] medals = {"Gold Medal", "Silver Medal", "Bronze Medal"};
+        int rank = 1;
+        for (int i = n - 1; i >= 0; i--) {
+            int index = scoreIndexMap.get(score[i]);
+            if (rank <= 3)
+                ans[index] = medals[rank - 1];
+            else
+                ans[index] = String.valueOf(rank);
+            rank++;
+        }
+        return ans;
+    }
 }
