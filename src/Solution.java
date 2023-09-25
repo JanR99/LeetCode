@@ -2525,4 +2525,17 @@ class Solution {
         }
         return ans;
     }
+
+    public boolean canBeEqual(int[] target, int[] arr) {
+        if (target.length != arr.length) return false;
+        HashMap<Integer, Integer> map1 = new HashMap<>();
+        HashMap<Integer, Integer> map2 = new HashMap<>();
+        for (int i : target) map1.put(i, map1.getOrDefault(i, 0) + 1);
+        for (int i : arr) map2.put(i, map2.getOrDefault(i, 0) + 1);
+        for (int key : map1.keySet()) {
+            if (!map2.containsKey(key)) return false;
+            if (map2.get(key) != map1.get(key)) return false;
+        }
+        return true;
+    }
 }
