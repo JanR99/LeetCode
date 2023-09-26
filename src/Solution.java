@@ -6,7 +6,7 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        System.out.println(new Solution().validPath(6, new int[][]{{0,1},{0,2},{3,5},{5,4},{4,3}}, 0, 5));
+        System.out.println(new Solution().maxDistance(new int[]{9,9,9,18,9,9,9,9,9,18}));
     }
 
 
@@ -2551,5 +2551,22 @@ class Solution {
             sb.append(ch);
         }
         return sb.reverse().toString();
+    }
+
+    public int maxDistance(int[] colors) {
+        int ans = 0;
+        for (int i = 0; i < colors.length; i++) {
+            for (int j = i + 1; j < colors.length; j++) {
+                if (colors[i] != colors[j]) {
+                    ans = Math.max(ans, j - i);
+                }
+            }
+            for (int j = i - 1; j >= 0; j--) {
+                if (colors[i] != colors[j]) {
+                    ans = Math.max(ans, i - j);
+                }
+            }
+        }
+        return ans;
     }
 }
