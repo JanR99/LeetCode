@@ -6,7 +6,7 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        System.out.println(new Solution().maxDistance(new int[]{9,9,9,18,9,9,9,9,9,18}));
+        System.out.println(new Solution().decodeAtIndex("leet2code3", 10));
     }
 
 
@@ -2568,5 +2568,31 @@ class Solution {
             }
         }
         return ans;
+    }
+
+    public String decodeAtIndex(String s, int k) {
+        long size = 0;
+        int n = s.length();
+        for (int i = 0; i < n; ++i) {
+            char c = s.charAt(i);
+            if (Character.isDigit(c)) {
+                size *= c - '0';
+            } else {
+                size++;
+            }
+        }
+        for (int i = n-1; i >= 0; --i) {
+            char c = s.charAt(i);
+            if (Character.isDigit(c)) {
+                size /= c - '0';
+                k %= size;
+            } else {
+                if (k == 0 || k == size) {
+                    return String.valueOf(c);
+                }
+                size--;
+            }
+        }
+        return null;
     }
 }
