@@ -6,7 +6,7 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        System.out.println(new Solution().decodeAtIndex("leet2code3", 10));
+        System.out.println(new Solution().minSubsequence(new int[]{4,3,10,9,8}));
     }
 
 
@@ -2594,5 +2594,19 @@ class Solution {
             }
         }
         return null;
+    }
+
+    public List<Integer> minSubsequence(int[] nums) {
+        List<Integer> ans = new ArrayList<>();
+        Arrays.sort(nums);
+        int totalSum = Arrays.stream(nums).sum();
+        int currentSum = 0;
+        for (int i = nums.length - 1; i >= 0; i--) {
+            currentSum += nums[i];
+            ans.add(nums[i]);
+            if (currentSum > totalSum - currentSum)
+                break;
+        }
+        return ans;
     }
 }
