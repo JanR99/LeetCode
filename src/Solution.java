@@ -2609,4 +2609,18 @@ class Solution {
         }
         return ans;
     }
+
+    public int[] sortArrayByParity(int[] nums) {
+        int[] ans = new int[nums.length];
+        int frontIndex = 0;
+        int endIndex = nums.length - 1;
+        for (int num : nums) {
+            if (num % 2 == 0) {
+                ans[frontIndex++] = num;
+            } else {
+                ans[endIndex--] = num;
+            }
+        }
+        return ans;
+    }
 }
