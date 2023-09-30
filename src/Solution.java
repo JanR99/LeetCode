@@ -2691,4 +2691,21 @@ class Solution {
         }
         return true;
     }
+
+    public int dominantIndex(int[] nums) {
+        int largest = Integer.MIN_VALUE;
+        int secondLargest = Integer.MIN_VALUE;
+        int largestIndex = -1;
+        for (int i = 0; i < nums.length; i++) {
+            int num = nums[i];
+            if (num > largest) {
+                secondLargest = largest;
+                largest = num;
+                largestIndex = i;
+            } else if (num > secondLargest) {
+                secondLargest = num;
+            }
+        }
+        return largest >= secondLargest * 2 ? largestIndex : -1;
+    }
 }
