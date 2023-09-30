@@ -6,7 +6,7 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        System.out.println(new Solution().find132pattern(new int[]{3,1,4,2}));
+        System.out.println(new Solution().findMaxAverage(new int[]{1,12,-5,-6,50,3}, 4));
     }
 
 
@@ -2724,5 +2724,37 @@ class Solution {
             }
         }
         return ans;
+    }
+
+    public int minDiffInBST(TreeNode root) {
+        LinkedList<Integer> nodes = new LinkedList<>();
+        minDiffInBSTHelper(root, nodes);
+        int minDiff = Integer.MAX_VALUE;
+        for (int i = 0; i < nodes.size(); i++) {
+            if (i - 1 >= 0) minDiff = Math.min(nodes.get(i) - nodes.get(i - 1), minDiff);
+            if (i + 1 < nodes.size()) minDiff = Math.min(nodes.get(i + 1) - nodes.get(i), minDiff);
+        }
+        return minDiff;
+    }
+
+    private void minDiffInBSTHelper(TreeNode node, LinkedList<Integer> nodes) {
+        if (node == null) return;
+        minDiffInBSTHelper(node.left, nodes);
+        nodes.add(node.val);
+        minDiffInBSTHelper(node.right, nodes);
+    }
+
+    public double findMaxAverage(int[] nums, int k) {
+        double biggestSum = 0;
+        for (int i = 0; i < k; i++) biggestSum += nums[i];
+        double currentSum = biggestSum;
+        int minIndex = 0;
+        for (int i = k; i < nums.length; i++) {
+            int minus = Math.abs(nums[minIndex]);
+            int plus = nums[i];
+            currentSum = currentSum - Math.abs(nums[minIndex++]) + nums[i];
+            biggestSum = Math.max(currentSum, biggestSum);
+        }
+        return biggestSum;
     }
 }
