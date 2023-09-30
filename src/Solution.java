@@ -2757,4 +2757,20 @@ class Solution {
         }
         return biggestSum;
     }
+
+    public int findLengthOfLCIS(int[] nums) {
+        int max = 1;
+        int lastOne = nums[0];
+        int currentLength = 1;
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] > lastOne) {
+                currentLength++;
+            } else {
+                max = Math.max(max, currentLength);
+                currentLength = 1;
+            }
+            lastOne = nums[i];
+        }
+        return Math.max(currentLength, max);
+    }
 }
