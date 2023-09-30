@@ -2664,4 +2664,31 @@ class Solution {
         if (node == null) return max;
         return Math.max(diameterOfBinaryTreeHelper(node.left, max + 1), diameterOfBinaryTreeHelper(node.right, max + 1));
     }
+
+    public boolean isSubtree(TreeNode root, TreeNode subRoot) {
+        LinkedList<TreeNode> nodes = new LinkedList<>();
+        nodes.add(root);
+        while (!nodes.isEmpty()) {
+            TreeNode current = nodes.poll();
+            if (current.val == subRoot.val)
+                if (isSubtreeHelper(current, subRoot)) return true;
+            if (current.left != null) nodes.add(current.left);
+            if (current.right != null) nodes.add(current.right);
+        }
+        return false;
+    }
+
+    private boolean isSubtreeHelper(TreeNode node1, TreeNode node2) {
+        LinkedList<TreeNode[]> nodes = new LinkedList<>();
+        nodes.add(new TreeNode[]{node1, node2});
+        while (!nodes.isEmpty()) {
+            TreeNode[] current = nodes.poll();
+            if (current[0] == null && current[1] == null) continue;
+            if (current[0] == null || current[1] == null) return false;
+            if (current[0].val != current[1].val) return false;
+            nodes.add(new TreeNode[]{current[0].left, current[1].left});
+            nodes.add(new TreeNode[]{current[0].right, current[1].right});
+        }
+        return true;
+    }
 }
