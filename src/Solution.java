@@ -2643,4 +2643,25 @@ class Solution {
         }
         return false;
     }
+
+    public int diameterOfBinaryTree(TreeNode root) {
+        if (root == null) return 0;
+        int ans = 0;
+        LinkedList<TreeNode> nodes = new LinkedList<>();
+        nodes.add(root);
+        while (!nodes.isEmpty()) {
+            TreeNode current = nodes.poll();
+            int leftMax = current.left == null ? 0 : diameterOfBinaryTreeHelper(current.left, 0);
+            int rightMax = current.right == null ? 0 : diameterOfBinaryTreeHelper(current.right, 0);
+            if (current.left != null) nodes.add(current.left);
+            if (current.right != null) nodes.add(current.right);
+            ans = Math.max(ans, leftMax + rightMax);
+        }
+        return ans;
+    }
+
+    private int diameterOfBinaryTreeHelper(TreeNode node, int max) {
+        if (node == null) return max;
+        return Math.max(diameterOfBinaryTreeHelper(node.left, max + 1), diameterOfBinaryTreeHelper(node.right, max + 1));
+    }
 }
