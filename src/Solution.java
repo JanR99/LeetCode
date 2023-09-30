@@ -2708,4 +2708,8 @@ class Solution {
         }
         return largest >= secondLargest * 2 ? largestIndex : -1;
     }
+
+    public int findLUSlength(String a, String b) {
+        return a.equals(b) ? -1 : Math.max(a.length(), b.length());
+    }
 }
