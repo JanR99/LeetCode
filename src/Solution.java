@@ -2712,4 +2712,17 @@ class Solution {
     public int findLUSlength(String a, String b) {
         return a.equals(b) ? -1 : Math.max(a.length(), b.length());
     }
+
+    public int distributeCandies(int[] candyType) {
+        int ans = 0;
+        boolean[] found = new boolean[200001];
+        for (int candy : candyType) {
+            if (ans == candyType.length / 2) break;
+            if (!found[candy + 100000]) {
+                found[candy + 100000] = true;
+                ans++;
+            }
+        }
+        return ans;
+    }
 }
