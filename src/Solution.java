@@ -6,7 +6,7 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        System.out.println(new Solution().findMaxAverage(new int[]{1,12,-5,-6,50,3}, 4));
+        System.out.println(new Solution().maximumTripletValue(new int[]{1000000,1,1000000}));
     }
 
 
@@ -2803,5 +2803,17 @@ class Solution {
             amount++;
         }
         return amount == k ? count : -1;
+    }
+
+    public long maximumTripletValue(int[] nums) {
+        long max = 0;
+        for (int i = 0; i < nums.length; i++) {
+            for (int j = i + 1; j < nums.length; j++) {
+                for (int k = j + 1; k < nums.length; k++) {
+                    max = Math.max((long)(nums[i] - nums[j]) * nums[k], max);
+                }
+            }
+        }
+        return max;
     }
 }
