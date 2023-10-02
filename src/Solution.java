@@ -2789,4 +2789,19 @@ class Solution {
         }
         return maxArea;
     }
+
+    public int minOperations(List<Integer> nums, int k) {
+        boolean[] found = new boolean[k];
+        int amount = 0;
+        int count = 0;
+        for (int i = nums.size() - 1; i >= 0; i--) {
+            if (amount == k) break;
+            count++;
+            if (nums.get(i) < 1 || nums.get(i) > k) continue;
+            if (found[nums.get(i) - 1]) continue;
+            found[nums.get(i) - 1] = true;
+            amount++;
+        }
+        return amount == k ? count : -1;
+    }
 }
