@@ -2816,4 +2816,12 @@ class Solution {
         }
         return max;
     }
+
+    public int alternatingSubarray(int[] nums) {
+        int n = nums.length, ans = 0;
+        for (int i = 0; i < n; ++i)
+            for (int j = i + 1; j < n && nums[j] == nums[i] + (j - i) % 2; ++j)
+                ans = Math.max(ans, j - i + 1);
+        return ans > 1 ? ans : -1;
+    }
 }
