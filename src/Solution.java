@@ -2824,4 +2824,28 @@ class Solution {
                 ans = Math.max(ans, j - i + 1);
         return ans > 1 ? ans : -1;
     }
+
+    public int numPrimeArrangements(int n) {
+        int amount = 0;
+        for (int i = 2; i <= n; i++)
+            if (numPrimeArrangementsHelper(i))
+                amount++;
+        long r = 1;
+        for (int i = 2; i <= amount; ++i) {
+            r = r * i;
+            r %= 1000000007;
+        }
+        for (int i = 2; i <= n - amount; ++i) {
+            r = r * i;
+            r %= 1000000007;
+        }
+        return (int) r;
+    }
+
+    private boolean numPrimeArrangementsHelper(int num){
+        for (int i = 2; i <= num / 2; i++)
+            if (num % i == 0)
+                return false;
+        return true;
+    }
 }
