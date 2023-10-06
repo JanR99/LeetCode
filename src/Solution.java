@@ -9,7 +9,6 @@ class Solution {
         System.out.println(new Solution().maxPower("leetcode"));
     }
 
-
     Map<Integer, Integer> sumOfMultiplesMem = new HashMap<>();
 
     public int sumOfMultiples(int n) {
@@ -2848,6 +2847,7 @@ class Solution {
                 return false;
         return true;
     }
+
     public List<Integer> majorityElement(int[] nums) {
         List<Integer> ans = new LinkedList<>();
         HashMap<Integer, Integer> map = new HashMap<>();
