@@ -6,7 +6,7 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        System.out.println(new Solution().maximumTripletValue(new int[]{1000000,1,1000000}));
+        System.out.println(new Solution().maxPower("leetcode"));
     }
 
 
@@ -2856,5 +2856,24 @@ class Solution {
         for (int key : map.keySet())
             if (map.get(key) > majority) ans.add(key);
         return ans;
+    }
+
+    public int maxPower(String s) {
+        int max = 0;
+        int current = 0;
+        char lastChar = ' ';
+        for (char c : s.toCharArray()) {
+            if (current == 0) {
+                current = 1;
+                lastChar = c;
+            } else if (c == lastChar) {
+                current++;
+            } else {
+                max = Math.max(current, max);
+                lastChar = c;
+                current = 1;
+            }
+        }
+        return Math.max(current, max);
     }
 }
