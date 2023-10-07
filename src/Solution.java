@@ -2876,4 +2876,15 @@ class Solution {
         }
         return Math.max(current, max);
     }
+
+    public int divisorSubstrings(int num, int k) {
+        int ans = 0;
+        String numString = String.valueOf(num);
+        for (int i = 0; i < numString.length() - k + 1; i++) {
+            int current = Integer.parseInt(numString.substring(i, i + k));
+            if (current == 0) continue;
+            if (num % current == 0) ans++;
+        }
+        return ans;
+    }
 }
