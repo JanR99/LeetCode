@@ -2887,4 +2887,21 @@ class Solution {
         }
         return ans;
     }
+
+    public List<List<Integer>> minimumAbsDifference(int[] arr) {
+        Arrays.sort(arr);
+        List<List<Integer>> ans = new ArrayList<>();
+        int min = Integer.MAX_VALUE;
+        for (int i = 1; i < arr.length; i++) {
+            int current = arr[i] - arr[i - 1];
+            if (current < min) {
+                ans.clear();
+                ans.add(Arrays.asList(arr[i - 1], arr[i]));
+                min = current;
+            } else if (current == min) {
+                ans.add(Arrays.asList(arr[i - 1], arr[i]));
+            }
+        }
+        return ans;
+    }
 }
