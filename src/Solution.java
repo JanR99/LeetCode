@@ -2904,4 +2904,18 @@ class Solution {
         }
         return ans;
     }
+
+    public int[] searchRange(int[] nums, int target) {
+        int start = -1, end = -1;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] < target) continue;
+            if (nums[i] > target) break;
+            if (start == -1) {
+                start = i;
+            } else {
+                end = i;
+            }
+        }
+        return start != -1 && end == -1 ? new int[]{start,start} : new int[]{start, end};
+    }
 }
