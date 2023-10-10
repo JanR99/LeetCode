@@ -2918,4 +2918,16 @@ class Solution {
         }
         return start != -1 && end == -1 ? new int[]{start,start} : new int[]{start, end};
     }
+
+    public double average(int[] salary) {
+        double sum = 0;
+        int min = Integer.MAX_VALUE;
+        int max = Integer.MIN_VALUE;
+        for (int current : salary) {
+            min = Math.min(current, min);
+            max = Math.max(current, max);
+            sum += current;
+        }
+        return (sum - min - max) / (salary.length - 2);
+    }
 }
