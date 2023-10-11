@@ -6,7 +6,7 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        System.out.println(new Solution().maxPower("leetcode"));
+        System.out.println(Arrays.toString(new Solution().circularGameLosers(5, 2)));
     }
 
     Map<Integer, Integer> sumOfMultiplesMem = new HashMap<>();
@@ -2941,5 +2941,28 @@ class Solution {
             }
         }
         return sum1 - sum2;
+    }
+
+    public int[] circularGameLosers(int n, int k) {
+        // Look who had the ball
+        boolean[] visited = new boolean[n];
+        // Count how many people had the ball
+        int found = 0;
+        int amount = 1;
+        int index = 0;
+        // while friend hasn't got the ball the second time
+        while (!visited[index]) {
+            visited[index] = true;
+            found++;
+            index = (index + k * amount++) % n;
+        }
+        int[] ans = new int[n - found];
+        int j = 0;
+        for (int i = 0; i < n; i++) {
+            // people who never got the ball
+            if (!visited[i])
+                ans[j++] = i + 1;
+        }
+        return ans;
     }
 }
