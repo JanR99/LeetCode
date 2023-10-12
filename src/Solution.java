@@ -6,7 +6,7 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        System.out.println(Arrays.toString(new Solution().circularGameLosers(5, 2)));
+        System.out.println();
     }
 
     Map<Integer, Integer> sumOfMultiplesMem = new HashMap<>();
@@ -2964,5 +2964,21 @@ class Solution {
                 ans[j++] = i + 1;
         }
         return ans;
+    }
+
+    public ListNode insertGreatestCommonDivisors(ListNode head) {
+        ListNode current = head;
+        while (current != null && current.next != null) {
+            int newValue = insertGreatestCommonDivisorsHelper(current.val, current.next.val);
+            ListNode newNode = new ListNode(newValue, current.next);
+            current.next = newNode;
+            current = newNode.next;
+        }
+        return head;
+    }
+    
+    private int insertGreatestCommonDivisorsHelper(int a, int b) {
+        if (b == 0) return a;
+        return insertGreatestCommonDivisorsHelper(b,a % b);
     }
 }
