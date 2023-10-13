@@ -2981,4 +2981,14 @@ class Solution {
         if (b == 0) return a;
         return insertGreatestCommonDivisorsHelper(b,a % b);
     }
+
+    public int[] findArray(int[] pref) {
+        int[] ans = new int[pref.length];
+        int current = 0;
+        for (int i = 0; i < pref.length; i++) {
+            ans[i] = current ^ pref[i];
+            current ^= ans[i];
+        }
+        return ans;
+    }
 }
