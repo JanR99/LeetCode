@@ -6,7 +6,7 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        System.out.println();
+        System.out.println(new Solution().removeDuplicates(new int[]{0,0,1,1,1,1,2,3,3}));
     }
 
     Map<Integer, Integer> sumOfMultiplesMem = new HashMap<>();
@@ -2990,5 +2990,23 @@ class Solution {
             current ^= ans[i];
         }
         return ans;
+    }
+
+    public int removeDuplicates(int[] nums) {
+        int found = 0;
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < nums.length - found; i++) {
+            int current = nums[i];
+            int get = map.getOrDefault(current, 0);
+            if (get >= 2) {
+                for (int j = i + 1; j < nums.length; j++) {
+                    nums[j - 1] = nums[j];
+                }
+                i--;
+                found++;
+            }
+            map.put(current, get + 1);
+        }
+        return nums.length - found;
     }
 }
