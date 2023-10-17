@@ -3019,4 +3019,44 @@ class Solution {
         }
         return new int[]{-1, -1};
     }
+
+    public void rotate(int[] nums, int k) {
+        k %= nums.length;
+        int count = 0;
+        for (int start = 0; count < nums.length; start++) {
+            int current = start;
+            int prev = nums[start];
+            do {
+                int next = (current + k) % nums.length;
+                int temp = nums[next];
+                nums[next] = prev;
+                prev = temp;
+                current = next;
+                count++;
+            } while (start != current);
+        }
+    }
+
+    public int[] pivotArray(int[] nums, int pivot) {
+        LinkedList<Integer> front = new LinkedList<>();
+        LinkedList<Integer> back = new LinkedList<>();
+        int amountPivot = 0;
+        for (int num : nums) {
+            if (num == pivot) amountPivot++;
+            else if(num < pivot) front.addLast(num);
+            else back.addLast(num);
+        }
+        int[] ans = new int[nums.length];
+        int index = 0;
+        while (!front.isEmpty()) {
+            ans[index++] = front.poll();
+        }
+        for (int i = 0; i < amountPivot; i++) {
+            ans[index++] = pivot;
+        }
+        while(!back.isEmpty()) {
+            ans[index++] = back.poll();
+        }
+        return ans;
+    }
 }
