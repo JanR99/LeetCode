@@ -6,7 +6,7 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        System.out.println(new Solution().removeDuplicates(new int[]{0,0,1,1,1,1,2,3,3}));
+        System.out.println(new Solution().lastVisitedIntegers(new LinkedList<>(Arrays.asList("1","2","prev","prev","prev"))));
     }
 
     Map<Integer, Integer> sumOfMultiplesMem = new HashMap<>();
@@ -3066,12 +3066,29 @@ class Solution {
             int mr = Integer.MIN_VALUE;
             int mc = Integer.MIN_VALUE;
             for (int j = 0; j < grid[0].length; j++) {
-                if (grid[i][j] != 0) x+=1;
+                if (grid[i][j] != 0) x += 1;
                 if (grid[i][j] > mr) mr = grid[i][j];
                 if (grid[j][i] > mc) mc = grid[j][i];
             }
             a += mr + mc;
         }
         return a + x;
+    }
+
+    public List<Integer> lastVisitedIntegers(List<String> words) {
+        List<Integer> ans = new LinkedList<>();
+        ArrayList<Integer> list = new ArrayList<>();
+        int index = 0;
+        for (String s : words) {
+            try {
+                Integer current = Integer.valueOf(s);
+                list.add(current);
+                index = list.size() - 1;
+            } catch (NumberFormatException e) {
+                if (index >= list.size() || index < 0 || list.isEmpty()) ans.add(-1);
+                else ans.add(list.get(index--));
+            }
+        }
+        return ans;
     }
 }
