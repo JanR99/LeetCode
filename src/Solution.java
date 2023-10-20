@@ -3,6 +3,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 
+import static java.util.Collections.list;
+
 class Solution {
 
     public static void main(String[] args) {
@@ -3095,5 +3097,48 @@ class Solution {
     public int numberOfCuts(int n) {
         if (n == 1) return 0;
         return n % 2 == 0 ? n / 2 : n;
+    }
+
+    public interface NestedInteger {
+         // @return true if this NestedInteger holds a single integer, rather than a nested list.
+         public boolean isInteger();
+         // @return the single integer that this NestedInteger holds, if it holds a single integer
+         // Return null if this NestedInteger holds a nested list
+         public Integer getInteger();
+         // @return the nested list that this NestedInteger holds, if it holds a nested list
+         // Return empty list if this NestedInteger holds a single integer
+         public List<NestedInteger> getList();
+    }
+
+    public class NestedIterator implements Iterator<Integer> {
+
+        List<Integer> list;
+        Iterator<Integer> iterator;
+
+        public NestedIterator(List<NestedInteger> nestedList) {
+            list = new LinkedList<>();
+            add(nestedList);
+            iterator = list.iterator();
+        }
+
+        private void add(List<NestedInteger> nestedList) {
+            for (NestedInteger i : nestedList) {
+                if (i.isInteger()) {
+                    list.add(i.getInteger());
+                } else {
+                    add(i.getList());
+                }
+            }
+        }
+
+        @Override
+        public Integer next() {
+            return iterator.next();
+        }
+
+        @Override
+        public boolean hasNext() {
+            return iterator.hasNext();
+        }
     }
 }
