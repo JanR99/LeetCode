@@ -8,7 +8,15 @@ import static java.util.Collections.list;
 class Solution {
 
     public static void main(String[] args) {
-        System.out.println(new Solution().lastVisitedIntegers(new LinkedList<>(Arrays.asList("1","2","prev","prev","prev"))));
+        new Solution().start();
+    }
+
+    private void start() {
+        BrowserHistory history = new BrowserHistory("leetcode");
+        history.visit("google");
+        history.visit("facebook");
+        history.visit("youtube");
+        history.back(1);
     }
 
     Map<Integer, Integer> sumOfMultiplesMem = new HashMap<>();
@@ -3139,6 +3147,39 @@ class Solution {
         @Override
         public boolean hasNext() {
             return iterator.hasNext();
+        }
+    }
+
+    class BrowserHistory {
+
+        LinkedList<String> history = new LinkedList<>();
+        LinkedList<String> forward = new LinkedList<>();
+
+        public BrowserHistory(String homepage) {
+            history.push(homepage);
+        }
+
+        public void visit(String url) {
+            forward.clear();
+            history.push(url);
+        }
+
+        public String back(int steps) {
+            while (history.size() > 1 && steps > 0) {
+                String tmp = history.pop();
+                forward.push(tmp);
+                steps--;
+            }
+            return history.peek();
+        }
+
+        public String forward(int steps) {
+            while (!forward.isEmpty() && steps > 0) {
+                String tmp = forward.pop();
+                history.push(tmp);
+                steps--;
+            }
+            return history.peek();
         }
     }
 }
