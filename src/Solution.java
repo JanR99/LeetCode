@@ -4,6 +4,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 import static java.util.Collections.list;
+import static java.util.Collections.max;
 
 class Solution {
 
@@ -3180,6 +3181,34 @@ class Solution {
                 steps--;
             }
             return history.peek();
+        }
+    }
+
+    class CustomStack {
+
+        LinkedList<Integer> stack = new LinkedList<>();
+        int maxSize;
+
+        public CustomStack(int maxSize) {
+            this.maxSize = maxSize;
+        }
+
+        public void push(int x) {
+            if (stack.size() >= maxSize) return;
+            stack.push(x);
+        }
+
+        public int pop() {
+            if (stack.isEmpty()) return -1;
+            return stack.pop();
+        }
+
+        public void increment(int k, int val) {
+            int count = 0;
+            for (int i = stack.size() - 1; i >= 0 && count++ < k; i--) {
+                int tmp = stack.get(i);
+                stack.set(i, tmp + val);
+            }
         }
     }
 }
