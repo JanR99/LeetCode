@@ -3211,4 +3211,37 @@ class Solution {
             }
         }
     }
+
+    class FindElements {
+
+        TreeNode root;
+
+        public FindElements(TreeNode root) {
+            this.root = root;
+            this.root.val = 0;
+            recover(this.root);
+        }
+
+        private void recover(TreeNode current) {
+            if (current == null) return;
+            if (current.left != null) {
+                current.left.val = current.val * 2 + 1;
+                recover(current.left);
+            }
+            if (current.right != null) {
+                current.right.val = current.val * 2 + 2;
+                recover(current.right);
+            }
+        }
+
+        public boolean find(int target) {
+            return findHelper(target, root);
+        }
+
+        private boolean findHelper(int target, TreeNode current) {
+            if (current == null) return false;
+            if (current.val == target) return true;
+            return findHelper(target, current.left) || findHelper(target, current.right);
+        }
+    }
 }
