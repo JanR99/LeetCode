@@ -3244,4 +3244,31 @@ class Solution {
             return findHelper(target, current.left) || findHelper(target, current.right);
         }
     }
+
+    class BSTIterator {
+
+        LinkedList<TreeNode> list;
+        Iterator<TreeNode> iter;
+
+        public BSTIterator(TreeNode root) {
+            list = new LinkedList<>();
+            inorder(root);
+            iter = list.iterator();
+        }
+
+        private void inorder(TreeNode node) {
+            if (node == null) return;
+            inorder(node.left);
+            list.add(node);
+            inorder(node.right);
+        }
+
+        public int next() {
+            return iter.next().val;
+        }
+
+        public boolean hasNext() {
+            return iter.hasNext();
+        }
+    }
 }
