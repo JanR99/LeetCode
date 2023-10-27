@@ -3272,5 +3272,88 @@ class Solution {
         }
     }
 
+    class Twitter {
 
+        private int timestamp;
+        private final Map<Integer, List<Integer>> tweets;
+        private final Map<Integer, Set<Integer>> followers;
+
+        public Twitter() {
+            timestamp = 0;
+            tweets = new HashMap<>();
+            followers = new HashMap<>();
+        }
+
+        public void postTweet(int userId, int tweetId) {
+            List<Integer> current = tweets.getOrDefault(userId, new LinkedList<>());
+            current.add(0, tweetId);
+            tweets.put(userId, current);
+            timestamp++;
+        }
+
+        public List<Integer> getNewsFeed(int userId) {
+            if (!tweets.containsKey(userId)) return new LinkedList<>();
+            List<Integer> newsFeed = new LinkedList<>();
+            Set<Integer> userFollowers = followers.getOrDefault(userId, new HashSet<>());
+            PriorityQueue<int[]> queue = new PriorityQueue<>((a, b) -> {
+                int tweetA = tweets.get(a[0]).get(a[1]);
+                int tweetB = tweets.get(b[0]).get(b[1]);
+                return Integer.compare(tweetB, tweetA);
+            });
+            for (Integer followerId : userFollowers) {
+                queue.add(new int[] {followerId, 0});
+            }
+            queue.add(new int[] {userId, 0});
+            while (newsFeed.size() < 10 && !queue.isEmpty()) {
+                int[] tweetInfo = queue.poll();
+                int tweetUserId = tweetInfo[0];
+                int currentIndex = tweetInfo[1];
+                newsFeed.add(tweets.get(tweetUserId).get(currentIndex));
+                currentIndex++;
+                if (currentIndex < tweets.get(tweetUserId).size()) {
+                    queue.add(new int[] {tweetUserId, currentIndex});
+                }
+            }
+            return newsFeed;
+        }
+
+        public void follow(int followerId, int followeeId) {
+            if (followerId == followeeId) return;
+            Set<Integer> userFollowers = followers.getOrDefault(followerId, new HashSet<>());
+            userFollowers.add(followeeId);
+            followers.put(followerId, userFollowers);
+        }
+
+        public void unfollow(int followerId, int followeeId) {
+            if (followerId == followeeId) return;
+            Set<Integer> userFollowers = followers.getOrDefault(followerId, new HashSet<>());
+            userFollowers.remove(followeeId);
+            followers.put(followerId, userFollowers);
+        }
+    }
+
+    public TreeNode createBinaryTree(int[][] descriptions) {
+        Map<Integer, TreeNode> nodeMap = new HashMap<>();
+        Set<Integer> children = new HashSet<>();
+        for (int[] desc : descriptions) {
+            int parentValue = desc[0];
+            int childValue = desc[1];
+            int direction = desc[2];
+            TreeNode parent = nodeMap.computeIfAbsent(parentValue, TreeNode::new);
+            TreeNode child = nodeMap.computeIfAbsent(childValue, TreeNode::new);
+            if (direction == 1)
+                parent.left = child;
+            else
+                parent.right = child;
+            children.add(childValue);
+        }
+        TreeNode root = null;
+        for (TreeNode node : nodeMap.values()) {
+            if (!children.contains(node.val)) {
+                root = node;
+                break;
+            }
+        }
+        return root;
+    }
 }
