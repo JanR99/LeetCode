@@ -3,9 +3,6 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 
-import static java.util.Collections.list;
-import static java.util.Collections.max;
-
 class Solution {
 
     public static void main(String[] args) {
@@ -3341,10 +3338,8 @@ class Solution {
             int direction = desc[2];
             TreeNode parent = nodeMap.computeIfAbsent(parentValue, TreeNode::new);
             TreeNode child = nodeMap.computeIfAbsent(childValue, TreeNode::new);
-            if (direction == 1)
-                parent.left = child;
-            else
-                parent.right = child;
+            if (direction == 1) parent.left = child;
+            else parent.right = child;
             children.add(childValue);
         }
         TreeNode root = null;
@@ -3355,5 +3350,72 @@ class Solution {
             }
         }
         return root;
+    }
+
+    class Allocator {
+
+        private final int size;
+        List<int[]> freeSpace;
+        Map<Integer, List<int[]>> usedSpace;
+
+        public Allocator(int n) {
+            this.size = n;
+            freeSpace = new LinkedList<>();
+            freeSpace.add(new int[]{0, size - 1});
+            usedSpace = new HashMap<>();
+        }
+
+        public int allocate(int size, int mID) {
+            if (freeSpace.isEmpty()) return -1;
+            for (int i = 0; i < freeSpace.size(); i++) {
+                int[] space = freeSpace.get(i);
+                int begin = space[0];
+                int end = space[1];
+                // Space is too small
+                if (end - begin + 1 < size) continue;
+                // Get the list of used space from this ID or if absent create new one
+                List<int[]> list = usedSpace.getOrDefault(mID, new LinkedList<>());
+                int newEnd = begin + size - 1;
+                int[] use = new int[]{begin, newEnd};
+                // There is left over space
+                if (newEnd != end) {
+                    int[] tmp = new int[]{newEnd + 1, end};
+                    freeSpace.set(i, tmp);
+                } else { // There isn't left over space
+                    freeSpace.remove(i);
+                }
+                list.add(use);
+                usedSpace.put(mID, list);
+                return begin;
+            }
+            return -1;
+        }
+
+        public int free(int mID) {
+            if (!usedSpace.containsKey(mID)) return 0;
+            List<int[]> current = usedSpace.get(mID);
+            int ans = 0;
+            for (int[] block : current) {
+                ans += block[1] - block[0] + 1;
+                freeSpace.add(block);
+            }
+            freeSpace.sort(Comparator.comparingInt(array -> array[0]));
+            mergeFreeBlocks(0);
+            usedSpace.remove(mID);
+            return ans;
+        }
+
+        private void mergeFreeBlocks(int index) {
+            if (index >= freeSpace.size() - 1) return;
+            int[] currentBlock = freeSpace.get(index);
+            int[] nextBlock = freeSpace.get(index + 1);
+            if (currentBlock[1] + 1 == nextBlock[0]) {
+                freeSpace.set(index, new int[]{currentBlock[0], nextBlock[1]});
+                freeSpace.remove(index + 1);
+                mergeFreeBlocks(index);
+            } else {
+                mergeFreeBlocks(index + 1);
+            }
+        }
     }
 }
