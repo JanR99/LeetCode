@@ -3473,4 +3473,76 @@ class Solution {
             return ans / currentTimes.get(endStation).size();
         }
     }
+
+    class MyCircularQueue {
+
+        private class Node {
+
+            Node next;
+            int val;
+
+            public Node(int val, Node next) {
+                this.next = next;
+                this.val = val;
+            }
+
+
+        }
+
+        Node head;
+        Node tail;
+        int currentSize;
+        int maxSize;
+
+        public MyCircularQueue(int k) {
+            maxSize = k;
+        }
+
+        public boolean enQueue(int value) {
+            if (currentSize == maxSize) return false;
+            // Queue is empty
+            if (currentSize == 0) {
+                Node newNode = new Node(value, null);
+                newNode.next = newNode;
+                head = newNode;
+                tail = newNode;
+            } else if(currentSize == 1) { // Queue only has one element
+                head = new Node(value, tail);
+                tail.next = head;
+            } else { // Queue is bigger than 1
+                head = new Node(value, head);
+                tail.next = head;
+            }
+            currentSize++;
+            return true;
+        }
+
+        public boolean deQueue() {
+            if (currentSize == 0) return false;
+            Node current = head;
+            while (current != null && current.next != tail) {
+                current = current.next;
+            }
+            tail = current;
+            tail.next = head;
+            currentSize--;
+            return true;
+        }
+
+        public int Front() {
+            return currentSize == 0 ? -1 : tail.val;
+        }
+
+        public int Rear() {
+            return currentSize == 0 ? -1 : head.val;
+        }
+
+        public boolean isEmpty() {
+            return currentSize == 0;
+        }
+
+        public boolean isFull() {
+            return currentSize == maxSize;
+        }
+    }
 }
