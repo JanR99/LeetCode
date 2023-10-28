@@ -3418,4 +3418,59 @@ class Solution {
             }
         }
     }
+
+    class UndergroundSystem {
+
+        private class Pair<A, B> {
+            private final A a;
+            private final B b;
+
+            public Pair(A a, B b) {
+                this.a = a;
+                this.b = b;
+            }
+
+            public A getA() {
+                return a;
+            }
+
+            public B getB() {
+                return b;
+            }
+        }
+
+        Map<Integer, Pair<String, Integer>> map;
+        Map<String, Map<String, List<Integer>>> averages;
+
+        public UndergroundSystem() {
+            map = new HashMap<>();
+            averages = new HashMap<>();
+        }
+
+        public void checkIn(int id, String stationName, int t) {
+            map.put(id, new Pair<>(stationName, t));
+        }
+
+        public void checkOut(int id, String stationName, int t) {
+            Pair<String, Integer> current = map.get(id);
+            String start = current.getA();
+            int startTime = current.getB();
+            Map<String, List<Integer>> currentDest = averages.getOrDefault(start, new HashMap<>());
+            List<Integer> currentTimes = currentDest.getOrDefault(stationName, new LinkedList<>());
+            currentTimes.add(t - startTime);
+            currentDest.put(stationName, currentTimes);
+            averages.put(start, currentDest);
+        }
+
+        public double getAverageTime(String startStation, String endStation) {
+            if (!averages.containsKey(startStation)) return 0;
+            Map<String, List<Integer>> currentTimes = averages.get(startStation);
+            if (!currentTimes.containsKey(endStation)) return 0;
+            double ans = 0;
+            for (Integer i : currentTimes.get(endStation)) {
+                ans += i;
+            }
+            return ans / currentTimes.get(endStation).size();
+        }
+    }
 }
