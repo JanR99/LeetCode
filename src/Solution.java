@@ -3545,4 +3545,33 @@ class Solution {
             return currentSize == maxSize;
         }
     }
+
+    class AuthenticationManager {
+
+        private final int timeToLive;
+        private Map<String, Integer> entries;
+
+        public AuthenticationManager(int timeToLive) {
+            this.timeToLive = timeToLive;
+            this.entries = new HashMap<>();
+        }
+
+        public void generate(String tokenId, int currentTime) {
+            entries.put(tokenId, currentTime + timeToLive);
+        }
+
+        public void renew(String tokenId, int currentTime) {
+            if (!entries.containsKey(tokenId) || entries.get(tokenId) <= currentTime)
+                return;
+            entries.put(tokenId, currentTime + timeToLive);
+        }
+
+        public int countUnexpiredTokens(int currentTime) {
+            int ans = 0;
+            for (Map.Entry<String, Integer> entry : entries.entrySet()) {
+                if (entry.getValue() > currentTime) ans++;
+            }
+            return ans;
+        }
+    }
 }
