@@ -2,6 +2,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
+import java.util.stream.Stream;
 
 class Solution {
 
@@ -3572,6 +3573,42 @@ class Solution {
                 if (entry.getValue() > currentTime) ans++;
             }
             return ans;
+        }
+    }
+
+    class FrontMiddleBackQueue {
+
+        List<Integer> queue;
+
+        public FrontMiddleBackQueue() {
+            queue = new ArrayList<>();
+        }
+
+        public void pushFront(int val) {
+            queue.add(0, val);
+        }
+
+        public void pushMiddle(int val) {
+            queue.add(queue.size() / 2, val);
+        }
+
+        public void pushBack(int val) {
+            queue.add(queue.size(), val);
+        }
+
+        public int popFront() {
+            if (queue.isEmpty()) return -1;
+            return queue.remove(0);
+        }
+
+        public int popMiddle() {
+            if (queue.isEmpty()) return -1;
+            return queue.remove((queue.size() - 1) / 2);
+        }
+
+        public int popBack() {
+            if (queue.isEmpty()) return -1;
+            return queue.remove(queue.size() - 1);
         }
     }
 }
