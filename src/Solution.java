@@ -3611,4 +3611,57 @@ class Solution {
             return queue.remove(queue.size() - 1);
         }
     }
+
+    class MyCircularDeque {
+
+        LinkedList<Integer> dequeue;
+        int maxSize;
+
+        public MyCircularDeque(int k) {
+            dequeue = new LinkedList<>();
+            maxSize = k;
+        }
+
+        public boolean insertFront(int value) {
+            if (dequeue.size() == maxSize) return false;
+            dequeue.addFirst(value);
+            return true;
+        }
+
+        public boolean insertLast(int value) {
+            if (dequeue.size() == maxSize) return false;
+            dequeue.addLast(value);
+            return true;
+        }
+
+        public boolean deleteFront() {
+            if (dequeue.isEmpty()) return false;
+            dequeue.removeFirst();
+            return true;
+        }
+
+        public boolean deleteLast() {
+            if (dequeue.isEmpty()) return false;
+            dequeue.removeLast();
+            return true;
+        }
+
+        public int getFront() {
+            if (dequeue.isEmpty()) return -1;
+            return dequeue.getFirst();
+        }
+
+        public int getRear() {
+            if (dequeue.isEmpty()) return -1;
+            return dequeue.getLast();
+        }
+
+        public boolean isEmpty() {
+            return dequeue.isEmpty();
+        }
+
+        public boolean isFull() {
+            return dequeue.size() == maxSize;
+        }
+    }
 }
