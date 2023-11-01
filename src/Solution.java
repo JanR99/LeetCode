@@ -3664,4 +3664,42 @@ class Solution {
             return dequeue.size() == maxSize;
         }
     }
+
+    class ATM {
+
+        long[] money;
+        final int AMOUNT_MONEY = 5;
+        final long[] banknoteValues = {20, 50, 100, 200, 500};
+
+        public ATM() {
+            money = new long[AMOUNT_MONEY];
+        }
+
+        public void deposit(int[] banknotesCount) {
+            for (int i = 0; i < AMOUNT_MONEY; i++) {
+                money[i] += banknotesCount[i];
+            }
+        }
+
+        public int[] withdraw(int amount) {
+            int[] ans = new int[5];
+            int remainingAmount = amount;
+            for (int i = AMOUNT_MONEY - 1; i >= 0; i--) {
+                long banknoteValue = banknoteValues[i];
+                long banknotesToUse = Math.min(remainingAmount / banknoteValue, money[i]);
+                remainingAmount -= banknotesToUse * banknoteValue;
+                money[i] -= banknotesToUse;
+                ans[i] = (int) banknotesToUse;
+            }
+            if (remainingAmount == 0) {
+                return ans;
+            } else {
+                for (int i = 0; i < AMOUNT_MONEY; i++) {
+                    money[i] += ans[i];
+                    ans[i] = 0;
+                }
+                return new int[]{-1};
+            }
+        }
+    }
 }
