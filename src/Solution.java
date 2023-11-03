@@ -3702,4 +3702,26 @@ class Solution {
             }
         }
     }
+
+    public int averageOfSubtree(TreeNode root) {
+        if (root == null) return 0;
+        if (averageOfSubtreeHelper(root) == root.val)
+            return 1 + averageOfSubtree(root.left) + averageOfSubtree(root.right);
+        return averageOfSubtree(root.left) + averageOfSubtree(root.right);
+    }
+
+    private int averageOfSubtreeHelper(TreeNode node) {
+        LinkedList<TreeNode> visited = new LinkedList<>();
+        visited.add(node);
+        int amountNodes = 0;
+        int sum = 0;
+        while (!visited.isEmpty()) {
+            TreeNode current = visited.pop();
+            amountNodes++;
+            sum += current.val;
+            if (current.left != null) visited.push(current.left);
+            if (current.right != null) visited.push(current.right);
+        }
+        return sum / amountNodes;
+    }
 }
