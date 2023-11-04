@@ -2,20 +2,11 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
-import java.util.stream.Stream;
 
 class Solution {
 
     public static void main(String[] args) {
-        new Solution().start();
-    }
-
-    private void start() {
-        BrowserHistory history = new BrowserHistory("leetcode");
-        history.visit("google");
-        history.visit("facebook");
-        history.visit("youtube");
-        history.back(1);
+        new Solution();
     }
 
     Map<Integer, Integer> sumOfMultiplesMem = new HashMap<>();
@@ -3723,5 +3714,17 @@ class Solution {
             if (current.right != null) visited.push(current.right);
         }
         return sum / amountNodes;
+    }
+
+    public int sumCounts(List<Integer> nums) {
+        int ans = 0;
+        for (int i = 0; i < nums.size(); i++) {
+            Set<Integer> set = new HashSet<>();
+            for (int j = i; j < nums.size(); j++) {
+                set.add(nums.get(j));
+                ans += Math.pow(set.size(), 2);
+            }
+        }
+        return ans;
     }
 }
