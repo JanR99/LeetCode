@@ -3732,7 +3732,7 @@ class Solution {
 
         private class Node {
 
-            private HashMap<Character, Node> next;
+            private final HashMap<Character, Node> next;
             private boolean end;
 
             public Node() {
