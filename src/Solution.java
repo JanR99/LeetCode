@@ -3727,4 +3727,56 @@ class Solution {
         }
         return ans;
     }
+
+    class WordDictionary {
+
+        private class Node {
+
+            private HashMap<Character, Node> next;
+            private boolean end;
+
+            public Node() {
+                next = new HashMap<>();
+                end = false;
+            }
+        }
+
+        private Node root;
+
+        public WordDictionary() {
+            root = new Node();
+        }
+
+        public void addWord(String word) {
+            Node current = root;
+            for (char c : word.toCharArray()) {
+                if (!current.next.containsKey(c)) {
+                    current.next.put(c, new Node());
+                }
+                current = current.next.get(c);
+            }
+            current.end = true;
+        }
+
+        public boolean search(String word) {
+            return searchWordHelper(root, word, 0);
+        }
+
+        private boolean searchWordHelper(Node node, String word, int index) {
+            if (index == word.length()) return node.end;
+            char c = word.charAt(index);
+            if (c == '.') {
+                for (Node child : node.next.values()) {
+                    if (searchWordHelper(child, word, index + 1)) {
+                        return true;
+                    }
+                }
+            } else {
+                if (node.next.containsKey(c)) {
+                    return searchWordHelper(node.next.get(c), word, index + 1);
+                }
+            }
+            return false;
+        }
+    }
 }
