@@ -3804,4 +3804,31 @@ class Solution {
         }
         return set.size();
     }
+
+    class SeatManager {
+
+        boolean[] seats;
+        PriorityQueue<Integer> queue;
+
+        public SeatManager(int n) {
+            seats = new boolean[n];
+            queue = new PriorityQueue<>(n);
+            for (int i = 0; i < n; i++) {
+                queue.add(i);
+            }
+        }
+
+        public int reserve() {
+            if (queue.isEmpty()) return -1;
+            int reserve = queue.remove();
+            seats[reserve] = true;
+            return reserve + 1;
+        }
+
+        public void unreserve(int seatNumber) {
+            if (!seats[seatNumber - 1]) return;
+            seats[seatNumber - 1] = false;
+            queue.add(seatNumber - 1);
+        }
+    }
 }
