@@ -2,6 +2,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 class Solution {
 
@@ -3778,5 +3780,28 @@ class Solution {
             }
             return false;
         }
+    }
+
+    public int findChampion(int[][] grid) {
+        int n = grid.length;
+        for (int i = 0; i < n; i++) {
+            int[] current = grid[i];
+            int amount1 = Arrays.stream(current).sum();
+            if (amount1 == n - 1) return i;
+        }
+        return -1;
+    }
+
+    public int distinctAverages(int[] nums) {
+        Arrays.sort(nums);
+        Set<Double> set = new HashSet<>();
+        int i = 0, j = nums.length - 1;
+        while (i < j) {
+            int a = nums[i++];
+            int b = nums[j--];
+            double average = (a + b) / 2.0;
+            set.add(average);
+        }
+        return set.size();
     }
 }
