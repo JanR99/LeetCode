@@ -3831,4 +3831,11 @@ class Solution {
             queue.add(seatNumber - 1);
         }
     }
+
+    public boolean isReachableAtTime(int sx, int sy, int fx, int fy, int t) {
+        if (sx == fx && sy == fy) return t != 1;
+        int y = Math.abs(sy - fy);
+        int x = Math.abs(sx - fx);
+        return Math.max(x, y) <= t;
+    }
 }
