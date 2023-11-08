@@ -3838,4 +3838,23 @@ class Solution {
         int x = Math.abs(sx - fx);
         return Math.max(x, y) <= t;
     }
+
+    public List<List<Integer>> findMatrix(int[] nums) {
+        List<List<Integer>> ans = new LinkedList<>();
+        for (int num : nums) {
+            boolean found = false;
+            for (List<Integer> current : ans) {
+                if (current.contains(num)) continue;
+                current.add(num);
+                found = true;
+                break;
+            }
+            if (!found) {
+                List<Integer> newList = new LinkedList<>();
+                newList.add(num);
+                ans.add(newList);
+            }
+        }
+        return ans;
+    }
 }
