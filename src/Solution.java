@@ -3857,4 +3857,19 @@ class Solution {
         }
         return ans;
     }
+
+    public int[] processQueries(int[] queries, int m) {
+        int[] ans = new int[queries.length];
+        LinkedList<Integer> list = new LinkedList<>();
+        for (int i = 0; i < m; i++)
+            list.addLast(i + 1);
+        for (int i = 0; i < queries.length; i++) {
+            int current = queries[i];
+            int index = list.indexOf(current);
+            list.remove(index);
+            ans[i] = index;
+            list.addFirst(current);
+        }
+        return ans;
+    }
 }
