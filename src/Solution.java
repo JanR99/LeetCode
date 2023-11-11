@@ -2,13 +2,11 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 class Solution {
 
     public static void main(String[] args) {
-        new Solution();
+        System.out.println(Arrays.toString(new Solution().restoreArray(new int[][]{{2, 1}, {3, 4}, {3, 2}})));
     }
 
     Map<Integer, Integer> sumOfMultiplesMem = new HashMap<>();
@@ -3869,6 +3867,37 @@ class Solution {
             list.remove(index);
             ans[i] = index;
             list.addFirst(current);
+        }
+        return ans;
+    }
+
+    public int[] restoreArray(int[][] adjacentPairs) {
+        Set<Integer> visited = new HashSet<>();
+        Map<Integer, List<Integer>> pairs = new HashMap<>();
+        // Find pairs
+        for (int[] pair : adjacentPairs) {
+            pairs.computeIfAbsent(pair[0], k -> new LinkedList<>()).add(pair[1]);
+            pairs.computeIfAbsent(pair[1], k -> new LinkedList<>()).add(pair[0]);
+        }
+        int[] ans = new int[adjacentPairs.length + 1];
+        int index = 0;
+        // Find a start point
+        int current = 0;
+        for (int key : pairs.keySet()) {
+            if (pairs.get(key).size() == 1) {
+                current = key;
+                break;
+            }
+        }
+        while (index < ans.length) {
+            ans[index++] = current;
+            visited.add(current);
+            for (int neighbor : pairs.get(current)) {
+                if (!visited.contains(neighbor)) {
+                    current = neighbor;
+                    break;
+                }
+            }
         }
         return ans;
     }
