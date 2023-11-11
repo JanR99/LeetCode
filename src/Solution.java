@@ -3901,4 +3901,49 @@ class Solution {
         }
         return ans;
     }
+
+    class Graph {
+
+        int[][] graph;
+
+        public Graph(int n, int[][] edges) {
+            graph = new int[n][n];
+            for (int[] current : graph) Arrays.fill(current, -1);
+            for (int[] edge : edges) {
+                addEdge(edge);
+            }
+        }
+
+        public void addEdge(int[] edge) {
+            int from = edge[0];
+            int to = edge[1];
+            int cost = edge[2];
+            graph[from][to] = graph[to][from] = cost;
+        }
+
+        public int shortestPath(int node1, int node2) {
+            int n = graph.length;
+            int[] distance = new int[n];
+            Arrays.fill(distance, Integer.MAX_VALUE);
+            distance[node1] = 0;
+            PriorityQueue<int[]> pq = new PriorityQueue<>(Comparator.comparingInt(a -> a[1]));
+            pq.add(new int[]{node1, 0});
+            while (!pq.isEmpty()) {
+                int[] current = pq.poll();
+                int u = current[0];
+                int dist = current[1];
+                if (dist > distance[u]) continue;
+                for (int v = 0; v < n; v++) {
+                    if (graph[u][v] != -1) {
+                        int newDistance = distance[u] + graph[u][v];
+                        if (newDistance < distance[v]) {
+                            distance[v] = newDistance;
+                            pq.add(new int[]{v, newDistance});
+                        }
+                    }
+                }
+            }
+            return distance[node2] == Integer.MAX_VALUE ? -1 : distance[node2];
+        }
+    }
 }
