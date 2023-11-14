@@ -3971,4 +3971,26 @@ class Solution {
         }
         return ans;
     }
+
+    public boolean isPathCrossing(String path) {
+        int x = 0, y = 0;
+        Map<Integer, List<Integer>> visited = new HashMap<>();
+        List<Integer> tmp = new LinkedList<>();
+        tmp.add(0);
+        visited.put(0, tmp);
+        for (char c : path.toCharArray()) {
+            switch (c) {
+                case 'N' -> y++;
+                case 'E' -> x++;
+                case 'S' -> y--;
+                case 'W' -> x--;
+            }
+            if (!visited.containsKey(x))
+                visited.put(x, new LinkedList<>());
+            List<Integer> current = visited.get(x);
+            if (current.contains(y)) return true;
+            current.add(y);
+        }
+        return false;
+    }
 }
