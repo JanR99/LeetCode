@@ -3993,4 +3993,55 @@ class Solution {
         }
         return false;
     }
+
+    public int countPalindromicSubsequence(String s) {
+        int ans = 0;
+        Set<Character> set = new HashSet<>();
+        for (char c : s.toCharArray())
+            set.add(c);
+        for (char c : set) {
+            int start = s.indexOf(c);
+            int end = s.lastIndexOf(c);
+            if (start < end) {
+                Set<Character> charSet = new HashSet<>();
+                for (int i = start + 1; i < end; i++)
+                    charSet.add(s.charAt(i));
+                ans += charSet.size();
+            }
+        }
+        return ans;
+    }
+
+    public String reorderSpaces(String text) {
+        int amountSpaces = 0;
+        List<StringBuilder> strings = new LinkedList<>();
+        boolean wasAlph = false;
+        StringBuilder current = new StringBuilder();
+        for (char c : text.toCharArray()) {
+            if (c == ' ') {
+                if (wasAlph) {
+                    strings.add(current);
+                    current = new StringBuilder();
+                }
+                wasAlph = false;
+                amountSpaces++;
+            } else {
+                wasAlph = true;
+                current.append(c);
+            }
+        }
+        if (current.length() != 0) strings.add(current);
+        StringBuilder ans = new StringBuilder();
+        int spaces = strings.size() > 1 ? amountSpaces / (strings.size() - 1) : 0;
+        int extraSpaces = strings.size() > 1 ? amountSpaces % (strings.size() - 1) : amountSpaces;
+        for (int i = 0; i < strings.size(); i++) {
+            StringBuilder str = strings.get(i);
+            ans.append(str);
+            if (i != strings.size() - 1) {
+                ans.append(" ".repeat(Math.max(0, spaces)));
+            }
+        }
+        ans.append(" ".repeat(Math.max(0, extraSpaces)));
+        return ans.toString();
+    }
 }
