@@ -4061,4 +4061,21 @@ class Solution {
         }
         return maxValue;
     }
+
+    public String findDifferentBinaryString(String[] nums) {
+        int n = nums[0].length();
+        int max = (int) Math.pow(2, n);
+        boolean[] found = new boolean[max];
+        for (String s : nums) {
+            int index = Integer.parseInt(s, 2);
+            found[index] = true;
+        }
+        for (int i = 0; i < found.length; i++) {
+            if (!found[i]) {
+                String tmp = Integer.toBinaryString(i);
+                return "0".repeat(n - tmp.length()) + tmp;
+            }
+        }
+        return null;
+    }
 }
