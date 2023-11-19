@@ -6,7 +6,7 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        System.out.println(Arrays.toString(new Solution().restoreArray(new int[][]{{2, 1}, {3, 4}, {3, 2}})));
+        System.out.println(new Solution().reductionOperations(new int[]{5, 1, 3}));
     }
 
     Map<Integer, Integer> sumOfMultiplesMem = new HashMap<>();
@@ -4097,5 +4097,17 @@ class Solution {
             }
         }
         return max;
+    }
+
+    public int reductionOperations(int[] nums) {
+        Arrays.sort(nums);
+        int ans = 0;
+        int operations = 0;
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] > nums[i - 1])
+                operations++;
+            ans += operations;
+        }
+        return ans;
     }
 }
