@@ -4078,4 +4078,24 @@ class Solution {
         }
         return null;
     }
+
+    public int rearrangeCharacters(String s, String target) {
+        if (s.equals(target)) return 1;
+        if (target.repeat(s.length() / target.length()).equals(s)) return s.length() / target.length();
+        Map<Character, Integer> map = new HashMap<>();
+        for (char c : s.toCharArray()) map.put(c, map.getOrDefault(c, 0) + 1);
+        int max = 0;
+        for (int i = 0; i < s.length(); i++) {
+            max = i;
+            for (char c : target.toCharArray()) {
+                if (!map.containsKey(c)) {
+                    return max;
+                }
+                int get = map.get(c);
+                if (get == 0) return max;
+                map.put(c, get - 1);
+            }
+        }
+        return max;
+    }
 }
