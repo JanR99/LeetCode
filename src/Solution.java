@@ -4129,4 +4129,22 @@ class Solution {
     private long countNicePairsHelper(int num) {
         return num - Long.parseLong(new StringBuilder(String.valueOf(num)).reverse().toString());
     }
+
+    public int findMinimumOperations(String s1, String s2, String s3) {
+        int ans = 0;
+        String first = findMinimumOperationsHelper(s1, s2);
+        String second = findMinimumOperationsHelper(first, s3);
+        if (second.length() < 1) return -1;
+        return s1.length() - second.length() + s2.length() - second.length() + s3.length() - second.length();
+      }
+
+    private String findMinimumOperationsHelper(String s1, String s2) {
+        StringBuilder ans = new StringBuilder();
+        int i = 0;
+        while (i < s1.length() && i < s2.length()) {
+            if (s1.charAt(i) != s2.charAt(i)) break;
+            ans.append(s1.charAt(i++));
+        }
+        return ans.toString();
+    }
 }
