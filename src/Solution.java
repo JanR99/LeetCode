@@ -6,7 +6,7 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        System.out.println(new Solution().reductionOperations(new int[]{5, 1, 3}));
+        System.out.println((char)('a' + 1));
     }
 
     Map<Integer, Integer> sumOfMultiplesMem = new HashMap<>();
@@ -4109,5 +4109,24 @@ class Solution {
             ans += operations;
         }
         return ans;
+    }
+
+    public int countNicePairs(int[] nums) {
+        long ans = 0;
+        int mod = ((int) Math.pow(10, 9) + 7);
+        Map<Long, Integer> map = new HashMap<>();
+        for (int num : nums) {
+            long tmp = countNicePairsHelper(num);
+            map.put(tmp, map.getOrDefault(tmp, 0) + 1);
+        }
+        for (long key : map.keySet()) {
+            int val = map.get(key);
+            ans = (ans % mod + ((long) val * ((long) val - 1) / 2)) % mod;
+        }
+        return (int)ans;
+    }
+
+    private long countNicePairsHelper(int num) {
+        return num - Long.parseLong(new StringBuilder(String.valueOf(num)).reverse().toString());
     }
 }
