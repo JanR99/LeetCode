@@ -4172,4 +4172,23 @@ class Solution {
             if (value % words.length != 0) return false;
         return true;
     }
+
+    public List<Boolean> checkArithmeticSubarrays(int[] nums, int[] l, int[] r) {
+        List<Boolean> ans = new LinkedList<>();
+        for (int i = 0; i < l.length; i++) {
+            int[] current = Arrays.copyOfRange(nums, l[i], r[i] + 1);
+            Arrays.sort(current);
+            int diff = current[1] - current[0];
+            boolean arith = true;
+            for (int j = 1; j < current.length - 1; j++) {
+                int tmp = current[j + 1] - current[j];
+                if (diff != tmp) {
+                    arith = false;
+                    break;
+                }
+            }
+            ans.add(arith);
+        }
+        return ans;
+    }
 }
