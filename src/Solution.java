@@ -2,11 +2,13 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
+import java.util.stream.Stream;
 
 class Solution {
 
     public static void main(String[] args) {
-        System.out.println((char)('a' + 1));
+        List<List<Integer>> list = new LinkedList<>();
+        List<Integer> tmp = new LinkedList<>();
     }
 
     Map<Integer, Integer> sumOfMultiplesMem = new HashMap<>();
@@ -4146,5 +4148,28 @@ class Solution {
             ans.append(s1.charAt(i++));
         }
         return ans.toString();
+    }
+
+    public int[] findDiagonalOrder(List<List<Integer>> nums) {
+        List<int[]> tuples = new ArrayList<>();
+        for (int i = 0; i < nums.size(); i++) {
+            List<Integer> row = nums.get(i);
+            for (int j = 0; j < row.size(); j++)
+                tuples.add(new int[]{i + j, i, row.get(j)});
+        }
+        tuples.sort(Comparator.comparingInt((int[] tuple) -> tuple[0]));
+        int[] result = new int[tuples.size()];
+        for (int i = 0; i < tuples.size(); i++)
+            result[i] = tuples.get(i)[2];
+        return result;
+    }
+
+    public boolean makeEqual(String[] words) {
+        Map<Character, Integer> map = new HashMap<>();
+        for (String s : words)
+            s.chars().forEach(c -> map.merge((char) c, 1, Integer::sum));
+        for (int value : map.values())
+            if (value % words.length != 0) return false;
+        return true;
     }
 }
