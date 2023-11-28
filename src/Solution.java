@@ -2,7 +2,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
-import java.util.stream.Stream;
 
 class Solution {
 
@@ -4215,5 +4214,32 @@ class Solution {
                 ans.add(i);
         }
         return ans;
+    }
+
+    public boolean areSimilar(int[][] mat, int k) {
+        int[][] copy = new int[mat.length][];
+        for (int i = 0; i < mat.length; i++) {
+            copy[i] = Arrays.copyOf(mat[i], mat[i].length);
+            areSimilarHelper(copy[i], k, i % 2 != 0);
+        }
+        for (int i = 0; i < mat.length; i++)
+            if (Arrays.compare(mat[i], copy[i]) != 0) return false;
+        return true;
+    }
+
+    private static void areSimilarHelper(int[] arr, int k, boolean right) {
+        int n = arr.length;
+        k = (k % n + n) % n;
+        for (int i = 0; i < k; i++) {
+            if (right) {
+                int tmp = arr[n - 1];
+                System.arraycopy(arr, 0, arr, 1, n - 1);
+                arr[0] = tmp;
+            } else {
+                int tmp = arr[0];
+                System.arraycopy(arr, 1, arr, 0, n - 1);
+                arr[n - 1] = tmp;
+            }
+        }
     }
 }
