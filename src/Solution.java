@@ -6,8 +6,7 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        List<List<Integer>> list = new LinkedList<>();
-        List<Integer> tmp = new LinkedList<>();
+        System.out.println(new Solution().containsPattern(new int[]{1,2,3,1,2},2,2));
     }
 
     Map<Integer, Integer> sumOfMultiplesMem = new HashMap<>();
@@ -4241,5 +4240,23 @@ class Solution {
                 arr[n - 1] = tmp;
             }
         }
+    }
+
+    public boolean containsPattern(int[] arr, int m, int k) {
+        if (m * k > arr.length) return false;
+        for (int start = 0; start + m * k - 1 < arr.length; start++) {
+            boolean found = true;
+            for (int i = 0; i < m; i++) {
+                for (int j = 0; j < k; j++) {
+                    if (arr[start + i] != arr[start + i + j * m]) {
+                        found = false;
+                        break;
+                    }
+                }
+                if (!found) break;
+            }
+            if (found) return true;
+        }
+        return false;
     }
 }
