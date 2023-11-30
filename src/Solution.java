@@ -6,7 +6,7 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        System.out.println(new Solution().containsPattern(new int[]{1,2,3,1,2},2,2));
+        Solution solution = new Solution();
     }
 
     Map<Integer, Integer> sumOfMultiplesMem = new HashMap<>();
@@ -4258,5 +4258,28 @@ class Solution {
             if (found) return true;
         }
         return false;
+    }
+
+    public int specialArray(int[] nums) {
+        int x = nums.length / 2;
+        boolean wasHigher = false;
+        boolean start = true;
+        while (x >= 0 && x <= nums.length) {
+            int count = 0;
+            for (int num : nums) {
+                if (num >= x) {
+                    count++;
+                }
+                if (count > x) break;
+            }
+            if (count == x) return x;
+            if (x == nums.length / 2 && start) {
+                start = false;
+                wasHigher = count > x;
+            }
+            if (!wasHigher) x--;
+            else x++;
+        }
+        return -1;
     }
 }
