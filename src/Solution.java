@@ -4282,4 +4282,22 @@ class Solution {
         }
         return -1;
     }
+
+    public boolean canFormArray(int[] arr, int[][] pieces) {
+        int i = 0;
+        while (i < arr.length) {
+            int current = arr[i];
+            int[] tmp = null;
+            for (int[] piece : pieces) {
+                if (piece[0] != current) continue;
+                tmp = piece;
+                break;
+            }
+            if (tmp == null) return false;
+            for (int integer : tmp) {
+                if (integer != arr[i++]) return false;
+            }
+        }
+        return true;
+    }
 }
