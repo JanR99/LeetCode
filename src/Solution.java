@@ -4304,14 +4304,23 @@ class Solution {
     public int countCharacters(String[] words, String chars) {
         int[] cnt = new int[26];
         int ans = 0;
-        chars.chars().forEach(c -> ++cnt[c - 'a']); // count chars.
+        chars.chars().forEach(c -> ++cnt[c - 'a']);
         outer:
         for (String w : words) {
             int[] count = cnt.clone();
             for (char c : w.toCharArray())
-                if (--count[c - 'a'] < 0) // not enough, continue next word in words.
+                if (--count[c - 'a'] < 0)
                     continue outer;
             ans += w.length();
+        }
+        return ans;
+    }
+
+    public List<Integer> findPeaks(int[] mountain) {
+        List<Integer> ans = new LinkedList<>();
+        for (int i = 1; i < mountain.length - 1; i++) {
+            if (mountain[i - 1] < mountain[i] && mountain[i] > mountain[i + 1])
+                ans.add(i);
         }
         return ans;
     }
