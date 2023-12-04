@@ -4333,4 +4333,25 @@ class Solution {
         }
         return 0;
     }
+
+    public String sortVowels(String s) {
+        PriorityQueue<Integer> queue = new PriorityQueue<>();
+        for (char c : s.toCharArray())
+            if (sortVowelsHelper(c))
+                queue.add((int)c);
+        StringBuilder ans = new StringBuilder();
+        for (char c : s.toCharArray()) {
+            if (sortVowelsHelper(c)) {
+                ans.append((char) (int)queue.poll());
+            } else {
+                ans.append(c);
+            }
+        }
+        return ans.toString();
+    }
+
+    private boolean sortVowelsHelper(char c) {
+        return c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u' ||
+                c == 'A' || c == 'E' || c == 'I' || c == 'O' || c == 'U';
+    }
 }
