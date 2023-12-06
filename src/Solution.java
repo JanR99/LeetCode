@@ -4390,4 +4390,18 @@ class Solution {
             }
         }
     }
+
+    public int distributeCandies2(int n, int limit) {
+        int ans = 0;
+        for (int i = 1; i <= limit; i++) {
+            if (i > n) break;
+            for (int j = 1; j <= limit; j++) {
+                if (i + j > n) break;
+                int k = n - i - j;
+                if (k <= limit)
+                    ans++;
+            }
+        }
+        return ans;
+    }
 }
