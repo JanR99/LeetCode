@@ -4354,4 +4354,40 @@ class Solution {
         return c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u' ||
                 c == 'A' || c == 'E' || c == 'I' || c == 'O' || c == 'U';
     }
+
+    public String largestGoodInteger(String num) {
+        int max = -1;
+        for(int i = 0; i < num.length() - 2; i++){
+            char first = num.charAt(i);
+            char second = num.charAt(i + 1);
+            char third = num.charAt(i + 2);
+            if(first == second && first == third){
+                int current = Character.getNumericValue(first);
+                if(current > max)
+                    max = current;
+            }
+        }
+        if(max == -1)
+            return "";
+        return "" + max + max + max;
+    }
+
+    public void rotate(int[][] matrix) {
+        int n = matrix.length;
+        // Transpose
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                matrix[i][j] = matrix[i][j] ^ matrix[j][i];
+                matrix[j][i] = matrix[i][j] ^ matrix[j][i];
+                matrix[i][j] = matrix[i][j] ^ matrix[j][i];
+            }
+        }
+        for (int[] row : matrix) {
+            for (int i = 0, j = n - 1; i < j; i++, j--) {
+                row[i] = row[i] ^ row[j];
+                row[j] = row[i] ^ row[j];
+                row[i] = row[i] ^ row[j];
+            }
+        }
+    }
 }
