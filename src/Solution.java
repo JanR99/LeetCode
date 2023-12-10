@@ -4408,4 +4408,14 @@ class Solution {
     public int removePalindromeSub(String s) {
         return new StringBuilder(s).reverse().toString().equals(s) ? 1 : 2;
     }
+
+    public int smallestRangeI(int[] nums, int k) {
+        int max = Integer.MIN_VALUE;
+        int min = Integer.MAX_VALUE;
+        for (int num : nums) {
+            max = Math.max(max, num);
+            min = Math.min(min, num);
+        }
+        return Math.max((max - min) - (2 * k), 0);
+    }
 }
