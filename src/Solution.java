@@ -4418,4 +4418,29 @@ class Solution {
         }
         return Math.max((max - min) - (2 * k), 0);
     }
+
+    public int[] findIntersectionValues(int[] nums1, int[] nums2) {
+        int ans1 = 0, ans2 = 0;
+        for (int num1 : nums1) {
+            boolean found = false;
+            for (int num2 : nums2) {
+                if (num1 == num2) {
+                    found = true;
+                    break;
+                }
+            }
+            if (found) ans1++;
+        }
+        for (int num2 : nums2) {
+            boolean found = false;
+            for (int num1 : nums1) {
+                if (num1 == num2) {
+                    found = true;
+                    break;
+                }
+            }
+            if (found) ans2++;
+        }
+        return new int[]{ans1, ans2};
+    }
 }
