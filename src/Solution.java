@@ -4461,4 +4461,25 @@ class Solution {
         }
         return ans;
     }
+
+    public boolean areAlmostEqual(String s1, String s2) {
+        if (s1.length() != s2.length()) return false;
+        Map<Character, Integer> map1 = new HashMap<>();
+        Map<Character, Integer> map2 = new HashMap<>();
+        int diff = 0;
+        for (int i = 0; i < s1.length(); i++) {
+            char c1 = s1.charAt(i);
+            char c2 = s2.charAt(i);
+            map1.put(c1, map1.getOrDefault(c1, 0) + 1);
+            map2.put(c2, map2.getOrDefault(c2, 0) + 1);
+            if (c1 != c2) diff++;
+            if (diff > 2) break;
+        }
+        for (char key : map1.keySet()) {
+            int val1 = map1.get(key);
+            int val2 = map2.getOrDefault(key, -1);
+            if (val1 != val2) return false;
+        }
+        return diff == 0 || diff == 2;
+    }
 }
