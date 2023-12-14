@@ -4482,4 +4482,30 @@ class Solution {
         }
         return diff == 0 || diff == 2;
     }
+
+    public int[] rearrangeArray(int[] nums) {
+        int indexPos = 0, indexNeg = 0;
+        int[] ans = new int[nums.length];
+        for (int i = 0; i < ans.length; i++) {
+            if (i % 2 == 0)
+                indexPos = rearrangeArrayHelper(nums, indexPos, ans, i, true);
+            else
+                indexNeg = rearrangeArrayHelper(nums, indexNeg, ans, i, false);
+        }
+        return ans;
+    }
+
+    private int rearrangeArrayHelper(int[] nums, int start, int[] ans, int index, boolean pos) {
+        int j = start;
+        while (j < nums.length) {
+            boolean condition = pos == (nums[j] < 0);
+            if (condition) {
+                j++;
+            } else {
+                ans[index] = nums[j];
+                return j + 1;
+            }
+        }
+        return start;
+    }
 }
