@@ -4508,4 +4508,28 @@ class Solution {
         }
         return start;
     }
+
+    public int[][] onesMinusZeros(int[][] grid) {
+        int[] onesRow = new int[grid.length], zeroRow = new int[grid.length];
+        int[] onesCol = new int[grid[0].length], zeroCol = new int[grid[0].length];
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[i].length; j++) {
+                if (grid[i][j] == 1) {
+                    onesRow[i]++;
+                    onesCol[j]++;
+                } else {
+                    zeroRow[i]++;
+                    zeroCol[j]++;
+                }
+            }
+        }
+        int[][] ans = new int[grid.length][grid[0].length];
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[i].length; j++) {
+                int current = onesRow[i] + onesCol[j] - zeroRow[i] - zeroCol[j];
+                ans[i][j] = current;
+            }
+        }
+        return ans;
+    }
 }
