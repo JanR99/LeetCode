@@ -6,8 +6,7 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        Solution solution = new Solution();
-        System.out.println(solution.countTestedDevices(new int[]{1,1,2,1,3}));
+        System.out.println(Arrays.toString(new Solution().findingUsersActiveMinutes(new int[][]{{0, 5}, {1, 2}, {0, 2}, {0, 5}, {1, 3}}, 5)));
     }
 
     Map<Integer, Integer> sumOfMultiplesMem = new HashMap<>();
@@ -4529,6 +4528,43 @@ class Solution {
                 int current = onesRow[i] + onesCol[j] - zeroRow[i] - zeroCol[j];
                 ans[i][j] = current;
             }
+        }
+        return ans;
+    }
+
+    public List<Integer> partitionLabels(String s) {
+        List<Integer> ans = new ArrayList<>();
+        int start = 0, end;
+        Map<Character, Integer> map = new HashMap<>();
+        for (int i = 0; i < s.length(); i++)
+            map.put(s.charAt(i), i);
+        while (start < s.length()) {
+            char current = s.charAt(start);
+            end = map.get(current);
+            for (int i = start + 1; i < end; i++) {
+                char c = s.charAt(i);
+                int newEnd = map.get(c);
+                end = Math.max(end, newEnd);
+            }
+            ans.add(end - start + 1);
+            start = end + 1;
+        }
+        return ans;
+    }
+
+    public int[] findingUsersActiveMinutes(int[][] logs, int k) {
+        Map<Integer, Set<Integer>> map = new HashMap<>();
+        for (int[] log : logs) {
+            int id = log[0], time = log[1];
+            Set<Integer> set = map.getOrDefault(id, new HashSet<>());
+            set.add(time);
+            map.put(id, set);
+        }
+        int[] ans = new int[k];
+        for (Set<Integer> set : map.values()) {
+            int size = set.size();
+            if (size > k) continue;
+            ans[size - 1]++;
         }
         return ans;
     }
