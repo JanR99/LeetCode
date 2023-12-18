@@ -6,7 +6,7 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        System.out.println(Arrays.toString(new Solution().findingUsersActiveMinutes(new int[][]{{0, 5}, {1, 2}, {0, 2}, {0, 5}, {1, 3}}, 5)));
+        System.out.println(Arrays.toString(new Solution().findMissingAndRepeatedValues(new int[][]{{9,1,7},{8,9,2},{3,4,6}})));
     }
 
     Map<Integer, Integer> sumOfMultiplesMem = new HashMap<>();
@@ -4620,5 +4620,23 @@ class Solution {
             }
             return highestRated.foodName;
         }
+    }
+
+    public int[] findMissingAndRepeatedValues(int[][] grid) {
+        boolean[] found = new boolean[grid.length * grid.length];
+        int a = -1, b = -1;
+        for (int[] row : grid) {
+            for (int current : row) {
+                if (found[current - 1]) a = current;
+                found[current - 1] = true;
+            }
+        }
+        for (int i = 0; i < found.length; i++) {
+            if (!found[i]) {
+                b = i + 1;
+                break;
+            }
+        }
+        return new int[]{a, b};
     }
 }
