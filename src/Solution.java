@@ -4664,4 +4664,14 @@ class Solution {
         }
         return ans / hit;
     }
+
+    public int countDistinctIntegers(int[] nums) {
+        HashSet<Integer> set = new HashSet<>();
+        for (int num : nums) {
+            set.add(num);
+            int reverse = Integer.parseInt(new StringBuilder(String.valueOf(num)).reverse().toString());
+            set.add(reverse);
+        }
+        return set.size();
+    }
 }
