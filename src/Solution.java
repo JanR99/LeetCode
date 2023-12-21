@@ -6,7 +6,6 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        System.out.println(Arrays.toString(new Solution().findMissingAndRepeatedValues(new int[][]{{9,1,7},{8,9,2},{3,4,6}})));
     }
 
     Map<Integer, Integer> sumOfMultiplesMem = new HashMap<>();
@@ -4673,5 +4672,27 @@ class Solution {
             set.add(reverse);
         }
         return set.size();
+    }
+
+    public List<String> findAndReplacePattern(String[] words, String pattern) {
+        List<String> ans = new LinkedList<>();
+        for (String word : words) {
+            char[] map1 = new char[26];
+            char[] map2 = new char[26];
+            boolean ok = true;
+            for (int i = 0; i < word.length(); i++) {
+                char c1 = word.charAt(i);
+                char c2 = pattern.charAt(i);
+                if ((int)map1[c1 - 'a'] == 0 && (int)map2[c2 - 'a'] == 0) {
+                    map1[c1 - 'a'] = c2;
+                    map2[c2 - 'a'] = c1;
+                } else if (map1[c1 - 'a'] != c2 || map2[c2 - 'a'] != c1) {
+                    ok = false;
+                    break;
+                }
+            }
+            if (ok) ans.add(word);
+        }
+        return ans;
     }
 }
