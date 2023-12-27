@@ -4718,4 +4718,15 @@ class Solution {
         }
         return count;
     }
+
+    public int[] numberGame(int[] nums) {
+        int[] ans = new int[nums.length];
+        Arrays.sort(nums);
+        int index = 0;
+        for (int i = 0; i < nums.length - 1; i += 2) {
+            ans[index++] = nums[i + 1];
+            ans[index++] = nums[i];
+        }
+        return ans;
+    }
 }
