@@ -6,6 +6,7 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
+        System.out.println(new Solution().countVowelStrings(33));
     }
 
     Map<Integer, Integer> sumOfMultiplesMem = new HashMap<>();
@@ -4703,5 +4704,18 @@ class Solution {
             max = Math.max(max, points[i][0] - points[i - 1][0]);
         }
         return max;
+    }
+
+    public int countVowelStrings(int n) {
+        return (int) countVowelStringsHelper(n, 1);
+    }
+
+    private long countVowelStringsHelper(int n, int vowelIndex) {
+        if (n == 0) return 1;
+        long count = 0;
+        for (int i = vowelIndex; i <= 5; i++) {
+            count += countVowelStringsHelper(n - 1, i);
+        }
+        return count;
     }
 }
