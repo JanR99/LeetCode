@@ -4741,4 +4741,22 @@ class Solution {
         }
         return ans;
     }
+
+    public int myAtoi(String s) {
+        s = s.trim();
+        if (s.isEmpty())
+            return 0;
+        int ans = 0, i = 0;
+        if (s.charAt(0) == '-' || s.charAt(0) == '+')
+            i++;
+        while (i < s.length() && Character.isDigit(s.charAt(i))) {
+            int digit = s.charAt(i) - '0';
+            if (ans > Integer.MAX_VALUE / 10 || (ans == Integer.MAX_VALUE / 10 && digit > Integer.MAX_VALUE % 10)) {
+                return s.charAt(0) == '-' ? Integer.MIN_VALUE : Integer.MAX_VALUE;
+            }
+            ans = ans * 10 + digit;
+            i++;
+        }
+        return s.charAt(0) == '-' ? -ans : ans;
+    }
 }
