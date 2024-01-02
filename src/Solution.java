@@ -6,7 +6,6 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        System.out.println(new Solution().countVowelStrings(33));
     }
 
     Map<Integer, Integer> sumOfMultiplesMem = new HashMap<>();
@@ -4758,5 +4757,14 @@ class Solution {
             i++;
         }
         return s.charAt(0) == '-' ? -ans : ans;
+    }
+
+    public boolean hasTrailingZeros(int[] nums) {
+        int count = 0;
+        for (int num : nums) {
+            if (num % 2 == 0) count++;
+            if (count >= 2) return true;
+        }
+        return false;
     }
 }
