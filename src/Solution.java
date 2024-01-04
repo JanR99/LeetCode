@@ -4771,4 +4771,17 @@ class Solution {
     public int minOperations(int n) {
         return n % 2 == 0 ? (n / 2) * (n / 2) : ((n - 1) / 2) * ((n + 1) / 2);
     }
+
+    public int minOperations(int[] nums) {
+        Map<Integer, Integer> map = new HashMap<>();
+        int ans = 0;
+        for (int num : nums) map.put(num, map.getOrDefault(num, 0 ) + 1);
+        for (int val : map.values()) {
+            int current = 0;
+            if (val == 1) return -1;
+            ans += val / 3;
+            if (val % 3 != 0) ans++;
+        }
+        return ans;
+    }
 }
