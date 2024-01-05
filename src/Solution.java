@@ -4777,11 +4777,37 @@ class Solution {
         int ans = 0;
         for (int num : nums) map.put(num, map.getOrDefault(num, 0 ) + 1);
         for (int val : map.values()) {
-            int current = 0;
             if (val == 1) return -1;
             ans += val / 3;
             if (val % 3 != 0) ans++;
         }
         return ans;
+    }
+
+    public int lengthOfLIS(int[] nums) {
+
+        class Pair<V, L> {
+            V val;
+            L length;
+
+            public Pair(V val, L length) {
+                this.val = val;
+                this.length = length;
+            }
+        }
+
+        List<Pair<Integer, Integer>> lengths = new LinkedList<>();
+        int max = 0;
+        for (int num : nums) {
+            int currentMax = 1;
+            for (Pair<Integer, Integer> current : lengths) {
+                if (current.val < num) {
+                    currentMax = Math.max(currentMax, current.length + 1);
+                }
+            }
+            max = Math.max(max, currentMax);
+            lengths.add(new Pair<>(num, currentMax));
+        }
+        return max;
     }
 }
