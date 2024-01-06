@@ -4817,10 +4817,9 @@ class Solution {
             String[] tmp = s.split(" ");
             int amount = Integer.parseInt(tmp[0]);
             String domain = tmp[1];
-            int index = 0;
             while (true) {
                 map.put(domain, map.getOrDefault(domain, 0) + amount);
-                index = domain.indexOf(".");
+                int index = domain.indexOf(".");
                 if (index == -1) break;
                 domain = domain.substring(index + 1);
             }
