@@ -4787,8 +4787,8 @@ class Solution {
     public int lengthOfLIS(int[] nums) {
 
         class Pair<V, L> {
-            V val;
-            L length;
+            final V val;
+            final L length;
 
             public Pair(V val, L length) {
                 this.val = val;
@@ -4809,5 +4809,25 @@ class Solution {
             lengths.add(new Pair<>(num, currentMax));
         }
         return max;
+    }
+
+    public List<String> subdomainVisits(String[] domains) {
+        Map<String, Integer> map = new HashMap<>();
+        for (String s : domains) {
+            String[] tmp = s.split(" ");
+            int amount = Integer.parseInt(tmp[0]);
+            String domain = tmp[1];
+            int index = 0;
+            while (true) {
+                map.put(domain, map.getOrDefault(domain, 0) + amount);
+                index = domain.indexOf(".");
+                if (index == -1) break;
+                domain = domain.substring(index + 1);
+            }
+        }
+        List<String> ans = new LinkedList<>();
+        for (String key : map.keySet())
+            ans.add(String.format("%d %s", map.get(key), key));
+        return ans;
     }
 }
