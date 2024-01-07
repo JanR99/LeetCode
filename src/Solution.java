@@ -6,6 +6,7 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
+        System.out.println(new Solution().removeOccurrences("daabcbaabcbc", "abc"));
     }
 
     Map<Integer, Integer> sumOfMultiplesMem = new HashMap<>();
@@ -4827,6 +4828,17 @@ class Solution {
         List<String> ans = new LinkedList<>();
         for (String key : map.keySet())
             ans.add(String.format("%d %s", map.get(key), key));
+        return ans;
+    }
+
+    public String removeOccurrences(String s, String part) {
+        String ans = s;
+        while (true) {
+            int index = ans.indexOf(part);
+            if (index == -1) break;
+            int endIndex = index + part.length();
+            ans = ans.substring(0, index) + ans.substring(endIndex);
+        }
         return ans;
     }
 }
