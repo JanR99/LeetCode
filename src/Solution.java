@@ -4841,4 +4841,36 @@ class Solution {
         }
         return ans;
     }
+
+    class CombinationIterator {
+
+        ArrayList<String> combinations;
+        Iterator<String> iterator;
+
+        public CombinationIterator(String characters, int combinationLength) {
+            combinations = new ArrayList<>();
+            generateCombinations(characters, combinationLength, 0, new StringBuilder());
+            iterator = combinations.iterator();
+        }
+
+        public String next() {
+            return iterator.next();
+        }
+
+        public boolean hasNext() {
+            return iterator.hasNext();
+        }
+
+        private void generateCombinations(String characters, int length, int start, StringBuilder current) {
+            if (length == 0) {
+                combinations.add(current.toString());
+                return;
+            }
+            for (int i = start; i < characters.length(); i++) {
+                current.append(characters.charAt(i));
+                generateCombinations(characters, length - 1, i + 1, current);
+                current.deleteCharAt(current.length() - 1);
+            }
+        }
+    }
 }
