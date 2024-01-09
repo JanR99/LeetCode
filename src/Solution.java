@@ -4883,4 +4883,21 @@ class Solution {
             return null;
         return root;
     }
+
+    public List<List<Integer>> groupThePeople(int[] groupSizes) {
+        Map<Integer, List<Integer>> bucket = new HashMap<>();
+        for (int i = 0; i < groupSizes.length; i++) {
+            int size = groupSizes[i];
+            List<Integer> current = bucket.getOrDefault(size, new LinkedList<>());
+            current.add(i);
+            bucket.put(size, current);
+        }
+        List<List<Integer>> ans = new LinkedList<>();
+        for (int size : bucket.keySet()) {
+            List<Integer> current = bucket.get(size);
+            for (int i = 0; i < current.size(); i += size)
+                ans.add(current.subList(i, Math.min(i + size, current.size())));
+        }
+        return ans;
+    }
 }
