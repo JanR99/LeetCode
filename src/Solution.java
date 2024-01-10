@@ -4900,4 +4900,20 @@ class Solution {
         }
         return ans;
     }
+
+    public int areaOfMaxDiagonal(int[][] dimensions) {
+        int area = 0;
+        double maxDiagonal = 0;
+        for (int[] dimension : dimensions) {
+            int length = dimension[0];
+            int width = dimension[1];
+            double currentDiagonal = Math.sqrt(length * length + width * width);
+            if (currentDiagonal > maxDiagonal ||
+                    (currentDiagonal == maxDiagonal && length * width > area)) {
+                maxDiagonal = currentDiagonal;
+                area = length * width;
+            }
+        }
+        return area;
+    }
 }
