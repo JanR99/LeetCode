@@ -6,7 +6,7 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        System.out.println(new Solution().removeOccurrences("daabcbaabcbc", "abc"));
+        System.out.println(new Solution().garbageCollection(new String[]{"G","P","GP","GG"}, new int[]{2,4,3}));
     }
 
     Map<Integer, Integer> sumOfMultiplesMem = new HashMap<>();
@@ -4915,5 +4915,38 @@ class Solution {
             }
         }
         return area;
+    }
+
+    public int garbageCollection(String[] garbage, int[] travel) {
+        int ans = 0;
+        int maxP = 0, maxM = 0, maxG = 0;
+        for (int i = 0; i < garbage.length; i++) {
+            if (garbage[i].contains("G")) maxG = i;
+            if (garbage[i].contains("P")) maxP = i;
+            if (garbage[i].contains("M")) maxM = i;
+        }
+        for (int i = 0; i < garbage.length; i++) {
+            boolean found = false;
+            if (i <= maxG) {
+                found = true;
+                ans += garbageCollectionHelper(i, "G", garbage[i], travel);
+            }
+            if (i <= maxP) {
+                found = true;
+                ans += garbageCollectionHelper(i, "P", garbage[i], travel);
+            }
+            if (i <= maxM) {
+                found = true;
+                ans += garbageCollectionHelper(i, "M", garbage[i], travel);
+            }
+            if (!found) break;
+        }
+        return ans;
+    }
+
+    private int garbageCollectionHelper(int i, String s, String garbarge, int[] travel) {
+        int count = garbarge.length() - garbarge.replace(s, "").length();
+        if (i == 0) return count;
+        return count == 0 ? travel[i - 1] : travel[i - 1] + count;
     }
 }
