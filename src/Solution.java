@@ -4996,4 +4996,28 @@ class Solution {
         Collections.sort(oneLoose);
         return new LinkedList<>(List.of(noLoose, oneLoose));
     }
+
+    public String longestNiceSubstring(String s) {
+        String ans = "";
+        for (int i = 0; i < s.length(); i++) {
+            for (int j = s.length(); j > i; j--) {
+                String current = s.substring(i, j);
+                boolean[] lower = new boolean[26];
+                boolean[] upper = new boolean[26];
+                for (char c : current.toCharArray()) {
+                    if (Character.isLowerCase(c)) lower[c - 'a'] = true;
+                    else upper[c - 'A'] = true;
+                }
+                boolean ok = true;
+                for (int k = 0; k < 26; k++) {
+                    if (lower[k] && !upper[k] || !lower[k] && upper[k]) {
+                        ok = false;
+                        break;
+                    }
+                }
+                if (ok && current.length() > ans.length()) ans = current;
+            }
+        }
+        return ans;
+    }
 }
