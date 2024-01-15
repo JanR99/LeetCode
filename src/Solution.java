@@ -4977,4 +4977,23 @@ class Solution {
         Arrays.sort(chars2);
         return Arrays.equals(chars1, chars2);
     }
+
+    public List<List<Integer>> findWinners(int[][] matches) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int[] match : matches) {
+            int w = match[0], l = match[1];
+            map.put(w, map.getOrDefault(w, 0));
+            map.put(l, map.getOrDefault(l, 0) + 1);
+        }
+        List<Integer> noLoose = new LinkedList<>();
+        List<Integer> oneLoose = new LinkedList<>();
+        for (int current : map.keySet()) {
+            int val = map.get(current);
+            if (val == 0) noLoose.add(current);
+            else if (val == 1) oneLoose.add(current);
+        }
+        Collections.sort(noLoose);
+        Collections.sort(oneLoose);
+        return new LinkedList<>(List.of(noLoose, oneLoose));
+    }
 }
