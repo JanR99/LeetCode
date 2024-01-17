@@ -5020,4 +5020,18 @@ class Solution {
         }
         return ans;
     }
+
+    public int maxFrequencyElements(int[] nums) {
+        Map<Integer, Integer> map = new HashMap<>();
+        int max = 0;
+        for (int num : nums) {
+            int val = map.getOrDefault(num, 0) + 1;
+            max = Math.max(val, max);
+            map.put(num, val);
+        }
+        int ans = 0;
+        for (int key : map.keySet())
+            if (map.get(key) == max) ans += max;
+        return ans;
+    }
 }
