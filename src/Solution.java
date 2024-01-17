@@ -6,7 +6,7 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        System.out.println(new Solution().garbageCollection(new String[]{"G","P","GP","GG"}, new int[]{2,4,3}));
+        System.out.println(new Solution().largestInteger(1234));
     }
 
     Map<Integer, Integer> sumOfMultiplesMem = new HashMap<>();
@@ -5033,5 +5033,34 @@ class Solution {
         for (int key : map.keySet())
             if (map.get(key) == max) ans += max;
         return ans;
+    }
+
+    public int largestInteger(int num) {
+        char[] s = String.valueOf(num).toCharArray();
+        List<Integer> even = new LinkedList<>();
+        List<Integer> odd = new LinkedList<>();
+        for(Character c : s){
+            int digit = Character.getNumericValue(c);
+            if(digit % 2 == 0){
+                even.add(digit);
+            } else {
+                odd.add(digit);
+            }
+        }
+        even.sort(Collections.reverseOrder());
+        odd.sort(Collections.reverseOrder());
+        StringBuilder ans = new StringBuilder();
+        int one = 0, two = 0;
+        for (char c : s) {
+            int n = Character.getNumericValue(c);
+            if (n % 2 == 0) {
+                ans.append(even.get(one));
+                one++;
+            } else {
+                ans.append(odd.get(two));
+                two++;
+            }
+        }
+        return Integer.parseInt(ans.toString());
     }
 }
