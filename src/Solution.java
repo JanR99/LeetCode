@@ -6,7 +6,7 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        System.out.println(new Solution().largestInteger(1234));
+        System.out.println(new Solution().mostVisited(4, new int[]{1,3,1,2}));
     }
 
     Map<Integer, Integer> sumOfMultiplesMem = new HashMap<>();
@@ -5062,5 +5062,29 @@ class Solution {
             }
         }
         return Integer.parseInt(ans.toString());
+    }
+
+    public List<Integer> mostVisited(int n, int[] rounds) {
+        Map<Integer, Integer> map = new HashMap<>();
+        int max = 0;
+        int start = rounds[0];
+        for (int i = 1; i < rounds.length; i++) {
+            int end = rounds[i];
+            int sector = start;
+            boolean ok = true;
+            while (ok) {
+                if (sector == end) ok = false;
+                int val = map.getOrDefault(sector, 0) + 1;
+                max = Math.max(max, val);
+                map.put(sector, val);
+                sector = sector % n + 1;
+            }
+            start = rounds[i] % n + 1;
+        }
+        List<Integer> ans = new LinkedList<>();
+        for (int key : map.keySet())
+            if (map.get(key) == max) ans.add(key);
+        Collections.sort(ans);
+        return ans;
     }
 }
