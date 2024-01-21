@@ -5102,4 +5102,22 @@ class Solution {
         }
         return min;
     }
+
+    public int minimumPushes(String word) {
+        Map<Character, Integer> map = new HashMap<>();
+        for (char c : word.toCharArray())
+            map.put(c, map.getOrDefault(c, 0) + 1);
+        List<Integer> list = new ArrayList<>(map.values());
+        list.sort(Comparator.reverseOrder());
+        int count = 0;
+        int ans = 0;
+        for (int current : list) {
+            if (count < 8) ans += current;
+            else if (count < 16) ans += 2 * current;
+            else if (count < 24) ans += 3 * current;
+            else ans += 4 * current;
+            count++;
+        }
+        return ans;
+    }
 }
