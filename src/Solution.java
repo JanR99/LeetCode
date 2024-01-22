@@ -5149,4 +5149,19 @@ class Solution {
             }
         }
     }
+
+    public int[] findErrorNums(int[] nums) {
+        int n = nums.length;
+        int sum = (n * (n + 1)) / 2;
+        int first = -1;
+        boolean[] hit = new boolean[n];
+        for (int i : nums) {
+            if (hit[i - 1]) first = i;
+            else {
+                hit[i - 1] = true;
+                sum -= i;
+            }
+        }
+        return new int[]{first, sum};
+    }
 }
