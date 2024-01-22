@@ -5120,4 +5120,33 @@ class Solution {
         }
         return ans;
     }
+
+    public boolean findRotation(int[][] mat, int[][] target) {
+        for (int i = 0; i < 4; i++) {
+            if (mat.length != target.length || mat[0].length != target[0].length) continue;
+            boolean ok = true;
+            for (int j = 0; j < mat.length; j++) {
+                if (!Arrays.equals(mat[j], target[j])) {
+                    ok = false;
+                    break;
+                }
+            }
+            if (ok) return true;
+            findRotationHelper(mat);
+        }
+        return false;
+    }
+
+    private void findRotationHelper(int[][] matrix) {
+        int n = matrix.length;
+        for (int i = 0; i < n / 2; i++) {
+            for (int j = i; j < n - i - 1; j++) {
+                int temp = matrix[i][j];
+                matrix[i][j] = matrix[n - j - 1][i];
+                matrix[n - j - 1][i] = matrix[n - i - 1][n - j - 1];
+                matrix[n - i - 1][n - j - 1] = matrix[j][n - i - 1];
+                matrix[j][n - i - 1] = temp;
+            }
+        }
+    }
 }
