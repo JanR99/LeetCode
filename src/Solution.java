@@ -5164,4 +5164,16 @@ class Solution {
         }
         return new int[]{first, sum};
     }
+
+    public int minimumDifference(int[] nums, int k) {
+        if (k == 1) return 0;
+        int min = Integer.MAX_VALUE;
+        Arrays.sort(nums);
+        for (int i = 0; i <= nums.length - k; i++) {
+            int low = nums[i];
+            int high = nums[i + k - 1];
+            min = Math.min(min, high - low);
+        }
+        return min;
+    }
 }
