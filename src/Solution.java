@@ -5176,4 +5176,16 @@ class Solution {
         }
         return min;
     }
+
+    public boolean isCovered(int[][] ranges, int left, int right) {
+        List<Integer> points = new LinkedList<>();
+        for (int i = left; i <= right; i++) points.add(i);
+        for (int[] current : ranges) {
+            if (points.isEmpty()) return true;
+            for (Integer i = current[0]; i <= current[1]; i++) {
+                points.remove(i);
+            }
+        }
+        return points.isEmpty();
+    }
 }
