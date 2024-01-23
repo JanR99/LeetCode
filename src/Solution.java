@@ -5188,4 +5188,28 @@ class Solution {
         }
         return points.isEmpty();
     }
+
+    public int minOperations(String s) {
+        boolean[] startZero = new boolean[s.length()];
+        boolean[] startOne = new boolean[s.length()];
+        boolean zero = true;
+        for (int i = 0; i < s.length(); i++) {
+            if (zero) {
+                startZero[i] = false;
+                startOne[i] = true;
+            } else {
+                startZero[i] = true;
+                startOne[i] = false;
+            }
+            zero = !zero;
+        }
+        int minZero = 0;
+        int minOne = 0;
+        for (int i = 0; i < s.length(); i++) {
+            boolean one = s.charAt(i) == '1';
+            if (one != startZero[i]) minZero++;
+            if (one != startOne[i]) minOne++;
+        }
+        return Math.min(minZero, minOne);
+    }
 }
