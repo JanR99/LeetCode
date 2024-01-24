@@ -5212,4 +5212,14 @@ class Solution {
         }
         return Math.min(minZero, minOne);
     }
+
+    public int maxRepeating(String sequence, String word) {
+        int k = 0;
+        StringBuilder sb = new StringBuilder(word);
+        while (sequence.contains(sb)) {
+            k++;
+            sb.append(word);
+        }
+        return k;
+    }
 }
