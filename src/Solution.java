@@ -6,7 +6,13 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        System.out.println(new Solution().mostVisited(4, new int[]{1,3,1,2}));
+        TreeNode root = new TreeNode(2);
+        root.left = new TreeNode(3);
+        root.right = new TreeNode(1);
+        root.left.left = new TreeNode(3);
+        root.left.right = new TreeNode(1);
+        root.right.right = new TreeNode(1);
+        System.out.println(new Solution().pseudoPalindromicPaths(root));
     }
 
     Map<Integer, Integer> sumOfMultiplesMem = new HashMap<>();
@@ -5221,5 +5227,29 @@ class Solution {
             sb.append(word);
         }
         return k;
+    }
+
+    public int pseudoPalindromicPaths(TreeNode root) {
+        return pseudoPalindromPathsHelper(root, new int[10]);
+    }
+
+    private int pseudoPalindromPathsHelper(TreeNode node, int[] count) {
+        if (node == null) return 0;
+        count[node.val]++;
+        if (node.left == null && node.right == null) {
+            int oddCount = 0;
+            for (int val : count) {
+                if (val % 2 != 0) {
+                    oddCount++;
+                    if (oddCount > 1) break;
+                }
+            }
+            count[node.val]--;
+            return oddCount <= 1 ? 1 : 0;
+        }
+        int leftCount = pseudoPalindromPathsHelper(node.left, count);
+        int rightCount = pseudoPalindromPathsHelper(node.right, count);
+        count[node.val]--;
+        return leftCount + rightCount;
     }
 }
