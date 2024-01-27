@@ -5252,4 +5252,24 @@ class Solution {
         count[node.val]--;
         return leftCount + rightCount;
     }
+
+    public List<String> removeAnagrams(String[] words) {
+        List<String> ans= new ArrayList<>();
+        int n = words.length;
+        for (int i = 0; i < n;) {
+            int j = i + 1;
+            while (j < n && removeAnagramsHelper(words[i],words[j])) j++;
+            ans.add(words[i]);
+            i = j;
+        }
+        return ans;
+    }
+
+    private boolean removeAnagramsHelper(String p, String q){
+        int[] count = new int[26];
+        for(int i = 0; i < p.length(); i++) count[p.charAt(i) - 'a']++;
+        for(int i = 0; i < q.length(); i++) count[q.charAt(i) - 'a']--;
+        for(int curr : count) if(curr != 0) return false;
+        return true;
+    }
 }
