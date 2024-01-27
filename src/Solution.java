@@ -5272,4 +5272,20 @@ class Solution {
         for(int curr : count) if(curr != 0) return false;
         return true;
     }
+
+    public int isWinner(int[] player1, int[] player2) {
+        int sum1 = 0, sum2 = 0;
+        for (int i = 0; i < player1.length; i++) {
+            sum1 += isWinnerHelper(player1, i);
+            sum2 += isWinnerHelper(player2, i);
+        }
+        return sum1 == sum2 ? 0 : (sum1 > sum2 ? 1 : 2);
+    }
+
+    private int isWinnerHelper(int[] player, int i) {
+        boolean doub = false;
+        if (i - 2 >= 0 && player[i - 2] == 10) doub = true;
+        if (i - 1 >= 0 && player[i - 1] == 10) doub = true;
+        return doub ? 2 * player[i] : player[i];
+    }
 }
