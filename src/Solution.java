@@ -5283,9 +5283,64 @@ class Solution {
     }
 
     private int isWinnerHelper(int[] player, int i) {
-        boolean doub = false;
-        if (i - 2 >= 0 && player[i - 2] == 10) doub = true;
+        boolean doub = i - 2 >= 0 && player[i - 2] == 10;
         if (i - 1 >= 0 && player[i - 1] == 10) doub = true;
         return doub ? 2 * player[i] : player[i];
+    }
+
+    public int countKeyChanges(String s) {
+        int ans = 0;
+        char c = Character.toLowerCase(s.charAt(0));
+        for (int i = 1; i < s.length(); i++) {
+            char current = Character.toLowerCase(s.charAt(i));
+            if (c != current) {
+                c = current;
+                ans++;
+            }
+        }
+        return ans;
+    }
+
+    class MyQueue {
+
+        Stack<Integer> stack = new Stack<>();
+        Stack<Integer> tmp = new Stack<>();
+        public MyQueue() {
+
+        }
+
+        public void push(int x) {
+            stack.push(x);
+        }
+
+        public int pop() {
+            while(!stack.isEmpty()){
+                int i = stack.pop();
+                tmp.push(i);
+            }
+            int ergebnis = tmp.pop();
+            while(!tmp.isEmpty()){
+                int i = tmp.pop();
+                stack.push(i);
+            }
+            return ergebnis;
+        }
+
+        public int peek() {
+            while(!stack.isEmpty()){
+                int i = stack.pop();
+                tmp.push(i);
+            }
+            int ergebnis = tmp.peek();
+            while(!tmp.isEmpty()){
+                int i = tmp.pop();
+                stack.push(i);
+            }
+            return ergebnis;
+        }
+
+        public boolean empty() {
+            return stack.isEmpty();
+        }
     }
 }
