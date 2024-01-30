@@ -5350,4 +5350,28 @@ class Solution {
         }
         return min + nums[0];
     }
+
+    public int distinctIntegers(int n) {
+        return n == 1 ? 1 : n - 1;
+    }
+
+    public int[] fairCandySwap(int[] aliceSizes, int[] bobSizes) {
+        int sum1 = 0;
+        int sum2 = 0;
+        for (int curr : aliceSizes)
+            sum1 += curr;
+        HashSet<Integer> set = new HashSet<>();
+        for (int curr : bobSizes) {
+            sum2 += curr;
+            set.add(curr);
+        }
+        int half = (sum1 - sum2) / 2;
+        for (int a : aliceSizes) {
+            int b = a - half;
+            if (set.contains(b)) {
+                return new int[]{a, b};
+            }
+        }
+        return null;
+    }
 }
