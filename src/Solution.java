@@ -5305,9 +5305,6 @@ class Solution {
 
         Stack<Integer> stack = new Stack<>();
         Stack<Integer> tmp = new Stack<>();
-        public MyQueue() {
-
-        }
 
         public void push(int x) {
             stack.push(x);
@@ -5342,5 +5339,15 @@ class Solution {
         public boolean empty() {
             return stack.isEmpty();
         }
+    }
+
+    public int minimumCost(int[] nums) {
+        int min = Integer.MAX_VALUE;
+        for (int i = 1; i < nums.length; i++) {
+                for (int j = i + 1; j < nums.length; j++) {
+                    min = Math.min(nums[i] + nums[j], min);
+                }
+        }
+        return min + nums[0];
     }
 }
