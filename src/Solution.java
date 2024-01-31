@@ -5341,7 +5341,7 @@ class Solution {
         }
     }
 
-    public int minimumCost(int[] nums) {
+    public int minimumCost1(int[] nums) {
         int min = Integer.MAX_VALUE;
         for (int i = 1; i < nums.length; i++) {
                 for (int j = i + 1; j < nums.length; j++) {
@@ -5373,5 +5373,24 @@ class Solution {
             }
         }
         return null;
+    }
+
+    public int minimumCost(int[] cost) {
+        Arrays.sort(cost);
+        int min = 0;
+        int i = cost.length - 1;
+        while (i >= 0) {
+            if (i - 2 >= 0) {
+                min += cost[i] + cost[i - 1];
+                i -= 3;
+            } else if (i - 1 >= 0) {
+                min += cost[i] + cost[i - 1];
+                break;
+            } else {
+                min += cost[i];
+                break;
+            }
+        }
+        return min;
     }
 }
