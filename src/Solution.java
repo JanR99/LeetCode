@@ -5393,4 +5393,20 @@ class Solution {
         }
         return min;
     }
+
+    public List<Integer> sequentialDigits(int low, int high) {
+        List<Integer> list = new LinkedList<>();
+        for (int i = 1; i <= 9; ++i) {
+            int num = i;
+            int nextDigit = i + 1;
+            while (num <= high && nextDigit <= 9) {
+                num = num * 10 + nextDigit;
+                if (low <= num && num <= high)
+                    list.add(num);
+                nextDigit++;
+            }
+        }
+        list.sort(null);
+        return list;
+    }
 }
