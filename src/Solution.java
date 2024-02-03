@@ -6,13 +6,7 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        TreeNode root = new TreeNode(2);
-        root.left = new TreeNode(3);
-        root.right = new TreeNode(1);
-        root.left.left = new TreeNode(3);
-        root.left.right = new TreeNode(1);
-        root.right.right = new TreeNode(1);
-        System.out.println(new Solution().pseudoPalindromicPaths(root));
+        System.out.println(new Solution().fillCups(new int[]{0,2,2}));
     }
 
     Map<Integer, Integer> sumOfMultiplesMem = new HashMap<>();
@@ -5408,5 +5402,41 @@ class Solution {
         }
         list.sort(null);
         return list;
+    }
+
+    public int fillCups(int[] amount) {
+        int ans = 0;
+        while (amount[0] > 0 || amount[1] > 0 || amount[2] > 0) {
+            int a = amount[0], b = amount[1], c = amount[2];
+            if (a == 0 && c == 0 || b == 0 && c == 0 || a == 0 && b == 0) {
+                ans += a + b + c;
+                break;
+            }
+            int max = Math.max(a, Math.max(b, c));
+            int mid;
+            if ((a >= b && a <= c) || (a <= b && a >= c)) mid = a;
+            else if ((b >= a && b <= c) || (b <= a && b >= c)) mid = b;
+            else mid = c;
+            int i, j;
+            if (max != mid) {
+                i = a == max ? 0 : (b == max ? 1 : 2);
+                j = a == mid ? 0 : (b == mid ? 1 : 2);
+            } else {
+                if (a == b) {
+                    i = 0;
+                    j = 1;
+                } else if (a == c) {
+                    i = 0;
+                    j = 2;
+                } else {
+                    i = 1;
+                    j = 2;
+                }
+            }
+            ans++;
+            amount[i]--;
+            amount[j]--;
+        }
+        return ans;
     }
 }
