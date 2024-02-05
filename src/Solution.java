@@ -5447,4 +5447,15 @@ class Solution {
         if (nums[0] == nums[1] || nums[0] == nums[2] || nums[1] == nums[2]) return "isosceles";
         return "scalene";
     }
+
+    public int returnToBoundaryCount(int[] nums) {
+        int ans = 0;
+        int place = 0;
+        for (int num : nums) {
+            place += num;
+            if (place == 0)
+                ans++;
+        }
+        return ans;
+    }
 }
