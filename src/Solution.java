@@ -5458,4 +5458,30 @@ class Solution {
         }
         return ans;
     }
+
+    public class Codec {
+
+        String[] arr;
+        int index;
+
+        public String serialize(TreeNode root) {
+            if (root == null) return "#";
+            return root.val + " " + serialize(root.left) + " " + serialize(root.right);
+        }
+
+        public TreeNode deserialize(String data) {
+            arr = data.split(" ");
+            index = 0;
+            return deserializeHelper();
+        }
+
+        private TreeNode deserializeHelper() {
+            int index = this.index++;
+            if (arr[index].equals("#")) return null;
+            TreeNode root = new TreeNode(Integer.parseInt(arr[index]));
+            root.left = deserializeHelper();
+            root.right = deserializeHelper();
+            return root;
+        }
+    }
 }
