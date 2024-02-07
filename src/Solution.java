@@ -5484,4 +5484,23 @@ class Solution {
             return root;
         }
     }
+
+    public String frequencySort(String s) {
+        Map<Character, Integer> map = new HashMap<>();
+        for (char c : s.toCharArray()) map.put(c, map.getOrDefault(c, 0) + 1);
+        Map<Character, Integer> sorted = frequencySortHelper(map);
+        StringBuilder ans = new StringBuilder();
+        for (Map.Entry<Character, Integer> entry : sorted.entrySet())
+            ans.append(String.valueOf(entry.getKey()).repeat(entry.getValue()));
+        return ans.toString();
+    }
+
+    public Map<Character, Integer> frequencySortHelper(Map<Character, Integer> map) {
+        List<Map.Entry<Character, Integer>> list = new LinkedList<>(map.entrySet());
+        list.sort((o1, o2) -> o2.getValue().compareTo(o1.getValue()));
+        Map<Character, Integer> sortedMap = new LinkedHashMap<>();
+        for (Map.Entry<Character, Integer> entry : list)
+            sortedMap.put(entry.getKey(), entry.getValue());
+        return sortedMap;
+    }
 }
