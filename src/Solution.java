@@ -5503,4 +5503,18 @@ class Solution {
             sortedMap.put(entry.getKey(), entry.getValue());
         return sortedMap;
     }
+
+    public int[][] sortTheStudents(int[][] score, int k) {
+        Map<Integer, Integer> map = new HashMap<>();
+        List<Integer> scores = new ArrayList<>();
+        for (int i = 0; i < score.length; i++) {
+            map.put(score[i][k], i);
+            scores.add(score[i][k]);
+        }
+        scores.sort(Comparator.reverseOrder());
+        int[][] ans = new int[score.length][];
+        for (int i = 0; i < scores.size(); i++)
+            ans[i] = score[map.get(scores.get(i))];
+        return ans;
+    }
 }
