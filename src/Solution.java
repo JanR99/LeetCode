@@ -6,7 +6,7 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        System.out.println(new Solution().fillCups(new int[]{0,2,2}));
+        System.out.println(Arrays.deepToString(new Solution().diagonalSort(new int[][]{{3, 3, 1, 1}, {2, 2, 1, 2}, {1, 1, 1, 2}})));
     }
 
     Map<Integer, Integer> sumOfMultiplesMem = new HashMap<>();
@@ -5516,5 +5516,45 @@ class Solution {
         for (int i = 0; i < scores.size(); i++)
             ans[i] = score[map.get(scores.get(i))];
         return ans;
+    }
+
+    public int[] executeInstructions(int n, int[] startPos, String s) {
+        int[] ans = new int[s.length()];
+        for (int i = 0; i < s.length(); i++)
+            ans[i] = executeInstructionsHelper(s.substring(i), n, startPos);
+        return ans;
+    }
+
+    private int executeInstructionsHelper(String str, int n, int[] arr){
+        int move = 0;
+        int row = arr[0];
+        int col = arr[1];
+        for (int i = 0; i < str.length(); i++) {
+            if (str.charAt(i) == 'R') {
+                if (col < n - 1) {
+                    move++;
+                    col++;
+                } else return move;
+            } else if (str.charAt(i) == 'D') {
+                if (row < n - 1){
+                    move++;
+                    row++;
+                }
+                else return move;
+            } else if (str.charAt(i) == 'L') {
+                if (col > 0) {
+                    move++;
+                    col--;
+                }
+                else return move;
+            } else if (str.charAt(i) == 'U') {
+                if (row > 0) {
+                    move++;
+                    row--;
+                }
+                else return move;
+            }
+        }
+        return move;
     }
 }
