@@ -6,7 +6,7 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        System.out.println(Arrays.deepToString(new Solution().diagonalSort(new int[][]{{3, 3, 1, 1}, {2, 2, 1, 2}, {1, 1, 1, 2}})));
+        new Solution().countSubstrings("aaa");
     }
 
     Map<Integer, Integer> sumOfMultiplesMem = new HashMap<>();
@@ -5556,5 +5556,23 @@ class Solution {
             }
         }
         return move;
+    }
+
+    public int countSubstrings(String s) {
+        int ans = 0;
+        for (int i = 0; i < s.length(); i++) {
+            for (int j = i; j < s.length(); j++) {
+                int left = i, right = j;
+                boolean ok = true;
+                while (left < right) {
+                    if (s.charAt(left++) != s.charAt(right--)) {
+                        ok = false;
+                        break;
+                    }
+                }
+                if (ok) ans++;
+            }
+        }
+        return ans;
     }
 }
