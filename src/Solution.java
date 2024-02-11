@@ -6,7 +6,7 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        new Solution().countSubstrings("aaa");
+         int x = new Solution().countSubstrings("aaa");
     }
 
     Map<Integer, Integer> sumOfMultiplesMem = new HashMap<>();
@@ -5572,6 +5572,18 @@ class Solution {
                 }
                 if (ok) ans++;
             }
+        }
+        return ans;
+    }
+
+    public int minimumRecolors(String blocks, int k) {
+        int ans = Integer.MAX_VALUE;
+        for (int i = 0; i < blocks.length() - k + 1; i++) {
+            int current = 0;
+            for (int j = i; j < i + k; j++) {
+                if (blocks.charAt(j) == 'W') current++;
+            }
+            ans = Math.min(ans, current);
         }
         return ans;
     }
