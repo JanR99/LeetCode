@@ -5587,4 +5587,35 @@ class Solution {
         }
         return ans;
     }
+
+    public int[][] modifiedMatrix(int[][] matrix) {
+        int[][] ans = new int[matrix.length][matrix[0].length];
+        for (int col = 0; col < matrix[0].length; col++) {
+            // Remember all indices with -1
+            List<Integer> indices = new LinkedList<>();
+            int max = -1;
+            for (int row = 0; row < matrix.length; row++) {
+                int current = matrix[row][col];
+                max = Math.max(current, max);
+                if (current == -1) indices.add(row);
+                else ans[row][col] = current;
+            }
+            // Replace all -1's with max
+            for (int row : indices)
+                ans[row][col] = max;
+        }
+        return ans;
+    }
+
+    public int maxCoins(int[] piles) {
+        Arrays.sort(piles);
+        int ans = 0;
+        int i = 0, j = piles.length - 1;
+        while (i < j) {
+            i++;
+            ans += piles[j - 1];
+            j -= 2;
+        }
+        return ans;
+    }
 }
