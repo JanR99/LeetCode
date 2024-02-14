@@ -5618,4 +5618,38 @@ class Solution {
         }
         return ans;
     }
+
+    public int[][] matrixBlockSum(int[][] mat, int k) {
+        int[][] ans = new int[mat.length][mat[0].length];
+        for (int i = 0; i < ans.length; i++) {
+            for (int j = 0; j < ans[i].length; j++) {
+                ans[i][j] = matrixBlockSumHelper(mat, i, j, k);
+            }
+        }
+        return ans;
+    }
+
+    public int matrixBlockSumHelper(int[][] mat, int i, int j, int k) {
+        int ans = 0;
+        int r = Math.max(i - k, 0);
+        while (r <= i + k && r < mat.length) {
+            int c = Math.max(j - k, 0);
+            while (c <= j + k && c < mat[i].length) {
+                ans += mat[r][c++];
+            }
+            r++;
+        }
+        return ans;
+    }
+
+    int bstToGstSum = 0;
+
+    public TreeNode bstToGst(TreeNode root) {
+        if (root == null) return null;
+        bstToGst(root.right);
+        bstToGstSum += root.val;
+        root.val = bstToGstSum;
+        bstToGst(root.left);
+        return root;
+    }
 }
