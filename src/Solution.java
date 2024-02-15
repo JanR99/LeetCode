@@ -6,7 +6,7 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-         int x = new Solution().countSubstrings("aaa");
+         new Solution().largestPerimeter(new int[]{1,12,1,2,5,50,3});
     }
 
     Map<Integer, Integer> sumOfMultiplesMem = new HashMap<>();
@@ -4331,7 +4331,7 @@ class Solution {
         return ans;
     }
 
-    public int largestPerimeter(int[] nums) {
+    public int largestPerimeter1(int[] nums) {
         Arrays.sort(nums);
         for (int i = nums.length - 1; i - 2 >= 0; i++) {
             if (nums[i - 2] + nums[i - 1] > nums[i])
@@ -5651,5 +5651,20 @@ class Solution {
         root.val = bstToGstSum;
         bstToGst(root.left);
         return root;
+    }
+
+    public long largestPerimeter(int[] nums) {
+        Arrays.sort(nums);
+        int n = nums.length;
+        long sum = 0;
+        long[] sums = new long[n];
+        for (int i = 0; i < n; i++) {
+            sums[i] = sum;
+            sum += nums[i];
+        }
+        for (int i = n - 1; i >= 2; i--) {
+            if (nums[i] < sums[i]) return sums[i] + nums[i];
+        }
+        return -1;
     }
 }
