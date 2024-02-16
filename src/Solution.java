@@ -5667,4 +5667,24 @@ class Solution {
         }
         return -1;
     }
+
+    public int findLeastNumOfUniqueInts(int[] arr, int k) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i : arr) map.put(i, map.getOrDefault(i, 0) + 1);
+        List<Map.Entry<Integer, Integer>> entries = new ArrayList<>(map.entrySet());
+        entries.sort(Map.Entry.comparingByValue());
+        Map<Integer, Integer> sortedMap = new LinkedHashMap<>();
+        for (Map.Entry<Integer, Integer> entry : entries)
+            sortedMap.put(entry.getKey(), entry.getValue());
+        int ans = entries.size();
+        int i = 0;
+        entries = new ArrayList<>(sortedMap.entrySet());
+        while (k >= 0 && i < entries.size()) {
+            int val = entries.get(i++).getValue();
+            if (val > k) break;
+            ans--;
+            k -= val;
+        }
+        return ans;
+    }
 }
