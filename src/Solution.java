@@ -5687,4 +5687,20 @@ class Solution {
         }
         return ans;
     }
+
+    public int wateringPlants(int[] plants, int capacity) {
+        int ans = 0;
+        int water = capacity;
+        for (int i = 0; i < plants.length; i++) {
+            int plant = plants[i];
+            if (plant <= water) {
+                water -= plant;
+                ans++;
+                continue;
+            }
+            water = capacity - plant;
+            ans += (2 * i + 1);
+        }
+        return ans;
+    }
 }
