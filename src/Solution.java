@@ -5704,11 +5704,12 @@ class Solution {
         return ans;
     }
 
-    public int countPrefixSuffixPairs(String[] words) {
+    public int countBattleships(char[][] board) {
         int ans = 0;
-        for (int i = 0; i < words.length - 1; i++) {
-            for (int j = i + 1; j < words.length; j++) {
-                if (words[j].startsWith(words[i]) && words[j].endsWith(words[i])) ans++;
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[0].length; j++) {
+                if (board[i][j] == '.') continue;
+                if ((i == 0 || board[i - 1][j] == '.') && (j == 0 || board[i][j - 1] == '.')) ans++;
             }
         }
         return ans;
