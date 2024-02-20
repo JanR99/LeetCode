@@ -5714,4 +5714,20 @@ class Solution {
         }
         return ans;
     }
+
+    public int maxOperations(int[] nums) {
+        int ans = 0;
+        int sum = -1;
+        for (int i = 0; i < nums.length - 1; i += 2) {
+            if (sum == -1) {
+                ans++;
+                sum = nums[i] + nums[i + 1];
+            } else if (nums[i] + nums[i + 1] != sum) {
+                return ans;
+            } else {
+                ans++;
+            }
+        }
+        return ans;
+    }
 }
