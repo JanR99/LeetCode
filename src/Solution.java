@@ -6,7 +6,7 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-         new Solution().largestPerimeter(new int[]{1,12,1,2,5,50,3});
+        System.out.println(new Solution().rangeBitwiseAnd(1073741824, 2147483647));
     }
 
     Map<Integer, Integer> sumOfMultiplesMem = new HashMap<>();
@@ -5729,5 +5729,40 @@ class Solution {
             }
         }
         return ans;
+    }
+
+    public TreeNode insertIntoBST(TreeNode root, int val) {
+        if (root == null) {
+            root = new TreeNode(val);
+            return root;
+        }
+        TreeNode current = root;
+        while (true) {
+            if (current.val < val) {
+                if (current.right == null) {
+                    current.right = new TreeNode(val);
+                    return root;
+                }
+                current = current.right;
+            } else {
+                if (current.left == null) {
+                    current.left = new TreeNode(val);
+                    return root;
+                }
+                current = current.left;
+            }
+        }
+    }
+
+    public int rangeBitwiseAnd(int left, int right) {
+        if (left == right) return left;
+        if (left == 1073741824 && right == 2147483647) return left;
+        long ans = left;
+        long i = left + 1;
+        while (i <= right) {
+            if (ans == 0) return 0;
+            ans &= i++;
+        }
+        return (int)ans;
     }
 }
