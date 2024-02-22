@@ -5765,4 +5765,24 @@ class Solution {
         }
         return (int)ans;
     }
+
+    public int minNumberOfHours(int iEn, int iEx, int[] energy, int[] experience) {
+        int ans = 0;
+        int diff;
+        for (int i = 0; i < energy.length; i++) {
+            if (energy[i] >= iEn) {
+                diff = energy[i] - iEn + 1;
+                ans = ans + diff;
+                iEn = iEn + diff;
+            }
+            iEn = iEn - energy[i];
+            if (experience[i] >= iEx) {
+                diff = experience[i] - iEx + 1;
+                ans = ans + diff;
+                iEx = iEx + diff;
+            }
+            iEx = iEx + experience[i];
+        }
+        return ans;
+    }
 }
