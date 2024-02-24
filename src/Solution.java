@@ -5785,4 +5785,21 @@ class Solution {
         }
         return ans;
     }
+
+    public int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {
+        int[][] dp = new int[k + 2][n];
+        for(int i = 0; i <= k + 1; i++)
+            Arrays.fill(dp[i], Integer.MAX_VALUE);
+        dp[0][src] = 0;
+        for (int i = 1; i <= k + 1; i++) {
+            dp[i][src] = 0;
+            for (int[] flight : flights) {
+                int from = flight[0], to = flight[1], cost = flight[2];
+                if (dp[i - 1][from] != Integer.MAX_VALUE) {
+                    dp[i][to] = Math.min(dp[i][to], dp[i - 1][from] + cost);
+                }
+            }
+        }
+        return dp[k + 1][dst] == Integer.MAX_VALUE ? -1 : dp[k + 1][dst];
+    }
 }
