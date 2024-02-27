@@ -6,7 +6,7 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        System.out.println(new Solution().rangeBitwiseAnd(1073741824, 2147483647));
+        System.out.println(new Solution().isPossibleToSplit(new int[]{6,2,10,5,3,8,8,5}));
     }
 
     Map<Integer, Integer> sumOfMultiplesMem = new HashMap<>();
@@ -5814,5 +5814,15 @@ class Solution {
                 min = nums[i];
         }
         return max;
+    }
+
+    public boolean isPossibleToSplit(int[] nums) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int num : nums) {
+            int val = map.getOrDefault(num, 0) + 1;
+            if (val > 2) return false;
+            map.put(num, val);
+        }
+        return true;
     }
 }
