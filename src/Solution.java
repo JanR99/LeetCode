@@ -5825,4 +5825,23 @@ class Solution {
         }
         return true;
     }
+
+    public int findBottomLeftValue(TreeNode root) {
+        LinkedList<TreeNode> visited = new LinkedList<>();
+        visited.add(root);
+        int left = root.val;
+        while (!visited.isEmpty()) {
+            List<TreeNode> curr = new LinkedList<>();
+            while (!visited.isEmpty()) {
+                TreeNode node = visited.poll();
+                if (node.left != null) curr.add(node.left);
+                if (node.right != null) curr.add(node.right);
+            }
+            if (curr.size() != 0) {
+                left = curr.get(0).val;
+                visited.addAll(curr);
+            }
+        }
+        return left;
+    }
 }
