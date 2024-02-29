@@ -5844,4 +5844,30 @@ class Solution {
         }
         return left;
     }
+
+    public boolean isEvenOddTree(TreeNode root) {
+        LinkedList<TreeNode> visited = new LinkedList<>();
+        visited.add(root);
+        int level = 0;
+        while (!visited.isEmpty()) {
+            LinkedList<TreeNode> curr = new LinkedList<>();
+            TreeNode prev = null;
+            while (!visited.isEmpty()) {
+                TreeNode node = visited.poll();
+                if (level % 2 == 0) {
+                    if (node.val % 2 == 0 || (prev != null && node.val <= prev.val))
+                        return false;
+                } else {
+                    if (node.val % 2 != 0 || (prev != null && node.val >= prev.val))
+                        return false;
+                }
+                prev = node;
+                if (node.left != null) curr.add(node.left);
+                if (node.right != null) curr.add(node.right);
+            }
+            visited.addAll(curr);
+            level++;
+        }
+        return true;
+    }
 }
