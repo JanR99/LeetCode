@@ -5870,4 +5870,41 @@ class Solution {
         }
         return true;
     }
+
+    public List<List<String>> displayTable(final List<List<String>> orders) {
+        TreeMap<Integer, Map<String, Integer>> tables = new TreeMap<>();
+        TreeSet<String> meals = new TreeSet<>();
+        for(List<String> order : orders) {
+            int tableNum = Integer.parseInt(order.get(1));
+            tables.putIfAbsent(tableNum, new HashMap<>());
+            Map<String, Integer> table = tables.get(tableNum);
+            table.put(order.get(2), table.getOrDefault(order.get(2), 0) + 1);
+            meals.add(order.get(2));
+        }
+        List<List<String>> ans = new ArrayList<>();
+        ans.add(new ArrayList<>());
+        ans.get(0).add("Table");
+        ans.get(0).addAll(meals);
+        for(int tableNum : tables.keySet()) {
+            List<String> tableOrders = new ArrayList<>();
+            tableOrders.add(String.valueOf(tableNum));
+            Map<String, Integer> table = tables.get(tableNum);
+            for(int i = 1; i < ans.get(0).size(); ++i) {
+                String meal = ans.get(0).get(i);
+                tableOrders.add(table.containsKey(meal) ? String.valueOf(table.get(meal)) : "0");
+            }
+            ans.add(tableOrders);
+        }
+        return ans;
+    }
+
+    public int minCostToMoveChips(int[] position) {
+        int even = 0;
+        int odd = 0;
+        for (int chips : position) {
+            if (chips % 2 == 0) even++;
+            else odd++;
+        }
+        return Math.min(even, odd);
+    }
 }
