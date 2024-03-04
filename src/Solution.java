@@ -5924,4 +5924,8 @@ class Solution {
         node1.next = node1.next.next;
         return tmp.next;
     }
+
+    public int minOperations(int[] nums, int k) {
+        return (int) Arrays.stream(nums).filter(x -> x < k).count();
+    }
 }
