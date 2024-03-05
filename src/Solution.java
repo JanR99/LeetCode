@@ -5928,4 +5928,25 @@ class Solution {
     public int minOperations(int[] nums, int k) {
         return (int) Arrays.stream(nums).filter(x -> x < k).count();
     }
+
+    public int[] resultArray(int[] nums) {
+        List<Integer> list1 = new LinkedList<>(), list2 = new LinkedList<>();
+        list1.add(nums[0]);
+        list2.add(nums[1]);
+        int ind1 = 1, ind2 = 1;
+        for (int i = 2; i < nums.length; i++) {
+            if (list1.get(ind1 - 1) > list2.get(ind2 - 1)) {
+                list1.add(nums[i]);
+                ind1++;
+            } else {
+                list2.add(nums[i]);
+                ind2++;
+            }
+        }
+        int[] ans = new int[nums.length];
+        int ind = 0;
+        for (int num : list1) ans[ind++] = num;
+        for (int num : list2) ans[ind++] = num;
+        return ans;
+    }
 }
