@@ -5949,4 +5949,14 @@ class Solution {
         for (int num : list2) ans[ind++] = num;
         return ans;
     }
+
+    public int minimumLength(String s) {
+        int i = 0, j = s.length() - 1;
+        while (i < s.length() && j >= 0 && s.charAt(i) == s.charAt(j) && i < j) {
+            char c = s.charAt(i);
+            while (i < s.length() && s.charAt(i) == c) i++;
+            while (j >= 0 && s.charAt(j) == c) j--;
+        }
+        return Math.max(0, j - i + 1);
+    }
 }
