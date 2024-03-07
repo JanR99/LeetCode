@@ -5959,4 +5959,30 @@ class Solution {
         }
         return Math.max(0, j - i + 1);
     }
+
+    public int findTheLongestBalancedSubstring(String s) {
+        int max = 0;
+        for (int i = 0; i < s.length(); i++) {
+            int amount0 = 0;
+            int amount1 = 0;
+            boolean ones = false;
+            for (int j = i; j < s.length(); j++) {
+                if (s.charAt(j) == '0' && !ones) {
+                    amount0++;
+                } else if (s.charAt(j) == '1'){
+                    ones = true;
+                    amount1++;
+                } else {
+                    int min = Math.min(amount0, amount1);
+                    max = Math.max(max, min * 2);
+                    amount0 = 0;
+                    amount1 = 0;
+                    ones = false;
+                }
+            }
+            int min = Math.min(amount0, amount1);
+            max = Math.max(max, min * 2);
+        }
+        return max;
+    }
 }
