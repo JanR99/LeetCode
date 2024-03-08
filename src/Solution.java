@@ -5985,4 +5985,24 @@ class Solution {
         }
         return max;
     }
+
+    public int goodNodes(TreeNode root) {
+        if (root == null) return 0;
+        int ans = 0;
+        Map<TreeNode, Integer> visited = new HashMap<>();
+        visited.put(root, root.val);
+        while (!visited.isEmpty()) {
+            Map<TreeNode, Integer> next = new HashMap<>();
+            for (Map.Entry<TreeNode, Integer> entry : visited.entrySet()) {
+                TreeNode node = entry.getKey();
+                int max = entry.getValue();
+                if (node.val >= max) ans++;
+                if (node.left != null) next.put(node.left, Math.max(max, node.val));
+                if (node.right != null) next.put(node.right, Math.max(max, node.val));
+            }
+            visited.clear();
+            visited = next;
+        }
+        return ans;
+    }
 }
