@@ -6026,4 +6026,21 @@ class Solution {
         }
         return ans;
     }
+
+    public String customSortString(String order, String s) {
+        HashMap<Character, Integer> map = new HashMap<>();
+        for (int i = 0; i < order.length(); i++)
+            map.put(order.charAt(i), i);
+        Comparator<Character> comp = (c1, c2) -> {
+            int index1 = map.getOrDefault(c1, Integer.MAX_VALUE);
+            int index2 = map.getOrDefault(c2, Integer.MAX_VALUE);
+            return Integer.compare(index1, index2);
+        };
+        Character[] chars = new Character[s.length()];
+        for (int i = 0; i < s.length(); i++) chars[i] = s.charAt(i);
+        Arrays.sort(chars, comp);
+        StringBuilder sb = new StringBuilder();
+        for (char c : chars) sb.append(c);
+        return sb.toString();
+    }
 }
