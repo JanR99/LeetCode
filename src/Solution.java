@@ -6,7 +6,8 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        System.out.println(new Solution().isPossibleToSplit(new int[]{6,2,10,5,3,8,8,5}));
+        ListNode head = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(-3, new ListNode(-2, null)))));
+        new Solution().removeZeroSumSublists(head);
     }
 
     Map<Integer, Integer> sumOfMultiplesMem = new HashMap<>();
@@ -6042,5 +6043,22 @@ class Solution {
         StringBuilder sb = new StringBuilder();
         for (char c : chars) sb.append(c);
         return sb.toString();
+    }
+
+    public ListNode removeZeroSumSublists(ListNode head) {
+        Map<Integer, ListNode> map = new HashMap<>();
+        ListNode newNode = new ListNode(0);
+        newNode.next = head;
+        int sum = 0;
+        for (ListNode node = newNode; node != null; node = node.next) {
+            sum += node.val;
+            map.put(sum, node);
+        }
+        sum = 0;
+        for (ListNode p = newNode; p != null; p = p.next) {
+            sum += p.val;
+            p.next = map.get(sum).next;
+        }
+        return newNode.next;
     }
 }
