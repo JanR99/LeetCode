@@ -6,8 +6,7 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        ListNode head = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(-3, new ListNode(-2, null)))));
-        new Solution().removeZeroSumSublists(head);
+        new Solution().minMaxDifference(11891);
     }
 
     Map<Integer, Integer> sumOfMultiplesMem = new HashMap<>();
@@ -6082,5 +6081,26 @@ class Solution {
             }
         }
         return ans;
+    }
+
+    public int minMaxDifference(int num) {
+        return minMaxDifferenceHelper(num, true) - minMaxDifferenceHelper(num, false);
+    }
+
+    private int minMaxDifferenceHelper(int num, boolean max) {
+        String current = String.valueOf(num);
+        int i = 0;
+        while (i < current.length()) {
+            if (max && current.charAt(i) == '9') {
+                i++;
+            } else if (max) {
+                return Integer.parseInt(current.replaceAll(String.valueOf(current.charAt(i)), "9"));
+            } else if (current.charAt(i) == '0') {
+                i++;
+            } else {
+                return Integer.parseInt(current.replaceAll(String.valueOf(current.charAt(i)), "0"));
+            }
+        }
+        return num;
     }
 }
