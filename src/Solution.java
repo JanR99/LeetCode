@@ -6118,4 +6118,22 @@ class Solution {
         }
         return max;
     }
+
+    public int[][] insert(int[][] intervals, int[] newInterval) {
+        List<int[]> ans = new ArrayList<>();
+        int i = 0;
+        int newStart = newInterval[0];
+        int newEnd = newInterval[1];
+        while (i < intervals.length && intervals[i][1] < newStart)
+            ans.add(intervals[i++]);
+        while (i < intervals.length && intervals[i][0] <= newEnd) {
+            newStart = Math.min(newStart, intervals[i][0]);
+            newEnd = Math.max(newEnd, intervals[i][1]);
+            i++;
+        }
+        ans.add(new int[]{newStart, newEnd});
+        while (i < intervals.length)
+            ans.add(intervals[i++]);
+        return ans.toArray(new int[ans.size()][2]);
+    }
 }
