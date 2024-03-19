@@ -6136,4 +6136,16 @@ class Solution {
             ans.add(intervals[i++]);
         return ans.toArray(new int[ans.size()][2]);
     }
+
+    public int sumOfEncryptedInt(int[] nums) {
+        int ans = 0;
+        for (int num : nums) {
+            String s = String.valueOf(num);
+            int max = 0;
+            for (char c : s.toCharArray())
+                max = Math.max(max, Character.getNumericValue(c));
+            ans += Integer.parseInt(String.valueOf(max).repeat(s.length()));
+        }
+        return ans;
+    }
 }
