@@ -6148,4 +6148,12 @@ class Solution {
         }
         return ans;
     }
+
+    public boolean isSubstringPresent(String s) {
+        StringBuilder reversed = new StringBuilder(s).reverse();
+        for (int i = 0; i + 1 < s.length(); i++) {
+            if (reversed.indexOf(s.substring(i, i + 2)) != -1) return true;
+        }
+        return false;
+    }
 }
