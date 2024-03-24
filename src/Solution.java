@@ -6172,4 +6172,20 @@ class Solution {
         }
         return e > h && f > g;
     }
+
+    public int surfaceArea(int[][] grid) {
+        int ans = 0;
+        int n = grid.length;
+        for (int i = 0; i < n; i++) {
+            for(int j = 0; j < n; j++) {
+                if (grid[i][j] > 0)
+                    ans += 6 * grid[i][j] - 2 * (grid[i][j] - 1);
+                if (i > 0)
+                    ans -= 2 * Math.min(grid[i - 1][j], grid[i][j]);
+                if (j > 0)
+                    ans -= 2 * Math.min(grid[i][j - 1], grid[i][j]);
+            }
+        }
+        return ans;
+    }
 }
