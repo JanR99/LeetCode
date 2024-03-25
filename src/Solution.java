@@ -6,7 +6,7 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        new Solution().minMaxDifference(11891);
+        new Solution().maximumLengthSubstring("bcbbbcba");
     }
 
     Map<Integer, Integer> sumOfMultiplesMem = new HashMap<>();
@@ -6185,6 +6185,22 @@ class Solution {
                 if (j > 0)
                     ans -= 2 * Math.min(grid[i][j - 1], grid[i][j]);
             }
+        }
+        return ans;
+    }
+
+    public int maximumLengthSubstring(String s) {
+        int ans = 0;
+        for (int i = 0; i < s.length(); i++) {
+            int current = 0;
+            int[] count = new int[26];
+            for (int j = i; j < s.length(); j++) {
+                int index = s.charAt(j) - 'a';
+                count[index]++;
+                if (count[index] > 2) break;
+                current++;
+            }
+            ans = Math.max(ans, current);
         }
         return ans;
     }
