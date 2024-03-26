@@ -6,7 +6,7 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        new Solution().maximumLengthSubstring("bcbbbcba");
+        new Solution().mostFrequentIDs(new int[]{2,3,2,1}, new int[]{3,2,-3,1});
     }
 
     Map<Integer, Integer> sumOfMultiplesMem = new HashMap<>();
@@ -6201,6 +6201,26 @@ class Solution {
                 current++;
             }
             ans = Math.max(ans, current);
+        }
+        return ans;
+    }
+
+    public long[] mostFrequentIDs(int[] arr, int[] freq) {
+        int n = arr.length;
+        PriorityQueue<long[]> queue = new PriorityQueue<>((a, b) -> (int)(b[1] - a[1]));
+        HashMap<Long, Long> heap = new HashMap<>();
+        long[] ans = new long[n];
+        for(int i = 0; i < n; i++) {
+            long x = arr[i];
+            long c = freq[i];
+            heap.put(x, heap.getOrDefault(x, 0L) + c);
+            queue.add(new long[]{x, heap.get(x)});
+            long[] a = queue.remove();
+            while( a[1] != heap.get(a[0])) {
+                a = queue.remove();
+            }
+            ans[i] = a[1];
+            queue.add(a);
         }
         return ans;
     }
