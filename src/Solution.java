@@ -6210,13 +6210,13 @@ class Solution {
         PriorityQueue<long[]> queue = new PriorityQueue<>((a, b) -> (int)(b[1] - a[1]));
         HashMap<Long, Long> heap = new HashMap<>();
         long[] ans = new long[n];
-        for(int i = 0; i < n; i++) {
+        for (int i = 0; i < n; i++) {
             long x = arr[i];
             long c = freq[i];
             heap.put(x, heap.getOrDefault(x, 0L) + c);
             queue.add(new long[]{x, heap.get(x)});
             long[] a = queue.remove();
-            while( a[1] != heap.get(a[0])) {
+            while (a[1] != heap.get(a[0])) {
                 a = queue.remove();
             }
             ans[i] = a[1];
