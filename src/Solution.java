@@ -6,7 +6,7 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        new Solution().mostFrequentIDs(new int[]{2,3,2,1}, new int[]{3,2,-3,1});
+        new Solution().numSubarrayProductLessThanK(new int[]{10,5,2,6}, 100);
     }
 
     Map<Integer, Integer> sumOfMultiplesMem = new HashMap<>();
@@ -6221,6 +6221,19 @@ class Solution {
             }
             ans[i] = a[1];
             queue.add(a);
+        }
+        return ans;
+    }
+
+    public int numSubarrayProductLessThanK(int[] nums, int k) {
+        int ans = 0;
+        for (int i = 0; i < nums.length; i++) {
+            int product = 1;
+            for (int j = i; j < nums.length; j++) {
+                product *= nums[j];
+                if (product < k) ans++;
+                else break;
+            }
         }
         return ans;
     }
