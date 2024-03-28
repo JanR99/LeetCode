@@ -6,7 +6,7 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        new Solution().numSubarrayProductLessThanK(new int[]{10,5,2,6}, 100);
+        new Solution();
     }
 
     Map<Integer, Integer> sumOfMultiplesMem = new HashMap<>();
@@ -6236,5 +6236,18 @@ class Solution {
             }
         }
         return ans;
+    }
+
+    public int missingInteger(int[] nums) {
+        int sum = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i - 1] + 1 == nums[i]) sum += nums[i];
+            else break;
+        }
+        Arrays.sort(nums);
+        for (int num : nums) {
+            if (sum == num) sum++;
+        }
+        return sum;
     }
 }
