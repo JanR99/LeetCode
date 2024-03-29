@@ -6,7 +6,7 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        new Solution();
+        new Solution().countHillValley(new int[]{6,6,5,5,4,1});
     }
 
     Map<Integer, Integer> sumOfMultiplesMem = new HashMap<>();
@@ -6249,5 +6249,24 @@ class Solution {
             if (sum == num) sum++;
         }
         return sum;
+    }
+
+    public int countHillValley(int[] nums) {
+        int ans = 0;
+        int start = 1;
+        while (start < nums.length && nums[start] == nums[start-1])
+            start++;
+        int prev = start - 1;
+        for (int i = start; i < nums.length - 1; i++) {
+            if (nums[i] == nums[i+1]) continue;
+            else {
+                if (nums[i] > nums[prev] && nums[i] > nums[i+1])
+                    ans++;
+                if (nums[i] < nums[prev] && nums[i] < nums[i+1])
+                    ans++;
+                prev = i;
+            }
+        }
+        return ans;
     }
 }
