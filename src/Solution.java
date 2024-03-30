@@ -6,8 +6,8 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        new Solution().countHillValley(new int[]{6,6,5,5,4,1});
-    }
+        System.out.println(new Solution().countDaysTogether("08-06", "12-08", "02-04", "09-01"));
+}
 
     Map<Integer, Integer> sumOfMultiplesMem = new HashMap<>();
 
@@ -6266,6 +6266,28 @@ class Solution {
                     ans++;
                 prev = i;
             }
+        }
+        return ans;
+    }
+
+    public int countDaysTogether(String arriveAlice, String leaveAlice, String arriveBob, String leaveBob) {
+        int ans = 0;
+        int[] days = new int[]{31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+        String arrival = arriveAlice.compareTo(arriveBob) >= 0 ? arriveAlice : arriveBob;
+        String leave = leaveAlice.compareTo(leaveBob) <= 0 ? leaveAlice : leaveBob;
+        while (arrival.compareTo(leave) <= 0) {
+            ans++;
+            int day = Integer.parseInt(arrival.substring(3));
+            int maxDay = days[Integer.parseInt(arrival.substring(0, 2)) - 1];
+            if (day < maxDay) {
+                day++;
+                String tmp = day < 10 ? "0" + day : String.valueOf(day);
+                arrival = arrival.substring(0, 3) + tmp;
+                continue;
+            }
+            int month = Integer.parseInt(arrival.substring(0, 2)) + 1;
+            String tmp = month < 10 ? "0" + month : String.valueOf(month);
+            arrival = tmp + "-01";
         }
         return ans;
     }
