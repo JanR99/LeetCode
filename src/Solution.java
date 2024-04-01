@@ -6297,4 +6297,22 @@ class Solution {
         for (char c : String.valueOf(x).toCharArray()) sum += Character.getNumericValue(c);
         return x % sum == 0 ? sum : -1;
     }
+
+    public int minimumSubarrayLength(int[] nums, int k) {
+        int ans = Integer.MAX_VALUE;
+        for (int i = 0; i < nums.length; i++) {
+            int current = 0;
+            int length = 0;
+            for (int j = i; j < nums.length; j++) {
+                if (i == j) current = nums[j];
+                else current |= nums[j];
+                length++;
+                if (current >= k) {
+                    ans = Math.min(ans, length);
+                    break;
+                }
+            }
+        }
+        return ans == Integer.MAX_VALUE ? -1 : ans;
+    }
 }
