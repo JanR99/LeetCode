@@ -6315,4 +6315,26 @@ class Solution {
         }
         return ans == Integer.MAX_VALUE ? -1 : ans;
     }
+
+    public String longestPalindrome(String s) {
+        String ans = "";
+        for (int i = 0; i < s.length(); i++) {
+            for (int j = s.length(); j > i; j--) {
+                if (s.charAt(i) != s.charAt(j - 1)) continue;
+                String current = s.substring(i, j);
+                if (longestPalindromeHelper(current) && ans.length() < current.length()) {
+                    ans = current;
+                    break;
+                }
+            }
+        }
+        return ans;
+    }
+
+    private boolean longestPalindromeHelper(String s) {
+        for (int i = 0, j = s.length() - 1; i < j; i++, j--) {
+            if (s.charAt(i) != s.charAt(j)) return false;
+        }
+        return true;
+    }
 }
