@@ -6,7 +6,7 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        System.out.println(new Solution().countDaysTogether("08-06", "12-08", "02-04", "09-01"));
+        System.out.println(Arrays.toString(new Solution().maxSubsequence(new int[]{-1, -2, 3, 4}, 3)));
 }
 
     Map<Integer, Integer> sumOfMultiplesMem = new HashMap<>();
@@ -6336,5 +6336,32 @@ class Solution {
             if (s.charAt(i) != s.charAt(j)) return false;
         }
         return true;
+    }
+
+    public int[] maxSubsequence(int[] nums, int k) {
+        int n = nums.length;
+        if (n == k) return nums;
+        int[] ans = new int[k];
+        int[] sorted = Arrays.copyOf(nums, n);
+        Arrays.sort(sorted);
+        int[] tmp = Arrays.copyOfRange(sorted, n - k, n);
+        int min = tmp[0];
+        int amountMin = 0;
+        for (int value : tmp) if (value == min) amountMin++;
+        int i = 0, j = 0;
+        while (i < nums.length && j < k) {
+            if (nums[i] > min) {
+                ans[j++] = nums[i];
+            } else if (nums[i] == min) {
+                if (amountMin == 0) {
+                    i++;
+                    continue;
+                }
+                amountMin--;
+                ans[j++] = nums[i];
+            }
+            i++;
+        }
+        return ans;
     }
 }
