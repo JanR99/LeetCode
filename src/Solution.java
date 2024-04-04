@@ -6364,4 +6364,24 @@ class Solution {
         }
         return ans;
     }
+
+    public int captureForts(int[] forts) {
+        int ans = 0;
+        for (int i = 0; i < forts.length; i++) {
+            if (forts[i] != -1) continue;
+            for (int j = i - 1; j >= 0; j--) {
+                if (forts[j] == 1) {
+                    ans = Math.max(ans, i - j - 1);
+                    break;
+                } else if (forts[j] == -1) break;
+            }
+            for (int j = i + 1; j < forts.length; j++) {
+                if (forts[j] == 1) {
+                    ans = Math.max(ans, j - i - 1);
+                    break;
+                } else if (forts[j] == -1) break;
+            }
+        }
+        return ans;
+    }
 }
