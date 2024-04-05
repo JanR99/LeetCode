@@ -6384,4 +6384,22 @@ class Solution {
         }
         return ans;
     }
+
+    public List<String> getLongestSubsequence(String[] words, int[] groups) {
+        List<String> startZero = new LinkedList<>();
+        List<String> startOne = new LinkedList<>();
+        boolean zero = true;
+        boolean one = true;
+        for (int i = 0; i < words.length; i++) {
+            if (groups[i] == 0 && zero || groups[i] == 1 && !zero) {
+                startZero.add(words[i]);
+                zero = !zero;
+            }
+            if (groups[i] == 1 && one || groups[i] == 0 && !one) {
+                startOne.add(words[i]);
+                one = !one;
+            }
+        }
+        return startZero.size() > startOne.size() ? startZero : startOne;
+    }
 }
