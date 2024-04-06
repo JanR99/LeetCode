@@ -6402,4 +6402,37 @@ class Solution {
         }
         return startZero.size() > startOne.size() ? startZero : startOne;
     }
+
+    public int incremovableSubarrayCount(int[] nums) {
+        int ans = 0;
+        for(int i = 0; i < nums.length; i++)
+            for(int j = i; j < nums.length; j++)
+                if(incremovableSubarrayCountHelper(nums, i , j)) ans++;
+        return ans;
+    }
+
+    private boolean incremovableSubarrayCountHelper(int[] nums, int start, int end) {
+        for(int i = 0; i < start - 1; i++)
+            if(nums[i] >= nums[i + 1]) return false;
+        if(start > 0 && end < nums.length - 1 && nums[start - 1] >= nums[end + 1]) return false;
+        for(int i = end + 1; i < nums.length - 1; i++)
+            if(nums[i] >= nums[i + 1]) return false;
+        return true;
+    }
+
+    public int maxArea(int[] height) {
+        int ans = 0;
+        int n = height.length;
+        int i = 0, j = n - 1;
+        while (i < j) {
+            int current = Math.min(height[i], height[j]) * (j - i);
+            ans = Math.max(current, ans);
+            if (height[i] < height[j]) {
+                i++;
+            } else {
+                j--;
+            }
+        }
+        return ans;
+    }
 }
