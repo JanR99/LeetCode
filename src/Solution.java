@@ -6,7 +6,7 @@ import java.util.*;
 class Solution {
 
     public static void main(String[] args) {
-        System.out.println(Arrays.toString(new Solution().maxSubsequence(new int[]{-1, -2, 3, 4}, 3)));
+        System.out.println(new Solution().minRemoveToMakeValid("())()((("));
 }
 
     Map<Integer, Integer> sumOfMultiplesMem = new HashMap<>();
@@ -6434,5 +6434,32 @@ class Solution {
             }
         }
         return ans;
+    }
+
+    public String minRemoveToMakeValid(String s) {
+        StringBuilder ans = new StringBuilder();
+        int count = 0;
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (count <= 0 && c == ')') continue;
+            if (c == '(') count++;
+            else if (c == ')') count--;
+            ans.append(c);
+        }
+        String t = ans.toString();
+        if (count == 0) return t;
+        ans = new StringBuilder();
+        int newCount = 0;
+        for (int i = t.length() - 1; i >= 0; i--) {
+            char c = t.charAt(i);
+            if (count != 0 && newCount <= 0 && c == '(') {
+                count--;
+                continue;
+            }
+            if (c == ')') newCount++;
+            else if (c == '(') newCount--;
+            ans.append(c);
+        }
+        return ans.reverse().toString();
     }
 }
