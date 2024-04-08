@@ -6462,4 +6462,25 @@ class Solution {
         }
         return ans.reverse().toString();
     }
+
+    public int longestMonotonicSubarray(int[] nums) {
+        int maxIn = 1, maxDe = 1;
+        int before = nums[0];
+        int currentIn = 1, currentDe = 1;
+        for (int i = 1; i < nums.length; before = nums[i], i++) {
+            if (nums[i] > before) {
+                currentIn++;
+                maxIn = Math.max(maxIn, currentIn);
+            } else {
+                currentIn = 1;
+            }
+            if (nums[i] < before) {
+                currentDe++;
+                maxDe = Math.max(maxDe, currentDe);
+            } else {
+                currentDe = 1;
+            }
+        }
+        return Math.max(maxIn, maxDe);
+    }
 }
