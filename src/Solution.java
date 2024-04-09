@@ -6483,4 +6483,24 @@ class Solution {
         }
         return Math.max(maxIn, maxDe);
     }
+
+    public String getSmallestString(String s, int k) {
+        char[] chars = s.toCharArray();
+        for (int i = 0; i < chars.length; i++) {
+            int dist = getSmallestStringHelper(chars[i], 'a');
+            if (dist <= k) {
+                chars[i] = 'a';
+                k -= dist;
+            } else if (k > 0) {
+                chars[i] = (char) (chars[i] -  k);
+                k = 0;
+            }
+        }
+        return new String(chars);
+    }
+
+    private int getSmallestStringHelper(char c, char d) {
+        int dist = Math.abs(c - d);
+        return Math.min(dist, 26 - dist);
+    }
 }
