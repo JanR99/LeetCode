@@ -6503,4 +6503,26 @@ class Solution {
         int dist = Math.abs(c - d);
         return Math.min(dist, 26 - dist);
     }
+
+    public TreeNode balanceBST(TreeNode root) {
+        List<Integer> list = new ArrayList<>();
+        balanceBSTInorder(root, list);
+        return balanceBSTHelper(list, 0, list.size() - 1);
+    }
+
+    private void balanceBSTInorder(TreeNode node, List<Integer> list) {
+        if (node == null) return;
+        balanceBSTInorder(node.left, list);
+        list.add(node.val);
+        balanceBSTInorder(node.right, list);
+    }
+
+    private TreeNode balanceBSTHelper(List<Integer> list, int start, int end) {
+        if (start > end) return null;
+        int mid = (start + end) / 2;
+        TreeNode node = new TreeNode(list.get(mid));
+        node.left = balanceBSTHelper(list, start, mid - 1);
+        node.right = balanceBSTHelper(list, mid + 1, end);
+        return node;
+    }
 }
