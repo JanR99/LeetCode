@@ -6525,4 +6525,35 @@ class Solution {
         node.right = balanceBSTHelper(list, mid + 1, end);
         return node;
     }
+
+    public ListNode mergeInBetween(ListNode list1, int a, int b, ListNode list2) {
+        ListNode ans;
+        boolean connected = false;
+        if (a == 0) ans = list2;
+        else ans = list1;
+        int i = 0;
+        ListNode current1 = list1;
+        ListNode current2 = list2;
+        while (current2.next != null && a == 0)
+            current2 = current2.next;
+        while (current1 != null) {
+            if (i == a - 1) {
+                ListNode tmp = current1.next;
+                while (i < b) {
+                    tmp = tmp.next;
+                    i++;
+                }
+                current1.next = list2;
+                while (current2.next != null) {
+                    current2 = current2.next;
+                }
+                current2.next = tmp;
+                break;
+            } else {
+                current1 = current1.next;
+                i++;
+            }
+        }
+        return ans;
+    }
 }
