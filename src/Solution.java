@@ -6556,4 +6556,18 @@ class Solution {
         }
         return ans;
     }
+
+    public TreeNode bstFromPreorder(int[] preorder) {
+        return bstFromPreorderHelper(preorder, 0, preorder.length - 1);
+    }
+
+    private TreeNode bstFromPreorderHelper(int[] preorder, int start, int end) {
+        if (start > end) return null;
+        TreeNode root = new TreeNode(preorder[start]);
+        int max = start + 1;
+        while (max <= end && preorder[max] < preorder[start]) max++;
+        root.left = bstFromPreorderHelper(preorder, start + 1, max - 1);
+        root.right = bstFromPreorderHelper(preorder, max, end);
+        return root;
+    }
 }
