@@ -2,6 +2,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
+import java.util.stream.IntStream;
 
 class Solution {
 
@@ -6583,5 +6584,9 @@ class Solution {
             }
         }
         return ans;
+    }
+
+    public int scoreOfString(String s) {
+        return IntStream.range(0, s.length() - 1).map(i -> Math.abs(s.charAt(i) - s.charAt(i + 1))).sum();
     }
 }
