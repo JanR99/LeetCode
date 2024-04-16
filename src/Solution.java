@@ -6589,4 +6589,30 @@ class Solution {
     public int scoreOfString(String s) {
         return IntStream.range(0, s.length() - 1).map(i -> Math.abs(s.charAt(i) - s.charAt(i + 1))).sum();
     }
+
+    public String findLatestTime(String s) {
+        String ans = "";
+        if (s.charAt(0) == '?' && s.charAt(1) == '?') {
+            ans += "11";
+        } else if (s.charAt(0) == '?') {
+            if (s.charAt(1) <= '1') ans += "1" + s.charAt(1);
+            else ans += "0" + s.charAt(1);
+        } else if (s.charAt(1) == '?') {
+            if (s.charAt(0) == '1') ans += "11";
+            else ans += "09";
+        } else {
+            ans += s.substring(0, 2);
+        }
+        ans += ":";
+        if (s.charAt(3) == '?' && s.charAt(4) == '?') {
+            ans += "59";
+        } else if (s.charAt(3) == '?') {
+            ans += "5" + s.charAt(4);
+        } else if (s.charAt(4) == '?') {
+            ans += s.charAt(3) + "9";
+        } else {
+            ans += s.substring(3);
+        }
+        return ans;
+    }
 }
