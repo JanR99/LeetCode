@@ -6630,4 +6630,29 @@ class Solution {
         }
         return ans;
     }
+
+    public int maxAncestorDiff(TreeNode root) {
+        LinkedList<TreeNode> nodes = new LinkedList<>();
+        nodes.add(root);
+        int ans = 0;
+        while (!nodes.isEmpty()) {
+            TreeNode current = nodes.pop();
+            LinkedList<TreeNode> anc = new LinkedList<>();
+            if (current.left != null) {
+                anc.add(current.left);
+                nodes.add(current.left);
+            }
+            if (current.right != null) {
+                anc.add(current.right);
+                nodes.add(current.right);
+            }
+            while (!anc.isEmpty()) {
+                TreeNode tmp = anc.pop();
+                ans = Math.max(ans, Math.abs(tmp.val - current.val));
+                if (tmp.left != null) anc.add(tmp.left);
+                if (tmp.right != null) anc.add(tmp.right);
+            }
+        }
+        return ans;
+    }
 }
