@@ -6655,4 +6655,17 @@ class Solution {
         }
         return ans;
     }
+
+    public int numberOfSpecialChars(String word) {
+        boolean[] lower = new boolean[26];
+        boolean[] upper = new boolean[26];
+        for (char c : word.toCharArray()) {
+            if (Character.isLowerCase(c)) {
+                lower[c - 'a'] = true;
+            } else {
+                upper[c - 'A'] = true;
+            }
+        }
+        return (int) IntStream.range(0, 26).filter(i -> lower[i] && upper[i]).count();
+    }
 }
