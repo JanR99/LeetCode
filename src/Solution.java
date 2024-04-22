@@ -6668,4 +6668,21 @@ class Solution {
         }
         return (int) IntStream.range(0, 26).filter(i -> lower[i] && upper[i]).count();
     }
+
+    public String smallestNumber(String pattern) {
+        StringBuilder ans = new StringBuilder("123456789".substring(0, pattern.length() + 1));
+        int j = 0;
+        for (int i = 0; i <= pattern.length(); i++) {
+            if (i < pattern.length() && pattern.charAt(i) == 'D') {
+                j++;
+                continue;
+            }
+            if (j > 0) {
+                StringBuilder s = new StringBuilder(ans.substring(i - j, i + 1));
+                ans.replace(i - j, i + 1, s.reverse().toString());
+            }
+            j = 0;
+        }
+        return ans.toString();
+    }
 }
