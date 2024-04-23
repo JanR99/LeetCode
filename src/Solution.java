@@ -127,7 +127,7 @@ class Solution {
     public boolean backspaceCompare(String s, String t) {
         StringBuilder sb = backspaceCompareHelper(s);
         StringBuilder tb = backspaceCompareHelper(t);
-        return sb.toString().equals(tb.toString());
+        return sb.toString().contentEquals(tb);
     }
 
     private StringBuilder backspaceCompareHelper(String s) {
@@ -771,7 +771,7 @@ class Solution {
         int ans = 0;
         for (int i = 0; i < words.length; i++) {
             for (int j = i + 1; j < words.length; j++) {
-                if (words[i].equals(new StringBuilder(words[j]).reverse().toString()))
+                if (words[i].contentEquals(new StringBuilder(words[j]).reverse()))
                     ans++;
             }
         }
@@ -1308,7 +1308,7 @@ class Solution {
                 }
             }
             if (ok) {
-                if (ans.length() == 0) {
+                if (ans.isEmpty()) {
                     ans = s;
                 } else if (ans.length() > s.length()) {
                     ans = s;
@@ -1738,7 +1738,7 @@ class Solution {
     }
 
     public String removeOuterParentheses(String s) {
-        if (s == null || s.length() == 0) return " ";
+        if (s == null || s.isEmpty()) return " ";
         StringBuilder sb = new StringBuilder();
         int begin = 0, count = 0;
         for (int i = 0; i < s.length(); i++) {
@@ -2538,7 +2538,7 @@ class Solution {
         for (int i : arr) map2.put(i, map2.getOrDefault(i, 0) + 1);
         for (int key : map1.keySet()) {
             if (!map2.containsKey(key)) return false;
-            if (map2.get(key) != map1.get(key)) return false;
+            if (!Objects.equals(map2.get(key), map1.get(key))) return false;
         }
         return true;
     }
@@ -2546,11 +2546,11 @@ class Solution {
     public String makeGood(String s) {
         Stack<Character> stk = new Stack<>();
         for (char ch : s.toCharArray()) {
-            if (stk.size() > 0 && (stk.peek() == ch - 32 || stk.peek() == ch + 32)) stk.pop();
+            if (!stk.isEmpty() && (stk.peek() == ch - 32 || stk.peek() == ch + 32)) stk.pop();
             else stk.push(ch);
         }
         StringBuilder sb = new StringBuilder();
-        while (stk.size() > 0) {
+        while (!stk.isEmpty()) {
             char ch = stk.pop();
             sb.append(ch);
         }
@@ -2589,7 +2589,7 @@ class Solution {
             char c = s.charAt(i);
             if (Character.isDigit(c)) {
                 size /= c - '0';
-                k %= size;
+                k %= (int) size;
             } else {
                 if (k == 0 || k == size) {
                     return String.valueOf(c);
@@ -2754,8 +2754,6 @@ class Solution {
         double currentSum = biggestSum;
         int minIndex = 0;
         for (int i = k; i < nums.length; i++) {
-            int minus = Math.abs(nums[minIndex]);
-            int plus = nums[i];
             currentSum = currentSum - Math.abs(nums[minIndex++]) + nums[i];
             biggestSum = Math.max(currentSum, biggestSum);
         }
@@ -3090,7 +3088,7 @@ class Solution {
                 list.add(current);
                 index = list.size() - 1;
             } catch (NumberFormatException e) {
-                if (index >= list.size() || index < 0 || list.isEmpty()) ans.add(-1);
+                if (index >= list.size() || index < 0) ans.add(-1);
                 else ans.add(list.get(index--));
             }
         }
@@ -3685,7 +3683,7 @@ class Solution {
             for (int i = AMOUNT_MONEY - 1; i >= 0; i--) {
                 long banknoteValue = banknoteValues[i];
                 long banknotesToUse = Math.min(remainingAmount / banknoteValue, money[i]);
-                remainingAmount -= banknotesToUse * banknoteValue;
+                remainingAmount -= (int) (banknotesToUse * banknoteValue);
                 money[i] -= banknotesToUse;
                 ans[i] = (int) banknotesToUse;
             }
@@ -3729,7 +3727,7 @@ class Solution {
             Set<Integer> set = new HashSet<>();
             for (int j = i; j < nums.size(); j++) {
                 set.add(nums.get(j));
-                ans += Math.pow(set.size(), 2);
+                ans += (int) Math.pow(set.size(), 2);
             }
         }
         return ans;
@@ -4038,6 +4036,10 @@ class Solution {
             }
         }
         if (current.length() != 0) strings.add(current);
+        return getStringBuilder(strings, amountSpaces).toString();
+    }
+
+    private static StringBuilder getStringBuilder(List<StringBuilder> strings, int amountSpaces) {
         StringBuilder ans = new StringBuilder();
         int spaces = strings.size() > 1 ? amountSpaces / (strings.size() - 1) : 0;
         int extraSpaces = strings.size() > 1 ? amountSpaces % (strings.size() - 1) : amountSpaces;
@@ -4049,7 +4051,7 @@ class Solution {
             }
         }
         ans.append(" ".repeat(Math.max(0, extraSpaces)));
-        return ans.toString();
+        return ans;
     }
 
     public int mostFrequent(int[] nums, int key) {
@@ -4138,10 +4140,9 @@ class Solution {
     }
 
     public int findMinimumOperations(String s1, String s2, String s3) {
-        int ans = 0;
         String first = findMinimumOperationsHelper(s1, s2);
         String second = findMinimumOperationsHelper(first, s3);
-        if (second.length() < 1) return -1;
+        if (second.isEmpty()) return -1;
         return s1.length() - second.length() + s2.length() - second.length() + s3.length() - second.length();
     }
 
@@ -5838,7 +5839,7 @@ class Solution {
                 if (node.left != null) curr.add(node.left);
                 if (node.right != null) curr.add(node.right);
             }
-            if (curr.size() != 0) {
+            if (!curr.isEmpty()) {
                 left = curr.get(0).val;
                 visited.addAll(curr);
             }
@@ -6255,18 +6256,15 @@ class Solution {
     public int countHillValley(int[] nums) {
         int ans = 0;
         int start = 1;
-        while (start < nums.length && nums[start] == nums[start-1])
-            start++;
+        while (start < nums.length && nums[start] == nums[start-1]) start++;
         int prev = start - 1;
         for (int i = start; i < nums.length - 1; i++) {
-            if (nums[i] == nums[i+1]) continue;
-            else {
-                if (nums[i] > nums[prev] && nums[i] > nums[i+1])
-                    ans++;
-                if (nums[i] < nums[prev] && nums[i] < nums[i+1])
-                    ans++;
-                prev = i;
-            }
+            if (nums[i] == nums[i + 1]) continue;
+            if (nums[i] > nums[prev] && nums[i] > nums[i+1])
+                ans++;
+            if (nums[i] < nums[prev] && nums[i] < nums[i+1])
+                ans++;
+            prev = i;
         }
         return ans;
     }
@@ -6488,7 +6486,7 @@ class Solution {
     public String getSmallestString(String s, int k) {
         char[] chars = s.toCharArray();
         for (int i = 0; i < chars.length; i++) {
-            int dist = getSmallestStringHelper(chars[i], 'a');
+            int dist = getSmallestStringHelper(chars[i]);
             if (dist <= k) {
                 chars[i] = 'a';
                 k -= dist;
@@ -6500,8 +6498,8 @@ class Solution {
         return new String(chars);
     }
 
-    private int getSmallestStringHelper(char c, char d) {
-        int dist = Math.abs(c - d);
+    private int getSmallestStringHelper(char c) {
+        int dist = Math.abs(c - 'a');
         return Math.min(dist, 26 - dist);
     }
 
@@ -6529,7 +6527,6 @@ class Solution {
 
     public ListNode mergeInBetween(ListNode list1, int a, int b, ListNode list2) {
         ListNode ans;
-        boolean connected = false;
         if (a == 0) ans = list2;
         else ans = list1;
         int i = 0;
