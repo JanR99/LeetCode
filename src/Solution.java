@@ -8,7 +8,7 @@ class Solution {
 
     public static void main(String[] args) {
         System.out.println(new Solution().minRemoveToMakeValid("())()((("));
-}
+    }
 
     Map<Integer, Integer> sumOfMultiplesMem = new HashMap<>();
 
@@ -4686,7 +4686,7 @@ class Solution {
             for (int i = 0; i < word.length(); i++) {
                 char c1 = word.charAt(i);
                 char c2 = pattern.charAt(i);
-                if ((int)map1[c1 - 'a'] == 0 && (int)map2[c2 - 'a'] == 0) {
+                if ((int) map1[c1 - 'a'] == 0 && (int) map2[c2 - 'a'] == 0) {
                     map1[c1 - 'a'] = c2;
                     map2[c2 - 'a'] = c1;
                 } else if (map1[c1 - 'a'] != c2 || map2[c2 - 'a'] != c1) {
@@ -4778,7 +4778,7 @@ class Solution {
     public int minOperations(int[] nums) {
         Map<Integer, Integer> map = new HashMap<>();
         int ans = 0;
-        for (int num : nums) map.put(num, map.getOrDefault(num, 0 ) + 1);
+        for (int num : nums) map.put(num, map.getOrDefault(num, 0) + 1);
         for (int val : map.values()) {
             if (val == 1) return -1;
             ans += val / 3;
@@ -5041,9 +5041,9 @@ class Solution {
         char[] s = String.valueOf(num).toCharArray();
         List<Integer> even = new LinkedList<>();
         List<Integer> odd = new LinkedList<>();
-        for(Character c : s){
+        for (Character c : s) {
             int digit = Character.getNumericValue(c);
-            if(digit % 2 == 0){
+            if (digit % 2 == 0) {
                 even.add(digit);
             } else {
                 odd.add(digit);
@@ -5250,22 +5250,22 @@ class Solution {
     }
 
     public List<String> removeAnagrams(String[] words) {
-        List<String> ans= new ArrayList<>();
+        List<String> ans = new ArrayList<>();
         int n = words.length;
-        for (int i = 0; i < n;) {
+        for (int i = 0; i < n; ) {
             int j = i + 1;
-            while (j < n && removeAnagramsHelper(words[i],words[j])) j++;
+            while (j < n && removeAnagramsHelper(words[i], words[j])) j++;
             ans.add(words[i]);
             i = j;
         }
         return ans;
     }
 
-    private boolean removeAnagramsHelper(String p, String q){
+    private boolean removeAnagramsHelper(String p, String q) {
         int[] count = new int[26];
-        for(int i = 0; i < p.length(); i++) count[p.charAt(i) - 'a']++;
-        for(int i = 0; i < q.length(); i++) count[q.charAt(i) - 'a']--;
-        for(int curr : count) if(curr != 0) return false;
+        for (int i = 0; i < p.length(); i++) count[p.charAt(i) - 'a']++;
+        for (int i = 0; i < q.length(); i++) count[q.charAt(i) - 'a']--;
+        for (int curr : count) if (curr != 0) return false;
         return true;
     }
 
@@ -5307,12 +5307,12 @@ class Solution {
         }
 
         public int pop() {
-            while(!stack.isEmpty()){
+            while (!stack.isEmpty()) {
                 int i = stack.pop();
                 tmp.push(i);
             }
             int ergebnis = tmp.pop();
-            while(!tmp.isEmpty()){
+            while (!tmp.isEmpty()) {
                 int i = tmp.pop();
                 stack.push(i);
             }
@@ -5320,12 +5320,12 @@ class Solution {
         }
 
         public int peek() {
-            while(!stack.isEmpty()){
+            while (!stack.isEmpty()) {
                 int i = stack.pop();
                 tmp.push(i);
             }
             int ergebnis = tmp.peek();
-            while(!tmp.isEmpty()){
+            while (!tmp.isEmpty()) {
                 int i = tmp.pop();
                 stack.push(i);
             }
@@ -5340,9 +5340,9 @@ class Solution {
     public int minimumCost1(int[] nums) {
         int min = Integer.MAX_VALUE;
         for (int i = 1; i < nums.length; i++) {
-                for (int j = i + 1; j < nums.length; j++) {
-                    min = Math.min(nums[i] + nums[j], min);
-                }
+            for (int j = i + 1; j < nums.length; j++) {
+                min = Math.min(nums[i] + nums[j], min);
+            }
         }
         return min + nums[0];
     }
@@ -5527,7 +5527,7 @@ class Solution {
         return ans;
     }
 
-    private int executeInstructionsHelper(String str, int n, int[] arr){
+    private int executeInstructionsHelper(String str, int n, int[] arr) {
         int move = 0;
         int row = arr[0];
         int col = arr[1];
@@ -5538,23 +5538,20 @@ class Solution {
                     col++;
                 } else return move;
             } else if (str.charAt(i) == 'D') {
-                if (row < n - 1){
+                if (row < n - 1) {
                     move++;
                     row++;
-                }
-                else return move;
+                } else return move;
             } else if (str.charAt(i) == 'L') {
                 if (col > 0) {
                     move++;
                     col--;
-                }
-                else return move;
+                } else return move;
             } else if (str.charAt(i) == 'U') {
                 if (row > 0) {
                     move++;
                     row--;
-                }
-                else return move;
+                } else return move;
             }
         }
         return move;
@@ -5765,7 +5762,7 @@ class Solution {
             if (ans == 0) return 0;
             ans &= i++;
         }
-        return (int)ans;
+        return (int) ans;
     }
 
     public int minNumberOfHours(int iEn, int iEx, int[] energy, int[] experience) {
@@ -5790,7 +5787,7 @@ class Solution {
 
     public int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {
         int[][] dp = new int[k + 2][n];
-        for(int i = 0; i <= k + 1; i++)
+        for (int i = 0; i <= k + 1; i++)
             Arrays.fill(dp[i], Integer.MAX_VALUE);
         dp[0][src] = 0;
         for (int i = 1; i <= k + 1; i++) {
@@ -5876,7 +5873,7 @@ class Solution {
     public List<List<String>> displayTable(final List<List<String>> orders) {
         TreeMap<Integer, Map<String, Integer>> tables = new TreeMap<>();
         TreeSet<String> meals = new TreeSet<>();
-        for(List<String> order : orders) {
+        for (List<String> order : orders) {
             int tableNum = Integer.parseInt(order.get(1));
             tables.putIfAbsent(tableNum, new HashMap<>());
             Map<String, Integer> table = tables.get(tableNum);
@@ -5887,11 +5884,11 @@ class Solution {
         ans.add(new ArrayList<>());
         ans.get(0).add("Table");
         ans.get(0).addAll(meals);
-        for(int tableNum : tables.keySet()) {
+        for (int tableNum : tables.keySet()) {
             List<String> tableOrders = new ArrayList<>();
             tableOrders.add(String.valueOf(tableNum));
             Map<String, Integer> table = tables.get(tableNum);
-            for(int i = 1; i < ans.get(0).size(); ++i) {
+            for (int i = 1; i < ans.get(0).size(); ++i) {
                 String meal = ans.get(0).get(i);
                 tableOrders.add(table.containsKey(meal) ? String.valueOf(table.get(meal)) : "0");
             }
@@ -5971,7 +5968,7 @@ class Solution {
             for (int j = i; j < s.length(); j++) {
                 if (s.charAt(j) == '0' && !ones) {
                     amount0++;
-                } else if (s.charAt(j) == '1'){
+                } else if (s.charAt(j) == '1') {
                     ones = true;
                     amount1++;
                 } else {
@@ -6169,7 +6166,7 @@ class Solution {
         int g = Math.min(rec1[1], rec1[3]);
         int h = Math.min(rec2[1], rec2[3]);
 
-        if(a <= d || b <= c){
+        if (a <= d || b <= c) {
             return false;
         }
         return e > h && f > g;
@@ -6179,7 +6176,7 @@ class Solution {
         int ans = 0;
         int n = grid.length;
         for (int i = 0; i < n; i++) {
-            for(int j = 0; j < n; j++) {
+            for (int j = 0; j < n; j++) {
                 if (grid[i][j] > 0)
                     ans += 6 * grid[i][j] - 2 * (grid[i][j] - 1);
                 if (i > 0)
@@ -6209,7 +6206,7 @@ class Solution {
 
     public long[] mostFrequentIDs(int[] arr, int[] freq) {
         int n = arr.length;
-        PriorityQueue<long[]> queue = new PriorityQueue<>((a, b) -> (int)(b[1] - a[1]));
+        PriorityQueue<long[]> queue = new PriorityQueue<>((a, b) -> (int) (b[1] - a[1]));
         HashMap<Long, Long> heap = new HashMap<>();
         long[] ans = new long[n];
         for (int i = 0; i < n; i++) {
@@ -6256,13 +6253,13 @@ class Solution {
     public int countHillValley(int[] nums) {
         int ans = 0;
         int start = 1;
-        while (start < nums.length && nums[start] == nums[start-1]) start++;
+        while (start < nums.length && nums[start] == nums[start - 1]) start++;
         int prev = start - 1;
         for (int i = start; i < nums.length - 1; i++) {
             if (nums[i] == nums[i + 1]) continue;
-            if (nums[i] > nums[prev] && nums[i] > nums[i+1])
+            if (nums[i] > nums[prev] && nums[i] > nums[i + 1])
                 ans++;
-            if (nums[i] < nums[prev] && nums[i] < nums[i+1])
+            if (nums[i] < nums[prev] && nums[i] < nums[i + 1])
                 ans++;
             prev = i;
         }
@@ -6404,18 +6401,18 @@ class Solution {
 
     public int incremovableSubarrayCount(int[] nums) {
         int ans = 0;
-        for(int i = 0; i < nums.length; i++)
-            for(int j = i; j < nums.length; j++)
-                if(incremovableSubarrayCountHelper(nums, i , j)) ans++;
+        for (int i = 0; i < nums.length; i++)
+            for (int j = i; j < nums.length; j++)
+                if (incremovableSubarrayCountHelper(nums, i, j)) ans++;
         return ans;
     }
 
     private boolean incremovableSubarrayCountHelper(int[] nums, int start, int end) {
-        for(int i = 0; i < start - 1; i++)
-            if(nums[i] >= nums[i + 1]) return false;
-        if(start > 0 && end < nums.length - 1 && nums[start - 1] >= nums[end + 1]) return false;
-        for(int i = end + 1; i < nums.length - 1; i++)
-            if(nums[i] >= nums[i + 1]) return false;
+        for (int i = 0; i < start - 1; i++)
+            if (nums[i] >= nums[i + 1]) return false;
+        if (start > 0 && end < nums.length - 1 && nums[start - 1] >= nums[end + 1]) return false;
+        for (int i = end + 1; i < nums.length - 1; i++)
+            if (nums[i] >= nums[i + 1]) return false;
         return true;
     }
 
@@ -6491,7 +6488,7 @@ class Solution {
                 chars[i] = 'a';
                 k -= dist;
             } else if (k > 0) {
-                chars[i] = (char) (chars[i] -  k);
+                chars[i] = (char) (chars[i] - k);
                 k = 0;
             }
         }
@@ -6615,8 +6612,8 @@ class Solution {
 
     public int islandPerimeter(int[][] grid) {
         int ans = 0;
-        for (int i = 0; i < grid.length; i++){
-            for (int j = 0; j < grid[i].length; j++){
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[i].length; j++) {
                 int cur = grid[i][j];
                 if (cur == 0) continue;
                 if (i - 1 < 0 || grid[i - 1][j] == 0) ans++;
@@ -6690,5 +6687,28 @@ class Solution {
             min2 = Math.min(min2, nums2[i]);
         }
         return min2 - min1;
+    }
+
+    public boolean canMakeSquare(char[][] grid) {
+        for (int i = 0; i <= 1; i++) {
+            for (int j = 0; j <= 1; j++) {
+                if (canMakeSquareHelper(grid, i, j)) return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean canMakeSquareHelper(char[][] grid, int i, int j) {
+        int count1 = 0, count2 = 0;
+        for (int row = i; row < i + 2; row++) {
+            for (int col = j; col < j + 2; col++) {
+                if (grid[row][col] == 'B') {
+                    count1++;
+                } else {
+                    count2++;
+                }
+            }
+        }
+        return count1 <= 1 || count2 <= 1;
     }
 }
