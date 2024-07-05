@@ -6,8 +6,43 @@ import java.util.stream.IntStream;
 
 class Solution {
 
+    private record Person(String firstname, String lastname, List<Integer> list, Test test) {
+
+    }
+
+    private static class Test {
+        String s;
+        Long l;
+
+        public Test(String s, Long l) {
+            this.s = s;
+            this.l = l;
+        }
+
+        @Override
+        public String toString() {
+            return "[s=" + s + ", l=" + l + "]";
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Test t = (Test) o;
+            return this.s.equals(t.s) && this.l.equals(t.l);
+        }
+    }
+
     public static void main(String[] args) {
-        System.out.println(new Solution().minRemoveToMakeValid("())()((("));
+        Test t1 = new Test("Test", 1L);
+        Test t2 = new Test("Test", 1L);
+        List<Integer> list1 = new ArrayList<>();
+        List<Integer> list2 = new ArrayList<>();
+        list1.add(1); list2.add(1);
+        Person p1 = new Person("Jan", "Rehnert", list1, t1);
+        Person p2 = new Person("Jan", "Rehnert", list2, t2);
+        System.out.println(p1);
+        System.out.println(p1.equals(p2));
     }
 
     Map<Integer, Integer> sumOfMultiplesMem = new HashMap<>();
@@ -6710,5 +6745,19 @@ class Solution {
             }
         }
         return count1 <= 1 || count2 <= 1;
+    }
+
+    public double minimumAverage(int[] nums) {
+        double ans = Double.MAX_VALUE;
+        Arrays.sort(nums);
+        int i = 0, j = nums.length - 1;
+        while (i < j) {
+            double a = nums[i];
+            double b = nums[j];
+            ans = Math.min((a + b) / 2, ans);
+            i++;
+            j--;
+        }
+        return ans;
     }
 }
