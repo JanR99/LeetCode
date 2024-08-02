@@ -6764,4 +6764,18 @@ class Solution {
     public int minimumOperations(int[] nums) {
         return Arrays.stream(nums).filter(x -> x % 3 != 0).toArray().length;
     }
+
+    public int findPermutationDifference(String s, String t) {
+        Map<Character, Integer> mapS = new HashMap<>();
+        Map<Character, Integer> mapT = new HashMap<>();
+        for (int i = 0; i < s.length(); i++) {
+            mapS.put(s.charAt(i), i);
+            mapT.put(t.charAt(i), i);
+        }
+        int ans = 0;
+        for (char key : mapS.keySet()) {
+            ans += Math.abs(mapS.get(key) - mapT.get(key));
+        }
+        return ans;
+    }
 }
