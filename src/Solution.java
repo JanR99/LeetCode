@@ -6760,4 +6760,8 @@ class Solution {
         }
         return ans;
     }
+
+    public int minimumOperations(int[] nums) {
+        return Arrays.stream(nums).filter(x -> x % 3 != 0).toArray().length;
+    }
 }
