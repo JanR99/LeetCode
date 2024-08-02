@@ -1,3 +1,6 @@
+import animals.Animal;
+import animals.Dog;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -34,15 +37,12 @@ class Solution {
     }
 
     public static void main(String[] args) {
-        Test t1 = new Test("Test", 1L);
-        Test t2 = new Test("Test", 1L);
-        List<Integer> list1 = new ArrayList<>();
-        List<Integer> list2 = new ArrayList<>();
-        list1.add(1); list2.add(1);
-        Person p1 = new Person("Jan", "Rehnert", list1, t1);
-        Person p2 = new Person("Jan", "Rehnert", list2, t2);
-        System.out.println(p1);
-        System.out.println(p1.equals(p2));
+        Dog dog = new Dog();
+        printSomething(dog);
+    }
+
+    public static void printSomething(Animal animal) {
+        System.out.println(animal.getClass().getSimpleName());
     }
 
     Map<Integer, Integer> sumOfMultiplesMem = new HashMap<>();
