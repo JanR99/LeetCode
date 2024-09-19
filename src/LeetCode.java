@@ -14,5 +14,15 @@ public class LeetCode {
         return ans;
     }
 
-
+    public boolean canAliceWin(int[] nums) {
+        int single = 0, doubles = 0;
+        for (int num : nums) {
+            if (num < 10) {
+                single += num;
+            } else {
+                doubles += num;
+            }
+        }
+        return doubles > single || single > doubles;
+    }
 }
