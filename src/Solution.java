@@ -6801,4 +6801,12 @@ class Solution {
         }
         return ans;
     }
+
+    public String convertDateToBinary(String date) {
+        String[] strs = date.split("-");
+        for (int i = 0; i < strs.length; i++) {
+            strs[i] = Integer.toBinaryString(Integer.parseInt(strs[i]));
+        }
+        return String.format("%s-%s-%s", strs[0], strs[1], strs[2]);
+    }
 }
