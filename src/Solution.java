@@ -6788,4 +6788,17 @@ class Solution {
         }
         return ans;
     }
+
+    public int[] getSneakyNumbers(int[] nums) {
+        int[] ans = new int[2];
+        int index = 0;
+        boolean[] found = new boolean[nums.length - 2];
+        for (int num : nums) {
+            if (found[num]) {
+                ans[index++] = num;
+            }
+            found[num] = true;
+        }
+        return ans;
+    }
 }
