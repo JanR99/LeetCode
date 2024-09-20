@@ -80,4 +80,20 @@ public class LeetCode {
         }
         return nums;
     }
+
+    public int minimumChairs(String s) {
+        int max = 0;
+        int current = 0;
+        for (char c : s.toCharArray()) {
+            switch (c) {
+                case 'E':
+                    current++;
+                    break;
+                case 'L':
+                    current--;
+            }
+            max = Math.max(max, current);
+        }
+        return max;
+    }
 }
