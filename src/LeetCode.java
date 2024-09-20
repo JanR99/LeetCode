@@ -96,4 +96,20 @@ public class LeetCode {
         }
         return max;
     }
+
+    public int countKConstraintSubstrings(String s, int k) {
+        int ans = 0;
+        for (int i = 0; i < s.length(); i++) {
+            int zerosCount = 0;
+            int onesCount = 0;
+            for (int j = i; j < s.length(); j++) {
+                if (s.charAt(j) == '0') zerosCount++;
+                else onesCount++;
+                if (zerosCount > k && onesCount > k) break;
+                ans++;
+            }
+        }
+
+        return ans;
+    }
 }
