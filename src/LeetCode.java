@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.List;
 
 public class LeetCode {
 
@@ -24,5 +25,28 @@ public class LeetCode {
             }
         }
         return doubles > single || single > doubles;
+    }
+
+    public int finalPositionOfSnake(int n, List<String> commands) {
+        int i = 0, j = 0;
+        for (String s : commands) {
+            switch (s) {
+                case "UP":
+                    i -= 1;
+                    break;
+                case "DOWN":
+                    i += 1;
+                    break;
+                case "LEFT":
+                    j -= 1;
+                    break;
+                case "RIGHT":
+                    j += 1;
+                    break;
+                default:
+                    return -1;
+            }
+        }
+        return i * n + j;
     }
 }
