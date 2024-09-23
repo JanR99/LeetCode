@@ -1,7 +1,4 @@
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class LeetCode {
 
@@ -110,6 +107,35 @@ public class LeetCode {
             }
         }
 
+        return ans;
+    }
+
+    public int countCompleteDayPairs(int[] hours) {
+        Map<Integer, Integer> map = new HashMap<>();
+        Set<Integer> visited = new HashSet<>();
+        int ans = 0;
+        for (int hour : hours) {
+            int current = hour % 24;
+            map.put(current, map.getOrDefault(current, 0) + 1);
+        }
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            int current = entry.getKey();
+            int count = entry.getValue();
+            if (current == 12) {
+                ans += (count * (count - 1)) / 2;
+                visited.add(current);
+            } else if (current == 0) {
+                ans += (count * (count - 1)) / 2;
+                visited.add(current);
+            } else if (!visited.contains(current)) {
+                int pairCount = map.getOrDefault(24 - current, 0);
+                if (pairCount > 0) {
+                    ans += count * pairCount;
+                }
+                visited.add(current);
+                visited.add(24 - current);
+            }
+        }
         return ans;
     }
 }
