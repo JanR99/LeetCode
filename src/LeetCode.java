@@ -153,4 +153,32 @@ public class LeetCode {
         }
         return Integer.parseInt(ans.toString());
     }
+
+    public String clearDigits(String s) {
+        StringBuilder ans = new StringBuilder(s);
+        int alphabeticCount = 0;
+        int i = 0;
+        while (i < ans.length()) {
+            if (Character.isDigit(ans.charAt(i))) {
+                clearDigitsHelper(ans, i, alphabeticCount);
+                i -= 1;
+                alphabeticCount--;
+            } else {
+                alphabeticCount++;
+                i++;
+            }
+        }
+        return ans.toString();
+    }
+
+    public void clearDigitsHelper(StringBuilder s, int i, int alphabeticCount) {
+        s.deleteCharAt(i);
+        if (alphabeticCount <= 0) return;
+        for (int j = i - 1; j >= 0; j--) {
+            if (Character.isAlphabetic(s.charAt(j))) {
+                s.deleteCharAt(j);
+                return;
+            }
+        }
+    }
 }
