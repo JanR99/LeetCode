@@ -181,4 +181,12 @@ public class LeetCode {
             }
         }
     }
+
+    public boolean checkTwoChessboards(String coordinate1, String coordinate2) {
+        return checkTwoChessboardsHelper(coordinate1) == checkTwoChessboardsHelper(coordinate2);
+    }
+
+    private boolean checkTwoChessboardsHelper(String coordinate) {
+        return (coordinate.charAt(0) % 2) == (coordinate.charAt(1) % 2);
+    }
 }
