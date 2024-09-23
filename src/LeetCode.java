@@ -138,4 +138,19 @@ public class LeetCode {
         }
         return ans;
     }
+
+    public int generateKey(int num1, int num2, int num3) {
+        StringBuilder ans = new StringBuilder();
+        String s1 = String.valueOf(num1);
+        String s2 = String.valueOf(num2);
+        String s3 = String.valueOf(num3);
+        int max = Math.max(s1.length(), Math.max(s2.length(), s3.length()));
+        s1 = "0".repeat(max - s1.length()) + s1;
+        s2 = "0".repeat(max - s2.length()) + s2;
+        s3 = "0".repeat(max - s3.length()) + s3;
+        for (int i = 0; i < max; i++) {
+            ans.append(Character.getNumericValue(Math.min(s1.charAt(i), Math.min(s2.charAt(i), s3.charAt(i)))));
+        }
+        return Integer.parseInt(ans.toString());
+    }
 }
