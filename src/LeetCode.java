@@ -194,4 +194,11 @@ public class LeetCode {
         int cycle = k % s.length();
         return s.substring(cycle) + s.substring(0, cycle);
     }
+
+    public boolean isArraySpecial(int[] nums) {
+        for (int i = 0; i < nums.length - 1; i++) {
+            if (nums[i] % 2 == nums[i + 1] % 2) return false;
+        }
+        return true;
+    }
 }
