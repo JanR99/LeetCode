@@ -246,4 +246,27 @@ public class LeetCode {
         }
         return i;
     }
+
+    public int winningPlayerCount(int n, int[][] pick) {
+        Map<Integer, Map<Integer, Integer>> map = new HashMap<>();
+        PriorityQueue<Integer> queue = new PriorityQueue<>();
+        int ans = 0;
+        for (int[] current : pick) {
+            Map<Integer, Integer> currentMap = map.getOrDefault(current[0], new HashMap<>());
+            currentMap.put(current[1], currentMap.getOrDefault(current[1], 0) + 1);
+            map.put(current[0], currentMap);
+            if (!queue.contains(current[0])) queue.add(current[0]);
+        }
+        while (!queue.isEmpty()) {
+            int get = queue.poll();
+            Map<Integer, Integer> currentMap = map.get(get);
+            for (Map.Entry<Integer, Integer> entry : currentMap.entrySet()) {
+                if (entry.getValue() > get) {
+                    ans++;
+                    break;
+                }
+            }
+        }
+        return ans;
+    }
 }
