@@ -201,4 +201,15 @@ public class LeetCode {
         }
         return true;
     }
+
+    public int numberOfAlternatingGroups(int[] colors) {
+        int ans = 0;
+        for (int i = 0; i < colors.length; i++) {
+            int current = colors[i];
+            int next = colors[(i + 1) % colors.length];
+            int nextNext = colors[(i + 2) % colors.length];
+            if (current == nextNext && current != next) ans++;
+        }
+        return ans;
+    }
 }
