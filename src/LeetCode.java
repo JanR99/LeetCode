@@ -189,4 +189,9 @@ public class LeetCode {
     private boolean checkTwoChessboardsHelper(String coordinate) {
         return (coordinate.charAt(0) % 2) == (coordinate.charAt(1) % 2);
     }
+
+    public String getEncryptedString(String s, int k) {
+        int cycle = k % s.length();
+        return s.substring(cycle) + s.substring(0, cycle);
+    }
 }
