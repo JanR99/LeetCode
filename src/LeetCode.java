@@ -212,4 +212,18 @@ public class LeetCode {
         }
         return ans;
     }
+
+    public int minChanges(int n, int k) {
+        String sN = Integer.toBinaryString(n);
+        String sK = Integer.toBinaryString(k);
+        int max = Math.max(sN.length(), sK.length());
+        sN = "0".repeat(max - sN.length()) + sN;
+        sK = "0".repeat(max - sK.length()) + sK;
+        int ans = 0;
+        for (int i = 0; i < max; i++) {
+            if (sN.charAt(i) == '0' && sK.charAt(i) == '1') return -1;
+            else if (sN.charAt(i) == '1' && sK.charAt(i) == '0') ans++;
+        }
+        return ans;
+    }
 }
