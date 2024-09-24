@@ -226,4 +226,24 @@ public class LeetCode {
         }
         return ans;
     }
+
+    public int numberOfChild(int n, int k) {
+        int i = 0;
+        boolean right = true;
+        while (k != 0) {
+            if (right && i == n - 1) {
+                right = false;
+                i--;
+            } else if (!right && i == 0) {
+                right = true;
+                i++;
+            } else if (!right) {
+                i--;
+            } else {
+                i++;
+            }
+            k--;
+        }
+        return i;
+    }
 }
