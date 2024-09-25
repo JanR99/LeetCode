@@ -323,18 +323,17 @@ public class LeetCode {
     }
 
     public boolean isValid(String word) {
+        if (word.length() < 3) return false;
         boolean vowelFound = false;
         boolean consonantFound = false;
-        int chars = 0;
         for (int i = 0; i < word.length(); i++) {
-            char c = word.charAt(i);
+            char c = Character.toLowerCase(word.charAt(i));
             if (!Character.isLetterOrDigit(c)) return false;
             if (Character.isLetter(c)) {
-                chars++;
                 if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u') vowelFound = true;
                 else consonantFound = true;
             }
         }
-        return chars >= 3 && consonantFound && vowelFound;
+        return consonantFound && vowelFound;
     }
 }
