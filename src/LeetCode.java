@@ -280,4 +280,14 @@ public class LeetCode {
         }
         return s;
     }
+
+    public String losingPlayer(int x, int y) {
+        boolean alice = false;
+        while (x > 0 && y > 3) {
+            alice = !alice;
+            x--;
+            y -= 4;
+        }
+        return alice ? "Alice" : "Bob";
+    }
 }
