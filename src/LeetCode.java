@@ -269,4 +269,15 @@ public class LeetCode {
         }
         return ans;
     }
+
+    public String getSmallestString(String s) {
+        for (int i = 0; i < s.length() - 1; i++) {
+            int front = Character.getNumericValue(s.charAt(i));
+            int back = Character.getNumericValue(s.charAt(i + 1));
+            if (front > back && front % 2 == back % 2) {
+                return s.substring(0, i) + back + front + s.substring(i + 2);
+            }
+        }
+        return s;
+    }
 }
