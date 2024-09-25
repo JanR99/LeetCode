@@ -321,4 +321,20 @@ public class LeetCode {
         }
         return current - 1;
     }
+
+    public boolean isValid(String word) {
+        boolean vowelFound = false;
+        boolean consonantFound = false;
+        int chars = 0;
+        for (int i = 0; i < word.length(); i++) {
+            char c = word.charAt(i);
+            if (!Character.isLetterOrDigit(c)) return false;
+            if (Character.isLetter(c)) {
+                chars++;
+                if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u') vowelFound = true;
+                else consonantFound = true;
+            }
+        }
+        return chars >= 3 && consonantFound && vowelFound;
+    }
 }
