@@ -300,4 +300,25 @@ public class LeetCode {
         }
         return true;
     }
+
+    public int maxHeightOfTriangle(int red, int blue) {
+        return Math.max(maxHeightOfTriangleHelper(red, blue), maxHeightOfTriangleHelper(blue, red));
+    }
+
+    private int maxHeightOfTriangleHelper(int first, int second) {
+        int current = 1;
+        boolean firstTurn = true;
+        while (true) {
+            if (firstTurn) {
+                if (first < current) break;
+                first -= current;
+            } else {
+                if (second < current) break;
+                second -= current;
+            }
+            current++;
+            firstTurn = !firstTurn;
+        }
+        return current - 1;
+    }
 }
