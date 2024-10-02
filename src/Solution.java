@@ -6817,4 +6817,20 @@ class Solution {
         }
         return ans;
     }
+
+    public int[] arrayRankTransform(int[] arr) {
+        Map<Integer, Integer> map = new HashMap<>();
+        int[] sorted = Arrays.copyOf(arr, arr.length);
+        Arrays.sort(sorted);
+        int[] ans = new int[arr.length];
+        int rank = 1;
+        for (int val : sorted) {
+            if (map.containsKey(val)) continue;
+            map.put(val, rank++);
+        }
+        for (int i = 0; i < ans.length; i++) {
+            ans[i] = map.get(arr[i]);
+        }
+        return ans;
+    }
 }
