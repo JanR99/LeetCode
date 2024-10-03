@@ -349,4 +349,17 @@ public class LeetCode {
         }
         return min;
     }
+
+    public char kthCharacter(int k) {
+        StringBuilder s = new StringBuilder("a");
+        while (s.length() < k) {
+            StringBuilder append = new StringBuilder();
+            for (int i = 0; i < s.length(); i++) {
+                if (s.charAt(i) == 'z') append.append("a");
+                else append.append((char)(s.charAt(i) + 1));
+            }
+            s.append(append);
+        }
+        return s.charAt(k - 1);
+    }
 }
