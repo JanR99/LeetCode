@@ -336,4 +336,17 @@ public class LeetCode {
         }
         return consonantFound && vowelFound;
     }
+
+    public int minElement(int[] nums) {
+        int min = Integer.MAX_VALUE;
+        for (int num : nums) {
+            String s = String.valueOf(num);
+            int current = 0;
+            for (char c : s.toCharArray()) {
+                current += Character.getNumericValue(c);
+            }
+            min = Math.min(min, current);
+        }
+        return min;
+    }
 }
