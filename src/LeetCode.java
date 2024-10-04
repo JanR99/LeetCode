@@ -362,4 +362,17 @@ public class LeetCode {
         }
         return s.charAt(k - 1);
     }
+
+    public long dividePlayers(int[] skill) {
+        Arrays.sort(skill);
+        int i = 0, j = skill.length - 1;
+        long ans = (long) skill[i] * skill[j];
+        int teamSkill = skill[i++] + skill[j--];
+        while (i < j) {
+            ans += (long) skill[i] * skill[j];
+            int currentSkill = skill[i++] + skill[j--];
+            if (currentSkill != teamSkill) return -1;
+        }
+        return ans;
+    }
 }
