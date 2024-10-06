@@ -2,6 +2,10 @@ import java.util.*;
 
 public class LeetCode {
 
+    public static void main(String[] args) {
+        new LeetCode().areSentencesSimilar("A lot", "A lot of words");
+    }
+
     public double minimumAverage(int[] nums) {
         double ans = Double.MAX_VALUE;
         int count = 0;
@@ -374,5 +378,30 @@ public class LeetCode {
             if (currentSkill != teamSkill) return -1;
         }
         return ans;
+    }
+
+    public boolean areSentencesSimilar(String sentence1, String sentence2) {
+        return sentence1.length() < sentence2.length()
+                ? areSentencesSimilarHelper(sentence1, sentence2)
+                : areSentencesSimilarHelper(sentence2, sentence1);
+    }
+
+    public boolean areSentencesSimilarHelper(String sentence1, String sentence2) {
+        String[] strings1 = sentence1.split(" ");
+        String[] strings2 = sentence2.split(" ");
+        int i = 0, j = strings1.length - 1;
+        int k = 0, l = strings2.length - 1;
+        while (i <= j) {
+            if (strings1[i].equals(strings2[k])) {
+                i++;
+                k++;
+            } else if (strings1[j].equals(strings2[l])) {
+                j--;
+                l--;
+            } else {
+                return false;
+            }
+        }
+        return true;
     }
 }
