@@ -404,4 +404,18 @@ public class LeetCode {
         }
         return true;
     }
+
+    public int minAddToMakeValid(String s) {
+        int openCount = 0;
+        int ans = 0;
+        for (char c : s.toCharArray()) {
+            if (c == '(') {
+                openCount++;
+            } else {
+                if (openCount == 0) ans ++;
+                else openCount--;
+            }
+        }
+        return ans + openCount;
+    }
 }
