@@ -1,3 +1,5 @@
+package design_tasks;
+
 import java.util.HashMap;
 import java.util.Map;
 

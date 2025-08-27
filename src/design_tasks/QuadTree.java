@@ -1,4 +1,4 @@
-import java.util.HashMap;
+package design_tasks;
 
 public class QuadTree {
 

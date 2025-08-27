@@ -1,3 +1,5 @@
+package design_tasks;
+
 class CustomStack {
 
     int[] stack;

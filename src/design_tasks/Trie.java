@@ -1,3 +1,5 @@
+package design_tasks;
+
 import java.util.HashSet;
 
 public class Trie {
