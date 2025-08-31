@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class SolutionEasy {
 
@@ -38,5 +39,19 @@ public class SolutionEasy {
             }
         }
         return evenSum == oddSum;
+    }
+
+    public int[] recoverOrder(int[] order, int[] friends) {
+        Set<Integer> set = Arrays.stream(friends).boxed().collect(Collectors.toSet());
+        int[] ans = new int[friends.length];
+
+        int index = 0;
+        for (int pos : order) {
+            if (index == ans.length) break;
+            if (set.contains(pos)) {
+                ans[index++] = pos;
+            }
+        }
+        return ans;
     }
 }
