@@ -54,4 +54,22 @@ public class SolutionEasy {
         }
         return ans;
     }
+
+    public int gcdOfOddEvenSums(int n) {
+        int sumOdd = 0, sumEven = 0;
+        int odd = 1, even = 2, i = 0;
+        while (i < n) {
+            sumOdd += odd;
+            sumEven += even;
+            odd += 2;
+            even += 2;
+            i++;
+        }
+        return gcd(sumOdd, sumEven);
+    }
+
+    private int gcd(int a, int b) {
+        if (b == 0) return a;
+        return gcd(b, a % b);
+    }
 }
