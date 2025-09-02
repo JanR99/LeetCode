@@ -20,4 +20,19 @@ public class SolutionMedium {
         }
         return strings.stream().map(StringBuilder::toString).toList();
     }
+
+    public int countMaxOrSubsets(int[] nums) {
+        int max = 0;
+        for (int n : nums) max |= n;
+        return countMaxOrSubsetsHelper(nums, 0, 0, max);
+    }
+
+    private int countMaxOrSubsetsHelper(int[] nums, int index, int current, int max) {
+        if (index == nums.length) {
+            return current == max ? 1 : 0;
+        }
+        int include = countMaxOrSubsetsHelper(nums, index + 1, current | nums[index], max);
+        int exclude = countMaxOrSubsetsHelper(nums, index + 1, current, max);
+        return include + exclude;
+    }
 }
