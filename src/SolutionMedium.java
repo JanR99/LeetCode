@@ -35,4 +35,22 @@ public class SolutionMedium {
         int exclude = countMaxOrSubsetsHelper(nums, index + 1, current, max);
         return include + exclude;
     }
+
+    public int[] findThePrefixCommonArray(int[] a, int[] b) {
+        if (a.length != b.length) return null;
+        int[] common = new int[a.length];
+        Set<Integer> foundA = new HashSet<>();
+        for (int i = 0; i < a.length; i++) {
+            foundA.add(a[i]);
+            int current = 0;
+            for (int j = 0; j <= i; j++) {
+                if (foundA.contains(b[j])) {
+                    current++;
+                }
+            }
+            common[i] = current;
+        }
+        return common;
+    }
+
 }
