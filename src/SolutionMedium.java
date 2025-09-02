@@ -53,4 +53,37 @@ public class SolutionMedium {
         return common;
     }
 
+    public TreeNode reverseOddLevels(TreeNode root) {
+        List<TreeNode> list = new ArrayList<>();
+        list.add(root);
+        int level = 0;
+        while (!list.isEmpty()) {
+            List<TreeNode> successors = new ArrayList<>();
+            for (TreeNode current : list) {
+                if (current.left != null) {
+                    successors.add(current.left);
+                }
+                if (current.right != null) {
+                    successors.add(current.right);
+                }
+            }
+            if (level % 2 == 0 && !successors.isEmpty()) {
+                reverseOddLevelsHelper(successors);
+            }
+            list = successors;
+            level++;
+        }
+        return root;
+    }
+
+    private void reverseOddLevelsHelper(List<TreeNode> successors) {
+        int i = 0, j = successors.size() - 1;
+        while (i < j) {
+            TreeNode front = successors.get(i++);
+            TreeNode back = successors.get(j--);
+            front.val ^= back.val;
+            back.val ^= front.val;
+            front.val ^= back.val;
+        }
+    }
 }
