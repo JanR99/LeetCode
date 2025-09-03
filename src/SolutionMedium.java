@@ -86,4 +86,40 @@ public class SolutionMedium {
             front.val ^= back.val;
         }
     }
+
+    public int minOperations(int[] nums, int k) {
+        int xor = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            xor ^= nums[i];
+        }
+        if (xor == k) return 0;
+        String[] strings = minOperationsHelper(Integer.toBinaryString(xor), Integer.toBinaryString(k));
+        String xorBin = strings[0];
+        String kBin = strings[1];
+        int diff = 0;
+        for (int i = 0; i < xorBin.length(); i++) {
+            if (xorBin.charAt(i) != kBin.charAt(i)) diff++;
+        }
+        return diff;
+    }
+
+
+    private String[] minOperationsHelper(String s, String t) {
+        if (s.length() < t.length()) {
+            int diff = t.length() - s.length();
+            StringBuilder sb = new StringBuilder(s);
+            for (int i = 0; i < diff; i++) {
+                sb.insert(0, "0");
+            }
+            s = sb.toString();
+        } else if (s.length() > t.length()) {
+            int diff = s.length() - t.length();
+            StringBuilder sb = new StringBuilder(t);
+            for (int i = 0; i < diff; i++) {
+                sb.insert(0, "0");
+            }
+            t = sb.toString();
+        }
+        return new String[]{s, t};
+    }
 }
