@@ -122,4 +122,43 @@ public class SolutionMedium {
         }
         return new String[]{s, t};
     }
+
+    private enum Direction {
+        NORTH, EAST, SOUTH, WEST
+    }
+
+    public int[][] spiralMatrixIII(int rows, int cols, int rStart, int cStart) {
+        int[][] ans = new int[rows * cols][2];
+        int index = 0;
+
+        int row = rStart, col = cStart;
+        int step = 1;
+        Direction direction = Direction.EAST;
+
+        ans[index++] = new int[]{row, col};
+
+        while (index < ans.length) {
+            for (int i = 0; i < 2; i++) {
+                for (int j = 0; j < step; j++) {
+                    if (direction == Direction.NORTH) row--;
+                    else if (direction == Direction.EAST) col++;
+                    else if (direction == Direction.SOUTH) row++;
+                    else col--;
+
+                    if (row >= 0 && row < rows && col >= 0 && col < cols) {
+                        ans[index++] = new int[]{row, col};
+                        if (index == ans.length) return ans;
+                    }
+                }
+
+                if (direction == Direction.NORTH) direction = Direction.EAST;
+                else if (direction == Direction.EAST) direction = Direction.SOUTH;
+                else if (direction == Direction.SOUTH) direction = Direction.WEST;
+                else direction = Direction.NORTH;
+            }
+            step++;
+        }
+
+        return ans;
+    }
 }
