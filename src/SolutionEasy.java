@@ -108,4 +108,21 @@ public class SolutionEasy {
         Arrays.stream(nums).filter(n -> n % 2 == 0).forEach(n -> or.updateAndGet(v -> v | n));
         return or.get();
     }
+
+    public boolean hasSameDigits(String s) {
+        int size = s.length();
+        int[] values = new int[size];
+        for (int i = 0; i < s.length(); i++) {
+            values[i] = Character.getNumericValue(s.charAt(i));
+        }
+
+        while (size > 2) {
+            for (int i = 0; i < size - 1; i++) {
+                values[i] = (values[i] + values[i + 1]) % 10;
+            }
+            size--;
+        }
+
+        return values[0] == values[1];
+    }
 }
