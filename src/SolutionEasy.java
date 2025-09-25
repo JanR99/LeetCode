@@ -81,4 +81,10 @@ public class SolutionEasy {
         }
         return ans;
     }
+
+    public String concatHex36(int n) {
+        String hex = Integer.toString((int) Math.pow(n, 2), 16);
+        String triHex = Integer.toString((int) Math.pow(n, 3), 36);
+        return (hex + triHex).toUpperCase();
+    }
 }
