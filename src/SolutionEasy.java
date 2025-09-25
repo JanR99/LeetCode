@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 public class SolutionEasy {
@@ -100,5 +101,11 @@ public class SolutionEasy {
             }
         }
         return -1;
+    }
+
+    public int evenNumberBitwiseORs(int[] nums) {
+        AtomicInteger or = new AtomicInteger();
+        Arrays.stream(nums).filter(n -> n % 2 == 0).forEach(n -> or.updateAndGet(v -> v | n));
+        return or.get();
     }
 }
