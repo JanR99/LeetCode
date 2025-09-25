@@ -72,4 +72,13 @@ public class SolutionEasy {
         if (b == 0) return a;
         return gcd(b, a % b);
     }
+
+    public int earliestTime(int[][] tasks) {
+        int ans = Integer.MAX_VALUE;
+        for (int[] task : tasks) {
+            int current = task[0] + task[1];
+            ans = Math.min(ans, current);
+        }
+        return ans;
+    }
 }
