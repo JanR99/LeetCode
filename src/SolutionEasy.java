@@ -87,4 +87,18 @@ public class SolutionEasy {
         String triHex = Integer.toString((int) Math.pow(n, 3), 36);
         return (hex + triHex).toUpperCase();
     }
+
+    public int smallestIndex(int[] nums) {
+        for (int i = 0; i < nums.length; i++) {
+            int digitSum = 0;
+            String s = String.valueOf(nums[i]);
+            for (char c : s.toCharArray()) {
+                digitSum += Character.getNumericValue(c);
+            }
+            if (digitSum == i) {
+                return i;
+            }
+        }
+        return -1;
+    }
 }
