@@ -125,4 +125,12 @@ public class SolutionEasy {
 
         return values[0] == values[1];
     }
+
+    public int smallestNumber(int n) {
+        int ans = 1;
+        while (ans < n) {
+            ans = (ans << 1) | ans;
+        }
+        return ans;
+    }
 }
