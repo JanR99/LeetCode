@@ -142,4 +142,8 @@ public class SolutionEasy {
         }
         return max;
     }
+
+    public int maxContainers(int n, int w, int maxWeight) {
+        return Math.min(n * n , maxWeight / 2);
+    }
 }
