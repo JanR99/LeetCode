@@ -133,4 +133,13 @@ public class SolutionEasy {
         }
         return ans;
     }
+
+    public int maxAdjacentDistance(int[] nums) {
+        int max = 0;
+        for (int i = 0; i < nums.length; i++) {
+            int j = (i + 1) % nums.length;
+            max = Math.max(max, Math.abs(nums[j] - nums[i]));
+        }
+        return max;
+    }
 }
