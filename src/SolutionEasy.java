@@ -146,4 +146,20 @@ public class SolutionEasy {
     public int maxContainers(int n, int w, int maxWeight) {
         return Math.min(n * n , maxWeight / 2);
     }
+
+    public int[] minBitwiseArray(List<Integer> nums) {
+        int[] ans = new int[nums.size()];
+        for (int i = 0; i < nums.size(); i++) {
+            int prime = nums.get(i);
+            int val = -1;
+            for (int num = 0; num <= prime; num++) {
+                if ((num | (num + 1)) == prime) {
+                    val = num;
+                    break;
+                }
+            }
+            ans[i] = val;
+        }
+        return ans;
+    }
 }
