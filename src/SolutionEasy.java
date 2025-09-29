@@ -181,4 +181,24 @@ public class SolutionEasy {
 
         return ans;
     }
+
+    public int convertTime(String current, String correct) {
+        int currentTime = Integer.parseInt(current.substring(0, 2)) * 60 + Integer.parseInt(current.substring(3));
+        int correctTime = Integer.parseInt(correct.substring(0, 2)) * 60 + Integer.parseInt(correct.substring(3));
+        int[] arr = {1,5,15,60};
+        int i = 3;
+        int count = 0;
+        while (currentTime != correctTime) {
+            if (currentTime < correctTime) {
+                count++;
+                currentTime += arr[i];
+            }
+            if (currentTime > correctTime) {
+                currentTime -= arr[i];
+                i--;
+                count--;
+            }
+        }
+        return count;
+    }
 }
