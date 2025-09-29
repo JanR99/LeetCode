@@ -201,4 +201,45 @@ public class SolutionEasy {
         }
         return count;
     }
+
+    public int minOperations2(int[] nums, int k) {
+        int count = 0;
+        while (true) {
+            int max = Integer.MIN_VALUE;
+            int h = Integer.MIN_VALUE;
+            List<Integer> indices = new ArrayList<>();
+            for (int i = 0; i < nums.length; i++) {
+                int num = nums[i];
+                if (num < k) return -1;
+                if (num == max) {
+                  indices.add(i);
+                } else if (num > max) {
+                    h = max;
+                    max = num;
+                    indices.clear();
+                    indices.add(i);
+                } else if (num > h) {
+                    h = num;
+                }
+            }
+            boolean allK = true;
+            for (int num : nums) {
+                if (num != k) {
+                    allK = false;
+                    break;
+                }
+            }
+            if (allK) break;
+
+            if (h == Integer.MIN_VALUE) {
+                h = k;
+            }
+
+            for (int index : indices) {
+                nums[index] = h;
+            }
+            count++;
+        }
+        return count;
+    }
 }
