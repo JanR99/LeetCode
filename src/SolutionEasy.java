@@ -242,4 +242,27 @@ public class SolutionEasy {
         }
         return count;
     }
+
+    public int countPartitions(int[] nums) {
+        int left = nums[0];
+        int right = 0;
+        for (int i = 1; i < nums.length; i++) {
+            right += nums[i];
+        }
+
+        int count = 0;
+        if ((left % 2) == (right % 2)) {
+            count++;
+        }
+
+        for (int i = 1; i < nums.length - 1; i++) {
+            left += nums[i];
+            right -= nums[i];
+            if ((left % 2) == (right % 2)) {
+                count++;
+            }
+        }
+        return count;
+    }
+
 }
