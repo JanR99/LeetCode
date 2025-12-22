@@ -352,4 +352,15 @@ public class SolutionEasy {
     public int mirrorDistance(int n) {
         return Math.abs(n - Integer.parseInt(new StringBuilder(String.valueOf(n)).reverse().toString()));
     }
+
+    public int[] sortByReflection(int[] nums) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int num : nums) {
+            map.put(num, Integer.parseInt(new StringBuilder(Integer.toBinaryString(num)).reverse().toString(), 2));
+        }
+
+        Integer[] boxed = Arrays.stream(nums).boxed().toArray(Integer[]::new);
+        Arrays.sort(boxed, Comparator.comparingInt((Integer a) -> map.get(a)).thenComparingInt(a -> a));
+        return Arrays.stream(boxed).mapToInt(Integer::intValue).toArray();
+    }
 }
