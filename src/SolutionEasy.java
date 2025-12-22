@@ -312,4 +312,25 @@ public class SolutionEasy {
         }
         return Integer.MAX_VALUE;
     }
+
+    public boolean hasIncreasingSubarrays(List<Integer> nums, int k) {
+        for (int i = 0; i + 2 * k <= nums.size(); i++) {
+            int prev1 = nums.get(i);
+            int prev2 = nums.get(i + k);
+            boolean valid = true;
+            for (int j = 1; j < k; j++) {
+                int cur1 = nums.get(i + j);
+                int cur2 = nums.get(i + j + k);
+                if (cur1 <= prev1 || cur2 <= prev2) {
+                    valid = false;
+                    break;
+                }
+                prev1 = cur1;
+                prev2 = cur2;
+            }
+            if (valid) return true;
+        }
+        return false;
+    }
+
 }
