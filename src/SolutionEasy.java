@@ -144,7 +144,7 @@ public class SolutionEasy {
     }
 
     public int maxContainers(int n, int w, int maxWeight) {
-        return Math.min(n * n , maxWeight / 2);
+        return Math.min(n * n, maxWeight / 2);
     }
 
     public int[] minBitwiseArray(List<Integer> nums) {
@@ -185,7 +185,7 @@ public class SolutionEasy {
     public int convertTime(String current, String correct) {
         int currentTime = Integer.parseInt(current.substring(0, 2)) * 60 + Integer.parseInt(current.substring(3));
         int correctTime = Integer.parseInt(correct.substring(0, 2)) * 60 + Integer.parseInt(correct.substring(3));
-        int[] arr = {1,5,15,60};
+        int[] arr = {1, 5, 15, 60};
         int i = 3;
         int count = 0;
         while (currentTime != correctTime) {
@@ -212,7 +212,7 @@ public class SolutionEasy {
                 int num = nums[i];
                 if (num < k) return -1;
                 if (num == max) {
-                  indices.add(i);
+                    indices.add(i);
                 } else if (num > max) {
                     h = max;
                     max = num;
