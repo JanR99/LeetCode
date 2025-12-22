@@ -300,4 +300,16 @@ public class SolutionEasy {
         }
         return ans;
     }
+
+    public int smallestNumber(int n, int t) {
+        for (int i = n; i < Integer.MAX_VALUE; i++) {
+            String s = Integer.toString(i);
+            int prod = 1;
+            for (char c : s.toCharArray()) {
+                prod *= c - '0';
+            }
+            if (prod % t == 0) return i;
+        }
+        return Integer.MAX_VALUE;
+    }
 }
