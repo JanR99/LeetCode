@@ -391,4 +391,14 @@ public class SolutionEasy {
         }
         return 1;
     }
+
+    public boolean canAliceWin(int n) {
+        int take = 10;
+        while (true) {
+            if (n - take < 0) {
+                return take % 2 != 0;
+            }
+            n -= take--;
+        }
+    }
 }
