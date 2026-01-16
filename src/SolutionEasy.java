@@ -401,4 +401,21 @@ public class SolutionEasy {
             n -= take--;
         }
     }
+
+    public int minimumSumSubarray(List<Integer> nums, int l, int r) {
+        int ans = -1;
+        for (int i = 0; i < nums.size(); i++) {
+            int current = 0;
+            for (int j = i; j < nums.size() && j < i + r; j++) {
+                current += nums.get(j);
+                int len = j - i + 1;
+                if (len >= l && current > 0) {
+                    if (ans == -1 || current < ans) {
+                        ans = current;
+                    }
+                }
+            }
+        }
+        return ans;
+    }
 }
