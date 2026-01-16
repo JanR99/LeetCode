@@ -363,4 +363,32 @@ public class SolutionEasy {
         Arrays.sort(boxed, Comparator.comparingInt((Integer a) -> map.get(a)).thenComparingInt(a -> a));
         return Arrays.stream(boxed).mapToInt(Integer::intValue).toArray();
     }
+
+    public int countValidSelections(int[] nums) {
+        int ans = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] != 0) continue;
+            ans += countValidSelections(nums, i, true) + countValidSelections(nums, i, false);
+        }
+        return ans;
+    }
+
+    public int countValidSelections(int[] nums, int curr, boolean start) {
+        nums = nums.clone();
+        boolean left = start;
+        while (curr >= 0 && curr < nums.length) {
+            if (nums[curr] == 0) {
+                if (left) curr--;
+                else curr++;
+                continue;
+            }
+            nums[curr]--;
+            left = !left;
+            curr += left ? -1 : 1;
+        }
+        for (int num : nums) {
+            if (num != 0) return 0;
+        }
+        return 1;
+    }
 }
