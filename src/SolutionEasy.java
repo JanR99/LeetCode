@@ -418,4 +418,20 @@ public class SolutionEasy {
         }
         return ans;
     }
+
+    public int[] constructTransformedArray(int[] nums) {
+        int[] ans = new int[nums.length];
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] == 0) {
+                ans[i] = 0;
+            } else if (nums[i] > 0) {
+                ans[i] = nums[(i + nums[i]) % nums.length];
+            } else {
+                int idx = (i + nums[i]) % nums.length;
+                if (idx < 0) idx += nums.length;
+                ans[i] = nums[idx];
+            }
+        }
+        return ans;
+    }
 }
