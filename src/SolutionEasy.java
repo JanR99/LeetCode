@@ -496,4 +496,17 @@ public class SolutionEasy {
         }
         return ans;
     }
+
+    public boolean hasMatch(String s, String p) {
+        int star = p.indexOf('*');
+        String prefix = p.substring(0, star);
+        String suffix = p.substring(star + 1);
+
+        int start = s.indexOf(prefix);
+        if (start == -1) return false;
+
+        int end = s.indexOf(suffix, start + prefix.length());
+        return end != -1;
+    }
+
 }
