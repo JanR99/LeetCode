@@ -434,4 +434,19 @@ public class SolutionEasy {
         }
         return ans;
     }
+
+    public int buttonWithLongestTime(int[][] events) {
+        int maxIndex = events[0][0];
+        int maxTime = events[0][1];
+        int timeBefore = events[0][1];
+        for (int i = 1; i < events.length; i++) {
+            int newTime = events[i][1] - timeBefore;
+            if (newTime > maxTime || (newTime == maxTime && events[i][0] < maxIndex)) {
+                maxTime = newTime;
+                maxIndex = events[i][0];
+            }
+            timeBefore = events[i][1];
+        }
+        return maxIndex;
+    }
 }
