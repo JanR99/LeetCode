@@ -459,4 +459,24 @@ public class SolutionEasy {
         }
         return ans;
     }
+
+    public int minimumOperations(int[] nums) {
+        int ans = 0;
+        int i = 0;
+        while (i < nums.length) {
+            Set<Integer> seen = new HashSet<>();
+            boolean unique = true;
+            for (int j = i; j < nums.length; j++) {
+                if (seen.contains(nums[j])) {
+                    unique = false;
+                    break;
+                }
+                seen.add(nums[j]);
+            }
+            if (unique) return ans;
+            i += 3;
+            ans++;
+        }
+        return ans;
+    }
 }
