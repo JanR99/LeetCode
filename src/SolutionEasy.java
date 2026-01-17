@@ -479,4 +479,21 @@ public class SolutionEasy {
         }
         return ans;
     }
+
+    public int minimumOperations(int[][] grid) {
+        int ans = 0;
+        for (int i = 0; i < grid[0].length; i++) {
+            int before = -1;
+            for (int j = 0; j < grid.length; j++) {
+                if (before >= grid[j][i]) {
+                    int plus = before - grid[j][i] + 1;
+                    grid[j][i] += plus;
+
+                    ans += plus;
+                }
+                before = grid[j][i];
+            }
+        }
+        return ans;
+    }
 }
