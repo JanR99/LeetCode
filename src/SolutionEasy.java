@@ -509,4 +509,26 @@ public class SolutionEasy {
         return end != -1;
     }
 
+    int maxLength(int[] nums) {
+        int ans = 0;
+        for(int i = 0; i < nums.length; ++i){
+            long gcdVal = nums[i], lcmVal = nums[i], prod =  nums[i];
+            for(int j = i+1; j < nums.length; ++j){
+                prod = prod*(long)nums[j];
+                if(prod > 100000000000L) break;
+                gcdVal = maxLengthGcd(gcdVal, nums[j]);
+                lcmVal = maxLengthLcm(lcmVal, nums[j]);
+                if(prod == gcdVal * lcmVal){ ans = Math.max(ans, j - i + 1); }
+            }
+        }
+        return ans;
+    }
+
+    long maxLengthGcd(long a, long b) {
+        return (b == 0)? a : maxLengthGcd(b, a % b);
+    }
+
+    long maxLengthLcm(long a, long b) {
+        return (a * b) / maxLengthGcd(a, b);
+    }
 }
