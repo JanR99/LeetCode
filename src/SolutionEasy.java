@@ -531,4 +531,23 @@ public class SolutionEasy {
     long maxLengthLcm(long a, long b) {
         return (a * b) / maxLengthGcd(a, b);
     }
+
+    public List<Integer> zigzagTraversal(int[][] grid) {
+        List<Integer> ans = new LinkedList<>();
+        boolean even = true;
+        boolean take = true;
+        for (int[] ints : grid) {
+            int j = even ? 0 : ints.length - 1;
+            while (j >= 0 && j < ints.length) {
+                if (take) {
+                    ans.add(ints[j]);
+                }
+                take = !take;
+                if (even) j++;
+                else j--;
+            }
+            even = !even;
+        }
+        return ans;
+    }
 }
