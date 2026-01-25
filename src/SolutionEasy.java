@@ -550,4 +550,26 @@ public class SolutionEasy {
         }
         return ans;
     }
+
+    public String findValidPair(String s) {
+        List<String> potentialPairs = new LinkedList<>();
+        Map<Character, Integer> amount = new HashMap<>();
+        for (int i = 0; i < s.length() - 1; i++) {
+            char current = s.charAt(i);
+            amount.put(current, amount.getOrDefault(current, 0) + 1);
+            if (current != s.charAt(i + 1)) {
+                potentialPairs.add(s.substring(i, i + 2));
+            }
+        }
+        char lastDigit = s.charAt(s.length() - 1);
+        amount.put(lastDigit, amount.getOrDefault(lastDigit, 0) + 1);
+        for (String pair : potentialPairs) {
+            char first = pair.charAt(0), second = pair.charAt(1);
+            if (Character.getNumericValue(first) == amount.get(first)
+            && Character.getNumericValue(second) == amount.get(second)) {
+                return pair;
+            }
+        }
+        return "";
+    }
 }
